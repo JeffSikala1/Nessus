@@ -27,7 +27,7 @@ resource "azurerm_virtual_machine" "linux_vm" {
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
-      path     = "/home/${var.admin_username}/.ssh/authorized_keys"  #new
+      path     = "/home/${var.admin_username}/.ssh/authorized_keys" 
       key_data = var.ssh_public_key
     }
   }
@@ -40,10 +40,10 @@ resource "azurerm_virtual_machine" "linux_vm" {
   }
 
   storage_image_reference {
-    publisher = "Canonical"  #new
-    offer     = "UbuntuServer"  #new
-    sku       = "18.04-LTS"  #new
-    version   = "latest"  #new
+    publisher = "Canonical" 
+    offer     = "UbuntuServer" 
+    sku       = "18.04-LTS" 
+    version   = "latest" 
   }
 
   tags = {

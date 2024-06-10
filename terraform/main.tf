@@ -22,7 +22,7 @@ resource "azurerm_subnet" "vm_subnet" {
 
 # Create a storage account
 resource "azurerm_storage_account" "nessus_storage" {
-  name                     = "nessusstoragacct" # Storage account names must be globally unique
+  name                     = "nessusstoragacct" # Will need to update this to be globally unique
   resource_group_name      = azurerm_resource_group.nessus_vms_rg.name
   location                 = azurerm_resource_group.nessus_vms_rg.location
   account_tier             = "Standard"
@@ -33,7 +33,7 @@ resource "azurerm_storage_account" "nessus_storage" {
 resource "azurerm_storage_container" "nessus_container" {
   name                  = "nessuscontainer"
   storage_account_name  = azurerm_storage_account.nessus_storage.name
-  container_access_type = "private"
+  container_access_type = "blob"
 }
 
 # Upload the PowerShell script to the storage container
@@ -56,7 +56,7 @@ module "nessus_windows" {
   resource_group_name = azurerm_resource_group.nessus_vms_rg.name
   vm_name             = "NessusWindowsVM"
   location            = var.location
-  vm_size             = "Standard_B1ms"  #new
+  vm_size             = "Standard_B1ms" 
   admin_username      = var.admin_username
   admin_password      = var.admin_password
   os_type             = "Windows"
@@ -73,7 +73,7 @@ module "nessus_linux" {
   for_each            = toset(var.linux_vm_names)
   resource_group_name = azurerm_resource_group.nessus_vms_rg.name
   vm_name             = each.value
-  vm_size             = "Standard_B1ms"  #new
+  vm_size             = "Standard_B1ms" 
   ssh_username        = module.ssh_key.ssh_user
   ssh_public_key      = module.ssh_key.ssh_public_key
   os_type             = "Linux"
