@@ -60,10 +60,8 @@ blob_service_endpoint="https://$storageAccountName.blob.core.usgovcloudapi.net"
 csv_url="$blob_service_endpoint/$storageContainerName/$allowed_vms_csv?$sas_token"
 echo "Downloading CSV from URL: $csv_url"
 
-curl -o $local_csv_path "$csv_url"
-
-# Check if the CSV file was downloaded successfully
-if [ ! -f "$local_csv_path" ]; then
+# Download the CSV file and check for errors
+if ! curl -o "$local_csv_path" "$csv_url"; then
     echo "Failed to download the CSV file from Azure Storage."
     exit 1
 fi
@@ -83,6 +81,12 @@ read_allowed_vms() {
 
 # Read the list of allowed VMs from the CSV file
 read_allowed_vms
+
+# Check if the CSV file contains valid content
+if [ ${#allowed_vms[@]} -eq 0 ]; then
+    echo "No valid VMs found in the CSV file."
+    exit 1
+fi
 
 # Function to check if a VM is in the allowed list (case insensitive)
 is_vm_allowed() {
