@@ -85,6 +85,7 @@ read_allowed_vms
 is_vm_allowed() {
     local vm_name=$1
     for allowed_vm in "${allowed_vms[@]}"; do
+        echo "Comparing '$vm_name' with '$allowed_vm'"  # Debug statement
         if [[ "${vm_name,,}" == "${allowed_vm,,}" ]]; then
             return 0
         fi
@@ -195,6 +196,7 @@ for subscription in $subscriptions; do
 
         # Check if VM is in the allowed list
         if is_vm_allowed "$vmName"; then
+            echo "VM $vmName is allowed, processing..."
             if [ "$osType" == "Windows" ]; then
                 install_nessus_agent_windows "$vmName" "$resourceGroup"
             elif [ "$osType" == "Linux" ]; then
