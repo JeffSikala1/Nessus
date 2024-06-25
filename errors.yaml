@@ -1,29 +1,47 @@
-#!/bin/bash
-
-# Prompt for the user's object ID
-read -p "Enter the user's object ID: " currentUserObjectId
-
-# Check if the input is empty
-if [[ -z "$currentUserObjectId" ]]; then
-    echo "No object ID provided. Exiting."
-    exit 1
-fi
-
-# List all subscriptions and iterate over them
-az account list --query "[].id" -o tsv | while read subscriptionId; do
-    echo "Processing subscription: $subscriptionId"
-
-    # Set the context to the current subscription
-    az account set --subscription "$subscriptionId"
-
-    # Optionally, assign the Owner role to the user for the subscription itself
-    az role assignment create --assignee "$currentUserObjectId" --role "Owner" --scope "/subscriptions/$subscriptionId"
-
-    # List all resource groups in the subscription
-    az group list --query "[].name" -o tsv | while read resourceGroupName; do
-        echo "Assigning Owner role for resource group: $resourceGroupName in subscription: $subscriptionId"
-        
-        # Assign the Owner role to the user for each resource group
-        az role assignment create --assignee "$currentUserObjectId" --role "Owner" --scope "/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName"
-    done
-done
+jeff [ ~ ]$ ./DeployNessusToVMs.sh 
++ command -v jq
++ command -v curl
++ storageAccountName=azagentdeploy001
++ storageContainerName=scripts
++ allowed_vms_csv=AzureVirtualMachines.csv
++ local_csv_path=/tmp/AzureVirtualMachines.csv
++ management_subscription=b56097b7-e22e-46fc-92b9-da53cb50cb23
++ echo 'Switching to subscription: b56097b7-e22e-46fc-92b9-da53cb50cb23'
+Switching to subscription: b56097b7-e22e-46fc-92b9-da53cb50cb23
++ az account set --subscription b56097b7-e22e-46fc-92b9-da53cb50cb23
++ echo 'Retrieving storage account key for: azagentdeploy001'
+Retrieving storage account key for: azagentdeploy001
+++ az storage account keys list --resource-group rg-inf-scripts-001 --account-name azagentdeploy001 --query '[0].value' --output tsv
+WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
++ echo 'Storage account key retrieved successfully.'
+Storage account key retrieved successfully.
++ export AZURE_STORAGE_ACCOUNT=azagentdeploy001
++ AZURE_STORAGE_ACCOUNT=azagentdeploy001
++ echo 'Generating SAS token for storage account.'
+Generating SAS token for storage account.
++++ date -u -d '1 day' +%Y-%m-%dT%H:%MZ
+++ az storage account generate-sas --account-name azagentdeploy001 --permissions rl --resource-types sco --services b --expiry 2024-06-26T23:32Z --output tsv
+WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
++ sas_token='se=2024-06-26T23%3A32Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=whrsC75ol8s0DeSUaiosoz2%2Bf/LyQlXSa3CsLFwLnLY%3D'
++ '[' -z 'se=2024-06-26T23%3A32Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=whrsC75ol8s0DeSUaiosoz2%2Bf/LyQlXSa3CsLFwLnLY%3D' ']'
++ echo 'SAS token generated successfully.'
+SAS token generated successfully.
++ blob_service_endpoint=https://azagentdeploy001.blob.core.usgovcloudapi.net
++ csv_url='https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-26T23%3A32Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=whrsC75ol8s0DeSUaiosoz2%2Bf/LyQlXSa3CsLFwLnLY%3D'
++ echo 'Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-26T23%3A32Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=whrsC75ol8s0DeSUaiosoz2%2Bf/LyQlXSa3CsLFwLnLY%3D'
+Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-26T23%3A32Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=whrsC75ol8s0DeSUaiosoz2%2Bf/LyQlXSa3CsLFwLnLY%3D
++ curl -o /tmp/AzureVirtualMachines.csv 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-26T23%3A32Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=whrsC75ol8s0DeSUaiosoz2%2Bf/LyQlXSa3CsLFwLnLY%3D'
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   246  100   246    0     0   4392      0 --:--:-- --:--:-- --:--:--  4472
++ '[' '!' -f /tmp/AzureVirtualMachines.csv ']'
++ echo 'CSV file downloaded successfully.'
+CSV file downloaded successfully.
++ read_allowed_vms
++ allowed_vms=()
++ IFS=,
++ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
++ [[ <?xml version="1.0" encoding="utf-8"?><Error><Code>AuthorizationFailure</Code><Message>This request is not authorized to perform this operation. != \N\A\M\E ]]
++ [[ <?xml version="1.0" encoding="utf-8"?><Error><Code>AuthorizationFailure</Code><Message>This request is not authorized to perform this operation. == *\<\E\r\r\o\r\>* ]]
++ echo 'Error in CSV: <?xml version="1.0" encoding="utf-8"?><Error><Code>AuthorizationFailure</Code><Message>This request is not authorized to perform this operation.'
+Error in CSV
