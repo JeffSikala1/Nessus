@@ -12,9 +12,19 @@ storageAccountName="azagentdeploy001"
 storageContainerName="scripts"
 allowed_vms_csv="AzureVirtualMachines.csv"
 local_csv_path="/tmp/$allowed_vms_csv"
+subscriptionId="your-subscription-id"  # Replace with your actual subscription ID
 
-# Set the storage account key (Replace with your actual storage account key)
-storageAccountKey="YOUR_STORAGE_ACCOUNT_KEY"
+# Switch to the correct subscription
+az account set --subscription "$subscriptionId"
+
+# Get the storage account key
+storageAccountKey=$(az storage account keys list --resource-group rg-inf-scripts-001 --account-name $storageAccountName --query "[0].value" --output tsv)
+
+# Check if the storage account key was retrieved successfully
+if [ -z "$storageAccountKey" ]; then
+    echo "Failed to retrieve storage account key."
+    exit 1
+fi
 
 # Export the environment variables for storage account
 export AZURE_STORAGE_ACCOUNT=$storageAccountName
