@@ -13,6 +13,13 @@ storageContainerName="scripts"
 allowed_vms_csv="AzureVirtualMachines.csv"
 local_csv_path="/tmp/$allowed_vms_csv"
 
+# Set the storage account key (Replace with your actual storage account key)
+storageAccountKey="YOUR_STORAGE_ACCOUNT_KEY"
+
+# Export the environment variables for storage account
+export AZURE_STORAGE_ACCOUNT=$storageAccountName
+export AZURE_STORAGE_KEY=$storageAccountKey
+
 # Generate SAS token for the storage account
 sas_token=$(az storage account generate-sas \
     --account-name "$storageAccountName" \
@@ -51,10 +58,6 @@ read_allowed_vms() {
         fi
     done < "$local_csv_path"
 }
-
-# Storage account and container details
-export AZURE_STORAGE_SAS_TOKEN=$sas_token
-export AZURE_STORAGE_ACCOUNT=$storageAccountName
 
 # Nessus Agent filenames
 nessusAgentWindows="NessusAgent-10.6.4-x64.msi"
