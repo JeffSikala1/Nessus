@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable debugging mode
+set -x
+
 # Check if jq and curl are installed
 if ! command -v jq &> /dev/null || ! command -v curl &> /dev/null
 then
@@ -12,30 +15,11 @@ storageAccountName="azagentdeploy001"
 storageContainerName="scripts"
 allowed_vms_csv="AzureVirtualMachines.csv"
 local_csv_path="/tmp/$allowed_vms_csv"
-managementSubscriptionId="b56097b7-e22e-46c-92b9-da53cb50cb23"  # Management subscription ID
-objectId="7b4fe24b-154c-4ab2-875f-edcc2ed70bf3"  # Replace with your actual object ID
+management_subscription="b56097b7-e22e-46c-92b9-da53cb50cb23"  # Replace with your actual management subscription ID
 
-# Function to switch subscription
-switch_subscription() {
-    local subscription_id=$1
-    echo "Switching to subscription: $subscription_id"
-    az account set --subscription "$subscription_id"
-}
-
-# Function to verify resource group
-verify_resource_group() {
-    local resource_group=$1
-    local subscription_id=$2
-    echo "Checking if resource group '$resource_group' exists in subscription '$subscription_id'..."
-    if ! az group show --name "$resource_group" --subscription "$subscription_id" &> /dev/null; then
-        echo "Resource group '$resource_group' could not be found in subscription '$subscription_id'."
-        exit 1
-    fi
-    echo "Resource group '$resource_group' exists."
-}
-
-# Switch to management subscription to get storage account details
-switch_subscription "$managementSubscriptionId"
+# Switch to the correct subscription for the storage account
+echo "Switching to subscription: $management_subscription"
+az account set --subscription "$management_subscription"
 
 # Get the storage account key
 echo "Retrieving storage account key for: $storageAccountName"
@@ -92,27 +76,25 @@ read_allowed_vms() {
     do
         # Skip the header row and strip any whitespace
         if [[ "$name" != "NAME" ]]; then
-            allowed_vms+=("$(echo "$name" | xargs)")
-            subscriptions_map["$name"]="$subscription"
-            resource_groups_map["$name"]="$resourceGroup"
+            allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
         fi
     done < "$local_csv_path"
 }
 
 # Read the list of allowed VMs from the CSV file
-declare -A subscriptions_map
-declare -A resource_groups_map
 read_allowed_vms
 
 # Function to check if a VM is in the allowed list (case insensitive)
 is_vm_allowed() {
     local vm_name=$1
     for allowed_vm in "${allowed_vms[@]}"; do
-        echo "Comparing '$vm_name' with '$allowed_vm'"  # Debug statement
-        if [[ "${vm_name,,}" == "${allowed_vm,,}" ]]; then
+        IFS=',' read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup <<< "$allowed_vm"
+        if [[ "${vm_name,,}" == "${allowed_vm_name,,}" ]]; then
+            echo "$allowed_vm_subscription,$allowed_vm_resourceGroup"
             return 0
         fi
     done
+    echo ""
     return 1
 }
 
@@ -199,40 +181,62 @@ EOT
         --settings "{\"commandToExecute\": \"$installScriptContent\"}"
 }
 
-# Loop through the allowed VMs
-for vm in "${allowed_vms[@]}"; do
-    subscription_id="${subscriptions_map[$vm]}"
-    resource_group="${resource_groups_map[$vm]}"
+# Get list of all subscriptions
+subscriptions=$(az account list --query "[?state=='Enabled'].id" -o tsv)
 
-    # Switch to the VM's subscription
-    switch_subscription "$subscription_id"
+# Loop through each subscription
+for subscription in $subscriptions; do
+    az account set --subscription "$subscription"
 
-    # Verify if resource group exists
-    verify_resource_group "$resource_group" "$subscription_id"
+    # Get list of all VMs in the subscription
+    vms=$(az vm list --query "[].{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}" -o json)
 
-    # Get VM details
-    vm_details=$(az vm show --resource-group "$resource_group" --name "$vm" --query '{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}' -o json)
-    vm_name=$(echo "$vm_details" | jq -r '.name')
-    os_type=$(echo "$vm_details" | jq -r '.osType')
+    # Loop through the VMs and install Nessus Agent
+    for vm in $(echo "$vms" | jq -c '.[]'); do
+        vmName=$(echo "$vm" | jq -r '.name' | xargs)
+        resourceGroup=$(echo "$vm" | jq -r '.resourceGroup' | xargs)
+        osType=$(echo "$vm" | jq -r '.osType' | xargs)
 
-    echo "Processing VM: $vm_name, Resource Group: $resource_group, OS Type: $os_type"
+        echo "Processing VM: $vmName, Resource Group: $resourceGroup, OS Type: $osType"
 
-    if [ "$os_type" == "Windows" ]; then
-        install_nessus_agent_windows "$vm_name" "$resource_group"
-    elif [ "$os_type" == "Linux" ]; then
-        os_info=$(az vm run-command invoke -g "$resource_group" -n "$vm_name" \
-            --command-id RunShellScript \
-            --scripts "cat /etc/*release" \
-            --query "value[0].message" -o tsv | tr -d '\r')
+        # Check if VM is in the allowed list
+        allowed_vm_info=$(is_vm_allowed "$vmName")
+        if [ -n "$allowed_vm_info" ]; then
+            allowed_vm_subscription=$(echo "$allowed_vm_info" | cut -d',' -f1)
+            allowed_vm_resourceGroup=$(echo "$allowed_vm_info" | cut -d',' -f2)
+            echo "VM $vmName is allowed, processing..."
+            echo "Switching to subscription: $allowed_vm_subscription"
+            az account set --subscription "$allowed_vm_subscription"
 
-        if [[ "$os_info" == *"Ubuntu"* ]]; then
-            install_nessus_agent_ubuntu "$vm_name" "$resource_group"
-        elif [[ "$os_info" == *"Red Hat"* ]] || [[ "$os_info" == *"CentOS"* ]]; then
-            install_nessus_agent_rhel "$vm_name" "$resource_group"
+            echo "Checking if resource group $allowed_vm_resourceGroup exists in subscription $allowed_vm_subscription..."
+            if az group exists --name "$allowed_vm_resourceGroup"; then
+                echo "Resource group $allowed_vm_resourceGroup exists."
+
+                if [ "$osType" == "Windows" ]; then
+                    install_nessus_agent_windows "$vmName" "$allowed_vm_resourceGroup"
+                elif [ "$osType" == "Linux" ]; then
+                    # Check if Ubuntu or RHEL
+                    osInfo=$(az vm run-command invoke -g "$allowed_vm_resourceGroup" -n "$vmName" \
+                        --command-id RunShellScript \
+                        --scripts "cat /etc/*release" \
+                        --query "value[0].message" -o tsv | tr -d '\r')
+
+                    if [[ "$osInfo" == *"Ubuntu"* ]]; then
+                        install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
+                    elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
+                        install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
+                    else
+                        echo "Unsupported or unknown Linux distribution for VM: $vmName"
+                    fi
+                fi
+            else
+                echo "Resource group $allowed_vm_resourceGroup does not exist in subscription $allowed_vm_subscription."
+            fi
         else
-            echo "Unsupported or unknown Linux distribution for VM: $vm_name"
+            echo "VM $vmName is not in the allowed list, skipping..."
         fi
-    else
-        echo "Unknown OS type for VM: $vm_name"
-    fi
+    done
 done
+
+# Disable debugging mode
+set +x
