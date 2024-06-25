@@ -15,9 +15,11 @@ local_csv_path="/tmp/$allowed_vms_csv"
 subscriptionId="your-subscription-id"  # Replace with your actual subscription ID
 
 # Switch to the correct subscription
+echo "Switching to subscription: $subscriptionId"
 az account set --subscription "$subscriptionId"
 
 # Get the storage account key
+echo "Retrieving storage account key for: $storageAccountName"
 storageAccountKey=$(az storage account keys list --resource-group rg-inf-scripts-001 --account-name $storageAccountName --query "[0].value" --output tsv)
 
 # Check if the storage account key was retrieved successfully
@@ -25,12 +27,14 @@ if [ -z "$storageAccountKey" ]; then
     echo "Failed to retrieve storage account key."
     exit 1
 fi
+echo "Storage account key retrieved successfully."
 
 # Export the environment variables for storage account
 export AZURE_STORAGE_ACCOUNT=$storageAccountName
 export AZURE_STORAGE_KEY=$storageAccountKey
 
 # Generate SAS token for the storage account
+echo "Generating SAS token for storage account."
 sas_token=$(az storage account generate-sas \
     --account-name "$storageAccountName" \
     --permissions rl \
@@ -44,9 +48,13 @@ if [ -z "$sas_token" ]; then
     echo "Failed to generate SAS token for the storage account."
     exit 1
 fi
+echo "SAS token generated successfully."
+
+# Adjust the blob service endpoint for Azure Government Cloud
+blob_service_endpoint="https://$storageAccountName.blob.core.usgovcloudapi.net"
 
 # Download the allowed VMs CSV file from Azure Storage
-csv_url="https://$storageAccountName.blob.core.windows.net/$storageContainerName/$allowed_vms_csv?$sas_token"
+csv_url="$blob_service_endpoint/$storageContainerName/$allowed_vms_csv?$sas_token"
 echo "Downloading CSV from URL: $csv_url"
 
 curl -o $local_csv_path "$csv_url"
@@ -56,6 +64,7 @@ if [ ! -f "$local_csv_path" ]; then
     echo "Failed to download the CSV file from Azure Storage."
     exit 1
 fi
+echo "CSV file downloaded successfully."
 
 # Function to read allowed VMs from the CSV file
 read_allowed_vms() {
@@ -81,7 +90,7 @@ install_nessus_agent_windows() {
 
     # Create the InstallNessusAgent.ps1 script content
     installScriptContent=$(cat <<EOT
-powershell -Command "Invoke-WebRequest -Uri 'https://$storageAccountName.blob.core.windows.net/$storageContainerName/$nessusAgentWindows?$sas_token' -OutFile 'C:\\Users\\nessus\\$nessusAgentWindows'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\$nessusAgentWindows /quiet /norestart' -Wait"
+powershell -Command "Invoke-WebRequest -Uri '$blob_service_endpoint/$storageContainerName/$nessusAgentWindows?$sas_token' -OutFile 'C:\\Users\\nessus\\$nessusAgentWindows'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\$nessusAgentWindows /quiet /norestart' -Wait"
 EOT
 )
 
@@ -106,7 +115,7 @@ install_nessus_agent_ubuntu() {
     # Create the install script content
     installScriptContent=$(cat <<EOT
 #!/bin/bash
-wget -O /tmp/$nessusAgentUbuntu "https://$storageAccountName.blob.core.windows.net/$storageContainerName/$nessusAgentUbuntu?$sas_token"
+wget -O /tmp/$nessusAgentUbuntu "$blob_service_endpoint/$storageContainerName/$nessusAgentUbuntu?$sas_token"
 sudo dpkg -i /tmp/$nessusAgentUbuntu
 EOT
 )
@@ -134,7 +143,7 @@ install_nessus_agent_rhel() {
 #!/bin/bash
 sudo yum install -y wget
 sudo yum install -y rpm
-wget -O /tmp/$nessusAgentRHEL "https://$storageAccountName.blob.core.windows.net/$storageContainerName/$nessusAgentRHEL?$sas_token"
+wget -O /tmp/$nessusAgentRHEL "$blob_service_endpoint/$storageContainerName/$nessusAgentRHEL?$sas_token"
 sudo rpm -ivh /tmp/$nessusAgentRHEL
 EOT
 )
