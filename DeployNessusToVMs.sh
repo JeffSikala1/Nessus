@@ -1,15 +1,17 @@
 #!/bin/bash
 
-# Check if jq is installed
-if ! command -v jq &> /dev/null
+# Check if jq and curl are installed
+if ! command -v jq &> /dev/null || ! command -v curl &> /dev/null
 then
-    echo "jq could not be found. Please install jq before running this script."
+    echo "jq and curl must be installed. Please install them before running this script."
     exit 1
 fi
 
-# Storage account and container details
+# Variables
 storageAccountName="sikalanessussa"
 storageContainerName="nessus-binary"
+allowed_vms_csv="AzureVirtualMachines.csv"
+local_csv_path="/tmp/$allowed_vms_csv"
 
 # Generate SAS token for the storage account
 sas_token=$(az storage account generate-sas \
@@ -20,6 +22,29 @@ sas_token=$(az storage account generate-sas \
     --expiry $(date -u -d '1 day' +%Y-%m-%dT%H:%MZ) \
     --output tsv)
 
+# Download the allowed VMs CSV file from Azure Storage
+curl -o $local_csv_path \
+    "https://$storageAccountName.blob.core.windows.net/$storageContainerName/$allowed_vms_csv?$sas_token"
+
+# Check if the CSV file was downloaded successfully
+if [ ! -f "$local_csv_path" ]; then
+    echo "Failed to download the CSV file from Azure Storage."
+    exit 1
+fi
+
+# Function to read allowed VMs from the CSV file
+read_allowed_vms() {
+    allowed_vms=()
+    while IFS=, read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
+    do
+        # Skip the header row
+        if [[ "$name" != "NAME" ]]; then
+            allowed_vms+=("$name")
+        fi
+    done < "$local_csv_path"
+}
+
+# Storage account and container details
 export AZURE_STORAGE_SAS_TOKEN=$sas_token
 export AZURE_STORAGE_ACCOUNT=$storageAccountName
 
@@ -106,6 +131,9 @@ EOT
         --settings "{\"commandToExecute\": \"$installScriptContent\"}"
 }
 
+# Read the list of allowed VMs from the CSV file
+read_allowed_vms
+
 # Get list of all subscriptions
 subscriptions=$(az account list --query "[?state=='Enabled'].id" -o tsv)
 
@@ -124,22 +152,27 @@ for subscription in $subscriptions; do
 
         echo "Processing VM: $vmName, Resource Group: $resourceGroup, OS Type: $osType"
 
-        if [ "$osType" == "Windows" ]; then
-            install_nessus_agent_windows "$vmName" "$resourceGroup"
-        elif [ "$osType" == "Linux" ]; then
-            # Check if Ubuntu or RHEL
-            osInfo=$(az vm run-command invoke -g "$resourceGroup" -n "$vmName" \
-                --command-id RunShellScript \
-                --scripts "cat /etc/*release" \
-                --query "value[0].message" -o tsv | tr -d '\r')
+        # Check if VM is in the allowed list
+        if [[ " ${allowed_vms[@]} " =~ " ${vmName} " ]]; then
+            if [ "$osType" == "Windows" ]; then
+                install_nessus_agent_windows "$vmName" "$resourceGroup"
+            elif [ "$osType" == "Linux" ]; then
+                # Check if Ubuntu or RHEL
+                osInfo=$(az vm run-command invoke -g "$resourceGroup" -n "$vmName" \
+                    --command-id RunShellScript \
+                    --scripts "cat /etc/*release" \
+                    --query "value[0].message" -o tsv | tr -d '\r')
 
-            if [[ "$osInfo" == *"Ubuntu"* ]]; then
-                install_nessus_agent_ubuntu "$vmName" "$resourceGroup"
-            elif [[ "$osInfo" == *"Red Hat"* ]]; then
-                install_nessus_agent_rhel "$vmName" "$resourceGroup"
-            else
-                echo "Unsupported or unknown Linux distribution for VM: $vmName"
+                if [[ "$osInfo" == *"Ubuntu"* ]]; then
+                    install_nessus_agent_ubuntu "$vmName" "$resourceGroup"
+                elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
+                    install_nessus_agent_rhel "$vmName" "$resourceGroup"
+                else
+                    echo "Unsupported or unknown Linux distribution for VM: $vmName"
+                fi
             fi
-        fi    
+        else
+            echo "VM $vmName is not in the allowed list, skipping..."
+        fi
     done
 done
