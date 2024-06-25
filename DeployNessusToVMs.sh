@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Enable debugging mode
-set -x
-
 # Check if jq and curl are installed
 if ! command -v jq &> /dev/null || ! command -v curl &> /dev/null
 then
@@ -76,7 +73,7 @@ read_allowed_vms() {
     do
         # Skip the header row and strip any whitespace
         if [[ "$name" != "NAME" ]]; then
-            allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
+            allowed_vms+=("$(echo "$name" | xargs -I{} echo "{}"),$(echo "$subscription" | xargs -I{} echo "{}"),$(echo "$resourceGroup" | xargs -I{} echo "{}")")
         fi
     done < "$local_csv_path"
 }
@@ -237,6 +234,3 @@ for subscription in $subscriptions; do
         fi
     done
 done
-
-# Disable debugging mode
-set +x
