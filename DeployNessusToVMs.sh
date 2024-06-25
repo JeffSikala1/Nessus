@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable debugging mode
+set -x
+
 # Check if jq and curl are installed
 if ! command -v jq &> /dev/null || ! command -v curl &> /dev/null
 then
@@ -73,7 +76,7 @@ read_allowed_vms() {
     do
         # Skip the header row and strip any whitespace
         if [[ "$name" != "NAME" ]]; then
-            allowed_vms+=("$(echo "$name" | xargs -I{} echo "{}"),$(echo "$subscription" | xargs -I{} echo "{}"),$(echo "$resourceGroup" | xargs -I{} echo "{}")")
+            allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
         fi
     done < "$local_csv_path"
 }
@@ -86,6 +89,7 @@ is_vm_allowed() {
     local vm_name=$1
     for allowed_vm in "${allowed_vms[@]}"; do
         IFS=',' read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup <<< "$allowed_vm"
+        echo "Comparing VM '$vm_name' with allowed VM '$allowed_vm_name'"  # Debug statement
         if [[ "${vm_name,,}" == "${allowed_vm_name,,}" ]]; then
             echo "$allowed_vm_subscription,$allowed_vm_resourceGroup"
             return 0
@@ -138,7 +142,7 @@ EOT
 )
 
     # Escape JSON characters
-    installScriptContent=$(echo "$installScriptContent" | sed 's/\\/\\\\/g' | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
+    installScriptContent=$(echo "$installScriptContent" | sed 's/\\/\\\\/g' | sed 's/"/\\\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
 
     # Use Custom Script Extension to execute the script
     az vm extension set \
@@ -234,3 +238,6 @@ for subscription in $subscriptions; do
         fi
     done
 done
+
+# Disable debugging mode
+set +x
