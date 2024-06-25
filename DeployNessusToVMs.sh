@@ -12,11 +12,26 @@ storageAccountName="azagentdeploy001"
 storageContainerName="scripts"
 allowed_vms_csv="AzureVirtualMachines.csv"
 local_csv_path="/tmp/$allowed_vms_csv"
-subscriptionId="your-subscription-id"  # Replace with your actual subscription ID
+subscriptionId="e873319e-be73-4ac2-a683-b2c291fc4767"  # Replace with your actual subscription ID
+objectId="7b4fe24b-154c-4ab2-875f-edcc2ed70bf3"  # Replace with your actual object ID
 
 # Switch to the correct subscription
 echo "Switching to subscription: $subscriptionId"
 az account set --subscription "$subscriptionId"
+
+# Verify Role Assignments
+echo "Verifying role assignments for the user..."
+vm_contributor_role=$(az role assignment list --assignee $objectId --role "Virtual Machine Contributor" --scope /subscriptions/$subscriptionId --query "[].roleDefinitionName" --output tsv)
+storage_blob_data_contributor_role=$(az role assignment list --assignee $objectId --role "Storage Blob Data Contributor" --scope /subscriptions/$subscriptionId/resourceGroups/rg-inf-scripts-001/providers/Microsoft.Storage/storageAccounts/$storageAccountName --query "[].roleDefinitionName" --output tsv)
+
+echo "VM Contributor Role: $vm_contributor_role"
+echo "Storage Blob Data Contributor Role: $storage_blob_data_contributor_role"
+
+if [[ "$vm_contributor_role" != "Virtual Machine Contributor" ]] || [[ "$storage_blob_data_contributor_role" != "Storage Blob Data Contributor" ]]; then
+    echo "Required roles are not assigned. Please ensure the user has 'Virtual Machine Contributor' and 'Storage Blob Data Contributor' roles."
+    exit 1
+fi
+echo "Role assignments verified."
 
 # Get the storage account key
 echo "Retrieving storage account key for: $storageAccountName"
@@ -192,30 +207,28 @@ for subscription in $subscriptions; do
         resourceGroup=$(echo "$vm" | jq -r '.resourceGroup' | xargs)
         osType=$(echo "$vm" | jq -r '.osType' | xargs)
 
-        echo "Processing VM: $vmName, Resource Group: $resourceGroup, OS Type: $osType"
+        echo "Processing VM: $vmName, Resource Group: $resource
+    # Check if VM is in the allowed list
+    if is_vm_allowed "$vmName"; then
+        echo "VM $vmName is allowed, processing..."
+        if [ "$osType" == "Windows" ]; then
+            install_nessus_agent_windows "$vmName" "$resourceGroup"
+        elif [ "$osType" == "Linux" ]; then
+            # Check if Ubuntu or RHEL
+            osInfo=$(az vm run-command invoke -g "$resourceGroup" -n "$vmName" \
+                --command-id RunShellScript \
+                --scripts "cat /etc/*release" \
+                --query "value[0].message" -o tsv | tr -d '\r')
 
-        # Check if VM is in the allowed list
-        if is_vm_allowed "$vmName"; then
-            echo "VM $vmName is allowed, processing..."
-            if [ "$osType" == "Windows" ]; then
-                install_nessus_agent_windows "$vmName" "$resourceGroup"
-            elif [ "$osType" == "Linux" ]; then
-                # Check if Ubuntu or RHEL
-                osInfo=$(az vm run-command invoke -g "$resourceGroup" -n "$vmName" \
-                    --command-id RunShellScript \
-                    --scripts "cat /etc/*release" \
-                    --query "value[0].message" -o tsv | tr -d '\r')
-
-                if [[ "$osInfo" == *"Ubuntu"* ]]; then
-                    install_nessus_agent_ubuntu "$vmName" "$resourceGroup"
-                elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
-                    install_nessus_agent_rhel "$vmName" "$resourceGroup"
-                else
-                    echo "Unsupported or unknown Linux distribution for VM: $vmName"
-                fi
+            if [[ "$osInfo" == *"Ubuntu"* ]]; then
+                install_nessus_agent_ubuntu "$vmName" "$resourceGroup"
+            elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
+                install_nessus_agent_rhel "$vmName" "$resourceGroup"
+            else
+                echo "Unsupported or unknown Linux distribution for VM: $vmName"
             fi
-        else
-            echo "VM $vmName is not in the allowed list, skipping..."
         fi
-    done
+    else
+        echo "VM $vmName is not in the allowed list, skipping..."
+    fi
 done
