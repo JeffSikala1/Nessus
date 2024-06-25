@@ -1,5 +1,13 @@
-# Get the current user's object ID
-currentUserObjectId=$(az ad signed-in-user show --query objectId -o tsv)
+#!/bin/bash
+
+# Prompt for the user's object ID
+read -p "Enter the user's object ID: " currentUserObjectId
+
+# Check if the input is empty
+if [[ -z "$currentUserObjectId" ]]; then
+    echo "No object ID provided. Exiting."
+    exit 1
+fi
 
 # List all subscriptions and iterate over them
 az account list --query "[].id" -o tsv | while read subscriptionId; do
