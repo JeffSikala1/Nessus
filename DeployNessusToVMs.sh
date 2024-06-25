@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#!/bin/bash
+
 # Enable debugging mode
 set -x
 
@@ -16,9 +18,16 @@ storageContainerName="scripts"
 allowed_vms_csv="AzureVirtualMachines.csv"
 local_csv_path="/tmp/$allowed_vms_csv"
 management_subscription="b56097b7-e22e-46c-92b9-da53cb50cb23"  # Replace with your actual management subscription ID
-
-# Switch to the correct subscription for the storage account
 echo "Switching to subscription: $management_subscription"
+if ! az account set --subscription "$management_subscription"; then
+    echo "Failed to switch to subscription: $management_subscription"
+    exit 1
+echo "Retrieving storage account key for: $storageAccountName"
+storageAccountKey=$(az storage account keys list --resource-group rg-inf-scripts-001 --account-name "$storageAccountName" --query "[0].value" --output tsv)
+if [ -z "$storageAccountKey" ]; then
+    echo "Failed to retrieve storage account key for: $storageAccountName"
+    exit 1
+fi
 az account set --subscription "$management_subscription"
 
 # Get the storage account key
@@ -52,10 +61,10 @@ if [ -z "$sas_token" ]; then
     exit 1
 fi
 echo "SAS token generated successfully."
-
-# Adjust the blob service endpoint for Azure Government Cloud
-blob_service_endpoint="https://$storageAccountName.blob.core.usgovcloudapi.net"
-
+if ! curl -o "$local_csv_path" "$csv_url"; then
+    echo "Failed to download the CSV file from Azure Storage: $csv_url"
+    exit 1
+fi
 # Download the allowed VMs CSV file from Azure Storage
 csv_url="$blob_service_endpoint/$storageContainerName/$allowed_vms_csv?$sas_token"
 echo "Downloading CSV from URL: $csv_url"
@@ -205,21 +214,26 @@ for subscription in $subscriptions; do
         echo "Processing VM: $vmName, Resource Group: $resourceGroup, OS Type: $osType"
 
         # Check if VM is in the allowed list
-        allowed_vm_info=$(is_vm_allowed "$vmName")
-        if [ -n "$allowed_vm_info" ]; then
+            if az group exists --name "$allowed_vm_resourceGroup"; then
+                echo "Resource group $allowed_vm_resourceGroup exists."
+            else
+                echo "Resource group $allowed_vm_resourceGroup does not exist in subscription $allowed_vm_subscription."
+                continue
+            fi
             allowed_vm_subscription=$(echo "$allowed_vm_info" | cut -d',' -f1)
             allowed_vm_resourceGroup=$(echo "$allowed_vm_info" | cut -d',' -f2)
             echo "VM $vmName is allowed, processing..."
             echo "Switching to subscription: $allowed_vm_subscription"
             az account set --subscription "$allowed_vm_subscription"
 
-            echo "Checking if resource group $allowed_vm_resourceGroup exists in subscription $allowed_vm_subscription..."
-            if az group exists --name "$allowed_vm_resourceGroup"; then
-                echo "Resource group $allowed_vm_resourceGroup exists."
-
-                if [ "$osType" == "Windows" ]; then
-                    install_nessus_agent_windows "$vmName" "$allowed_vm_resourceGroup"
-                elif [ "$osType" == "Linux" ]; then
+                    if [[ "$osInfo" == *"Ubuntu"* ]]; then
+                        install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
+                    elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
+                        install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
+                    else
+                        echo "Unsupported or unknown Linux distribution for VM: $vmName"
+                        continue
+                    fi "$osType" == "Linux" ]; then
                     # Check if Ubuntu or RHEL
                     osInfo=$(az vm run-command invoke -g "$allowed_vm_resourceGroup" -n "$vmName" \
                         --command-id RunShellScript \
