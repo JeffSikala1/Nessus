@@ -50,8 +50,9 @@ sas_token=$(az storage account generate-sas \
 if [ -z "$sas_token" ]; then
     echo "Failed to generate SAS token for the storage account."
     exit 1
+else
+    echo "SAS token generated successfully: $sas_token"
 fi
-echo "SAS token generated successfully."
 
 # Adjust the blob service endpoint for Azure Government Cloud
 blob_service_endpoint="https://$storageAccountName.blob.core.usgovcloudapi.net"
