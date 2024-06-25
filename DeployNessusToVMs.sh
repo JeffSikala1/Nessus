@@ -12,7 +12,7 @@ storageAccountName="azagentdeploy001"
 storageContainerName="scripts"
 allowed_vms_csv="AzureVirtualMachines.csv"
 local_csv_path="/tmp/$allowed_vms_csv"
-managementSubscriptionId="e873319e-be73-4ac2-a683-b2c291fc4767"  # Management subscription ID
+managementSubscriptionId="b56097b7-e22e-46c-92b9-da53cb50cb23"  # Management subscription ID
 objectId="7b4fe24b-154c-4ab2-875f-edcc2ed70bf3"  # Replace with your actual object ID
 
 # Function to switch subscription
@@ -36,20 +36,6 @@ verify_resource_group() {
 
 # Switch to management subscription to get storage account details
 switch_subscription "$managementSubscriptionId"
-
-# Verify Role Assignments
-echo "Verifying role assignments for the user in management subscription..."
-vm_contributor_role=$(az role assignment list --assignee $objectId --role "Virtual Machine Contributor" --scope /subscriptions/$managementSubscriptionId --query "[].roleDefinitionName" --output tsv)
-storage_blob_data_contributor_role=$(az role assignment list --assignee $objectId --role "Storage Blob Data Contributor" --scope /subscriptions/$managementSubscriptionId/resourceGroups/rg-inf-scripts-001/providers/Microsoft.Storage/storageAccounts/$storageAccountName --query "[].roleDefinitionName" --output tsv)
-
-echo "VM Contributor Role: $vm_contributor_role"
-echo "Storage Blob Data Contributor Role: $storage_blob_data_contributor_role"
-
-if [[ "$vm_contributor_role" != "Virtual Machine Contributor" ]] || [[ "$storage_blob_data_contributor_role" != "Storage Blob Data Contributor" ]]; then
-    echo "Required roles are not assigned. Please ensure the user has 'Virtual Machine Contributor' and 'Storage Blob Data Contributor' roles."
-    exit 1
-fi
-echo "Role assignments verified."
 
 # Get the storage account key
 echo "Retrieving storage account key for: $storageAccountName"
@@ -234,10 +220,6 @@ for vm in "${allowed_vms[@]}"; do
     if [ "$os_type" == "Windows" ]; then
         install_nessus_agent_windows "$vm_name" "$resource_group"
     elif [ "$os_type" == "Linux" ]; then
-        os_info=$(az vm run-command invoke -g "$resource_group" -n "$vm_name" \
-            --command-id RunShellScript \
-            --scripts "cat /etc/*release" \
-            --query "value[0].message" -o tsv
         os_info=$(az vm run-command invoke -g "$resource_group" -n "$vm_name" \
             --command-id RunShellScript \
             --scripts "cat /etc/*release" \
