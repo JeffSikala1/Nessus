@@ -71,11 +71,25 @@ read_allowed_vms() {
     allowed_vms=()
     while IFS=, read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
     do
-        # Skip the header row
+        # Skip the header row and strip any whitespace
         if [[ "$name" != "NAME" ]]; then
-            allowed_vms+=("$name")
+            allowed_vms+=("$(echo "$name" | xargs)")
         fi
     done < "$local_csv_path"
+}
+
+# Read the list of allowed VMs from the CSV file
+read_allowed_vms
+
+# Function to check if a VM is in the allowed list (case insensitive)
+is_vm_allowed() {
+    local vm_name=$1
+    for allowed_vm in "${allowed_vms[@]}"; do
+        if [[ "${vm_name,,}" == "${allowed_vm,,}" ]]; then
+            return 0
+        fi
+    done
+    return 1
 }
 
 # Nessus Agent filenames
@@ -161,9 +175,6 @@ EOT
         --settings "{\"commandToExecute\": \"$installScriptContent\"}"
 }
 
-# Read the list of allowed VMs from the CSV file
-read_allowed_vms
-
 # Get list of all subscriptions
 subscriptions=$(az account list --query "[?state=='Enabled'].id" -o tsv)
 
@@ -176,14 +187,14 @@ for subscription in $subscriptions; do
 
     # Loop through the VMs and install Nessus Agent
     for vm in $(echo "$vms" | jq -c '.[]'); do
-        vmName=$(echo "$vm" | jq -r '.name')
-        resourceGroup=$(echo "$vm" | jq -r '.resourceGroup')
-        osType=$(echo "$vm" | jq -r '.osType')
+        vmName=$(echo "$vm" | jq -r '.name' | xargs)
+        resourceGroup=$(echo "$vm" | jq -r '.resourceGroup' | xargs)
+        osType=$(echo "$vm" | jq -r '.osType' | xargs)
 
         echo "Processing VM: $vmName, Resource Group: $resourceGroup, OS Type: $osType"
 
         # Check if VM is in the allowed list
-        if [[ " ${allowed_vms[@]} " =~ " ${vmName} " ]]; then
+        if is_vm_allowed "$vmName"; then
             if [ "$osType" == "Windows" ]; then
                 install_nessus_agent_windows "$vmName" "$resourceGroup"
             elif [ "$osType" == "Linux" ]; then
