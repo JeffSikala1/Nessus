@@ -8,8 +8,8 @@ then
 fi
 
 # Variables
-storageAccountName="sikalanessussa"
-storageContainerName="nessus-binary"
+storageAccountName="azagentdeploy001"
+storageContainerName="scripts"
 allowed_vms_csv="AzureVirtualMachines.csv"
 local_csv_path="/tmp/$allowed_vms_csv"
 
@@ -22,9 +22,17 @@ sas_token=$(az storage account generate-sas \
     --expiry $(date -u -d '1 day' +%Y-%m-%dT%H:%MZ) \
     --output tsv)
 
+# Check if the SAS token was generated successfully
+if [ -z "$sas_token" ]; then
+    echo "Failed to generate SAS token for the storage account."
+    exit 1
+fi
+
 # Download the allowed VMs CSV file from Azure Storage
-curl -o $local_csv_path \
-    "https://$storageAccountName.blob.core.windows.net/$storageContainerName/$allowed_vms_csv?$sas_token"
+csv_url="https://$storageAccountName.blob.core.windows.net/$storageContainerName/$allowed_vms_csv?$sas_token"
+echo "Downloading CSV from URL: $csv_url"
+
+curl -o $local_csv_path "$csv_url"
 
 # Check if the CSV file was downloaded successfully
 if [ ! -f "$local_csv_path" ]; then
