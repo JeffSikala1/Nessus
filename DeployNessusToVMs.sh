@@ -12,17 +12,35 @@ storageAccountName="azagentdeploy001"
 storageContainerName="scripts"
 allowed_vms_csv="AzureVirtualMachines.csv"
 local_csv_path="/tmp/$allowed_vms_csv"
-subscriptionId="e873319e-be73-4ac2-a683-b2c291fc4767"  # Replace with your actual subscription ID
+managementSubscriptionId="e873319e-be73-4ac2-a683-b2c291fc4767"  # Management subscription ID
 objectId="7b4fe24b-154c-4ab2-875f-edcc2ed70bf3"  # Replace with your actual object ID
 
-# Switch to the correct subscription
-echo "Switching to subscription: $subscriptionId"
-az account set --subscription "$subscriptionId"
+# Function to switch subscription
+switch_subscription() {
+    local subscription_id=$1
+    echo "Switching to subscription: $subscription_id"
+    az account set --subscription "$subscription_id"
+}
+
+# Function to verify resource group
+verify_resource_group() {
+    local resource_group=$1
+    local subscription_id=$2
+    echo "Checking if resource group '$resource_group' exists in subscription '$subscription_id'..."
+    if ! az group show --name "$resource_group" --subscription "$subscription_id" &> /dev/null; then
+        echo "Resource group '$resource_group' could not be found in subscription '$subscription_id'."
+        exit 1
+    fi
+    echo "Resource group '$resource_group' exists."
+}
+
+# Switch to management subscription to get storage account details
+switch_subscription "$managementSubscriptionId"
 
 # Verify Role Assignments
-echo "Verifying role assignments for the user..."
-vm_contributor_role=$(az role assignment list --assignee $objectId --role "Virtual Machine Contributor" --scope /subscriptions/$subscriptionId --query "[].roleDefinitionName" --output tsv)
-storage_blob_data_contributor_role=$(az role assignment list --assignee $objectId --role "Storage Blob Data Contributor" --scope /subscriptions/$subscriptionId/resourceGroups/rg-inf-scripts-001/providers/Microsoft.Storage/storageAccounts/$storageAccountName --query "[].roleDefinitionName" --output tsv)
+echo "Verifying role assignments for the user in management subscription..."
+vm_contributor_role=$(az role assignment list --assignee $objectId --role "Virtual Machine Contributor" --scope /subscriptions/$managementSubscriptionId --query "[].roleDefinitionName" --output tsv)
+storage_blob_data_contributor_role=$(az role assignment list --assignee $objectId --role "Storage Blob Data Contributor" --scope /subscriptions/$managementSubscriptionId/resourceGroups/rg-inf-scripts-001/providers/Microsoft.Storage/storageAccounts/$storageAccountName --query "[].roleDefinitionName" --output tsv)
 
 echo "VM Contributor Role: $vm_contributor_role"
 echo "Storage Blob Data Contributor Role: $storage_blob_data_contributor_role"
@@ -89,11 +107,15 @@ read_allowed_vms() {
         # Skip the header row and strip any whitespace
         if [[ "$name" != "NAME" ]]; then
             allowed_vms+=("$(echo "$name" | xargs)")
+            subscriptions_map["$name"]="$subscription"
+            resource_groups_map["$name"]="$resourceGroup"
         fi
     done < "$local_csv_path"
 }
 
 # Read the list of allowed VMs from the CSV file
+declare -A subscriptions_map
+declare -A resource_groups_map
 read_allowed_vms
 
 # Function to check if a VM is in the allowed list (case insensitive)
@@ -191,44 +213,44 @@ EOT
         --settings "{\"commandToExecute\": \"$installScriptContent\"}"
 }
 
-# Get list of all subscriptions
-subscriptions=$(az account list --query "[?state=='Enabled'].id" -o tsv)
+# Loop through the allowed VMs
+for vm in "${allowed_vms[@]}"; do
+    subscription_id="${subscriptions_map[$vm]}"
+    resource_group="${resource_groups_map[$vm]}"
 
-# Loop through each subscription
-for subscription in $subscriptions; do
-    az account set --subscription "$subscription"
+    # Switch to the VM's subscription
+    switch_subscription "$subscription_id"
 
-    # Get list of all VMs in the subscription
-    vms=$(az vm list --query "[].{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}" -o json)
+    # Verify if resource group exists
+    verify_resource_group "$resource_group" "$subscription_id"
 
-    # Loop through the VMs and install Nessus Agent
-    for vm in $(echo "$vms" | jq -c '.[]'); do
-        vmName=$(echo "$vm" | jq -r '.name' | xargs)
-        resourceGroup=$(echo "$vm" | jq -r '.resourceGroup' | xargs)
-        osType=$(echo "$vm" | jq -r '.osType' | xargs)
+    # Get VM details
+    vm_details=$(az vm show --resource-group "$resource_group" --name "$vm" --query '{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}' -o json)
+    vm_name=$(echo "$vm_details" | jq -r '.name')
+    os_type=$(echo "$vm_details" | jq -r '.osType')
 
-        echo "Processing VM: $vmName, Resource Group: $resource
-    # Check if VM is in the allowed list
-    if is_vm_allowed "$vmName"; then
-        echo "VM $vmName is allowed, processing..."
-        if [ "$osType" == "Windows" ]; then
-            install_nessus_agent_windows "$vmName" "$resourceGroup"
-        elif [ "$osType" == "Linux" ]; then
-            # Check if Ubuntu or RHEL
-            osInfo=$(az vm run-command invoke -g "$resourceGroup" -n "$vmName" \
-                --command-id RunShellScript \
-                --scripts "cat /etc/*release" \
-                --query "value[0].message" -o tsv | tr -d '\r')
+    echo "Processing VM: $vm_name, Resource Group: $resource_group, OS Type: $os_type"
 
-            if [[ "$osInfo" == *"Ubuntu"* ]]; then
-                install_nessus_agent_ubuntu "$vmName" "$resourceGroup"
-            elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
-                install_nessus_agent_rhel "$vmName" "$resourceGroup"
-            else
-                echo "Unsupported or unknown Linux distribution for VM: $vmName"
-            fi
+    if [ "$os_type" == "Windows" ]; then
+        install_nessus_agent_windows "$vm_name" "$resource_group"
+    elif [ "$os_type" == "Linux" ]; then
+        os_info=$(az vm run-command invoke -g "$resource_group" -n "$vm_name" \
+            --command-id RunShellScript \
+            --scripts "cat /etc/*release" \
+            --query "value[0].message" -o tsv
+        os_info=$(az vm run-command invoke -g "$resource_group" -n "$vm_name" \
+            --command-id RunShellScript \
+            --scripts "cat /etc/*release" \
+            --query "value[0].message" -o tsv | tr -d '\r')
+
+        if [[ "$os_info" == *"Ubuntu"* ]]; then
+            install_nessus_agent_ubuntu "$vm_name" "$resource_group"
+        elif [[ "$os_info" == *"Red Hat"* ]] || [[ "$os_info" == *"CentOS"* ]]; then
+            install_nessus_agent_rhel "$vm_name" "$resource_group"
+        else
+            echo "Unsupported or unknown Linux distribution for VM: $vm_name"
         fi
     else
-        echo "VM $vmName is not in the allowed list, skipping..."
+        echo "Unknown OS type for VM: $vm_name"
     fi
 done
