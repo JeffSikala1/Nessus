@@ -1,29 +1,1019 @@
-jeff [ ~ ]$ ./DeployNessusToVMs.sh 
-Switching to subscription: b56097b7-e22e-46fc-92b9-da53cb50cb23
-Retrieving storage account key for: azagentdeploy001
-WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
-Storage account key retrieved successfully.
-Generating SAS token for storage account.
-WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
-SAS token generated successfully.
-Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-26T21%3A28Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=qUCGBgBc4aAi%2BLVORSb2pnYooKK2bN%2Bo/YKiHjsCF1A%3D
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   246  100   246    0     0   4354      0 --:--:-- --:--:-- --:--:--  4392
-CSV file downloaded successfully.
-Switching to subscription: 
-The subscription of '' doesn't exist in cloud 'AzureUSGovernment'.
-Checking if resource group '' exists in subscription ''...
-Resource group '' exists.
-ERROR: Operation returned an invalid status 'Bad Request'
-Processing VM: , Resource Group: , OS Type: 
-Unknown OS type for VM: 
-Switching to subscription: 
-The subscription of '' doesn't exist in cloud 'AzureUSGovernment'.
-Checking if resource group '' exists in subscription ''...
-Resource group '' exists.
-ERROR: (None) No HTTP resource was found that matches the request URI 'https://management.usgovcloudapi.net/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/providers/Microsoft.Compute/virtualMachines/RequestId:0deba28c-601e-0023-6246-c7c9f1000000?api-version=2024-03-01'.
-Code: None
-Message: No HTTP resource was found that matches the request URI 'https://management.usgovcloudapi.net/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/providers/Microsoft.Compute/virtualMachines/RequestId:0deba28c-601e-0023-6246-c7c9f1000000?api-version=2024-03-01'.
-Processing VM: , Resource Group: , OS Type: 
-Unknown OS type for VM: v
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmsvcnow01 is not in the allowed list, skipping...'
+VM vmsvcnow01 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmtenable01","osType":"Windows","resourceGroup":"RG-MGMT-TENABLE-001"}'
+++ xargs
+++ jq -r .name
++ vmName=vmtenable01
+++ echo '{"name":"vmtenable01","osType":"Windows","resourceGroup":"RG-MGMT-TENABLE-001"}'
+++ xargs
+++ jq -r .resourceGroup
++ resourceGroup=RG-MGMT-TENABLE-001
+++ echo '{"name":"vmtenable01","osType":"Windows","resourceGroup":"RG-MGMT-TENABLE-001"}'
+++ xargs
+++ jq -r .osType
++ osType=Windows
++ echo 'Processing VM: vmtenable01, Resource Group: RG-MGMT-TENABLE-001, OS Type: Windows'
+Processing VM: vmtenable01, Resource Group: RG-MGMT-TENABLE-001, OS Type: Windows
+++ is_vm_allowed vmtenable01
+++ local vm_name=vmtenable01
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmtenable01 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmtenable01 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmtenable01 is not in the allowed list, skipping...'
+VM vmtenable01 is not in the allowed list, skipping...
++ for subscription in $subscriptions
++ az account set --subscription 29b04b2f-b64c-4792-890a-76d9617a18e1
+++ az vm list --query '[].{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}' -o json
++ vms='[]'
+++ echo '[]'
+++ jq -c '.[]'
++ for subscription in $subscriptions
++ az account set --subscription 4c437c4a-e51d-448e-a2d1-8ca3383bee8b
+++ az vm list --query '[].{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}' -o json
++ vms='[]'
+++ jq -c '.[]'
+++ echo '[]'
++ for subscription in $subscriptions
++ az account set --subscription 910857c3-85ff-44ba-be55-b4b3093cfdbe
+++ az vm list --query '[].{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}' -o json
++ vms='[
+  {
+    "name": "vmavdstd1-0",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-1",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-2",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-3",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-4",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-5",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-6",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-7",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-8",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-9",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-0",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-1",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-2",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-3",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-4",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-5",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-6",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-7",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-8",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-9",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  }
+]'
+++ echo '[
+  {
+    "name": "vmavdstd1-0",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-1",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-2",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-3",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-4",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-5",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-6",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-7",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-8",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd1-9",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-0",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-1",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-2",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-3",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-4",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-5",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-6",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-7",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-8",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  },
+  {
+    "name": "vmavdstd2-9",
+    "osType": "Windows",
+    "resourceGroup": "RG-HII-LZ-AVD-001"
+  }
+]'
+++ jq -c '.[]'
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd1-0","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd1-0
+++ echo '{"name":"vmavdstd1-0","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd1-0","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd1-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd1-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd1-0
+++ local vm_name=vmavdstd1-0
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-0 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-0 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd1-0 is not in the allowed list, skipping...'
+VM vmavdstd1-0 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd1-1","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd1-1
+++ echo '{"name":"vmavdstd1-1","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd1-1","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd1-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd1-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd1-1
+++ local vm_name=vmavdstd1-1
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-1 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-1 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd1-1 is not in the allowed list, skipping...'
+VM vmavdstd1-1 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd1-2","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd1-2
+++ echo '{"name":"vmavdstd1-2","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ xargs
+++ jq -r .resourceGroup
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd1-2","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd1-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd1-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd1-2
+++ local vm_name=vmavdstd1-2
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-2 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-2 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd1-2 is not in the allowed list, skipping...'
+VM vmavdstd1-2 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd1-3","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd1-3
+++ xargs
+++ jq -r .resourceGroup
+++ echo '{"name":"vmavdstd1-3","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd1-3","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd1-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd1-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd1-3
+++ local vm_name=vmavdstd1-3
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-3 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-3 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd1-3 is not in the allowed list, skipping...'
+VM vmavdstd1-3 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd1-4","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd1-4
+++ echo '{"name":"vmavdstd1-4","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd1-4","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd1-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd1-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd1-4
+++ local vm_name=vmavdstd1-4
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-4 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-4 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd1-4 is not in the allowed list, skipping...'
+VM vmavdstd1-4 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ jq -r .name
+++ echo '{"name":"vmavdstd1-5","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ xargs
++ vmName=vmavdstd1-5
+++ echo '{"name":"vmavdstd1-5","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ xargs
+++ jq -r .resourceGroup
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd1-5","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd1-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd1-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd1-5
+++ local vm_name=vmavdstd1-5
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-5 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-5 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd1-5 is not in the allowed list, skipping...'
+VM vmavdstd1-5 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd1-6","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd1-6
+++ echo '{"name":"vmavdstd1-6","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd1-6","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd1-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd1-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd1-6
+++ local vm_name=vmavdstd1-6
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-6 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-6 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd1-6 is not in the allowed list, skipping...'
+VM vmavdstd1-6 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd1-7","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd1-7
+++ echo '{"name":"vmavdstd1-7","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd1-7","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd1-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd1-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd1-7
+++ local vm_name=vmavdstd1-7
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-7 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-7 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd1-7 is not in the allowed list, skipping...'
+VM vmavdstd1-7 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ jq -r .name
+++ echo '{"name":"vmavdstd1-8","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ xargs
++ vmName=vmavdstd1-8
+++ jq -r .resourceGroup
+++ xargs
+++ echo '{"name":"vmavdstd1-8","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd1-8","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ xargs
+++ jq -r .osType
++ osType=Windows
++ echo 'Processing VM: vmavdstd1-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd1-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd1-8
+++ local vm_name=vmavdstd1-8
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-8 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-8 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd1-8 is not in the allowed list, skipping...'
+VM vmavdstd1-8 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd1-9","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd1-9
+++ echo '{"name":"vmavdstd1-9","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd1-9","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd1-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd1-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd1-9
+++ local vm_name=vmavdstd1-9
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-9 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd1-9 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd1-9 is not in the allowed list, skipping...'
+VM vmavdstd1-9 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd2-0","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd2-0
+++ echo '{"name":"vmavdstd2-0","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd2-0","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ xargs
+++ jq -r .osType
++ osType=Windows
++ echo 'Processing VM: vmavdstd2-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd2-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd2-0
+++ local vm_name=vmavdstd2-0
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-0 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-0 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd2-0 is not in the allowed list, skipping...'
+VM vmavdstd2-0 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd2-1","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ xargs
+++ jq -r .name
++ vmName=vmavdstd2-1
+++ echo '{"name":"vmavdstd2-1","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd2-1","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd2-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd2-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd2-1
+++ local vm_name=vmavdstd2-1
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-1 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-1 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd2-1 is not in the allowed list, skipping...'
+VM vmavdstd2-1 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd2-2","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd2-2
+++ echo '{"name":"vmavdstd2-2","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd2-2","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd2-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd2-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd2-2
+++ local vm_name=vmavdstd2-2
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-2 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-2 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd2-2 is not in the allowed list, skipping...'
+VM vmavdstd2-2 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd2-3","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd2-3
+++ echo '{"name":"vmavdstd2-3","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd2-3","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd2-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd2-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd2-3
+++ local vm_name=vmavdstd2-3
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-3 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-3 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd2-3 is not in the allowed list, skipping...'
+VM vmavdstd2-3 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd2-4","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd2-4
+++ echo '{"name":"vmavdstd2-4","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd2-4","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd2-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd2-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd2-4
+++ local vm_name=vmavdstd2-4
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-4 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-4 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd2-4 is not in the allowed list, skipping...'
+VM vmavdstd2-4 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd2-5","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd2-5
+++ echo '{"name":"vmavdstd2-5","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ xargs
+++ jq -r .resourceGroup
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd2-5","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd2-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd2-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd2-5
+++ local vm_name=vmavdstd2-5
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-5 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-5 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd2-5 is not in the allowed list, skipping...'
+VM vmavdstd2-5 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd2-6","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ xargs
+++ jq -r .name
++ vmName=vmavdstd2-6
+++ echo '{"name":"vmavdstd2-6","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ xargs
+++ jq -r .resourceGroup
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd2-6","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd2-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd2-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd2-6
+++ local vm_name=vmavdstd2-6
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-6 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-6 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd2-6 is not in the allowed list, skipping...'
+VM vmavdstd2-6 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd2-7","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd2-7
+++ echo '{"name":"vmavdstd2-7","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ xargs
+++ jq -r .resourceGroup
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd2-7","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd2-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd2-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd2-7
+++ local vm_name=vmavdstd2-7
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-7 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-7 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd2-7 is not in the allowed list, skipping...'
+VM vmavdstd2-7 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd2-8","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd2-8
+++ echo '{"name":"vmavdstd2-8","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd2-8","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd2-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd2-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd2-8
+++ local vm_name=vmavdstd2-8
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-8 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-8 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd2-8 is not in the allowed list, skipping...'
+VM vmavdstd2-8 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmavdstd2-9","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmavdstd2-9
+++ echo '{"name":"vmavdstd2-9","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-HII-LZ-AVD-001
+++ echo '{"name":"vmavdstd2-9","osType":"Windows","resourceGroup":"RG-HII-LZ-AVD-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmavdstd2-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows'
+Processing VM: vmavdstd2-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+++ is_vm_allowed vmavdstd2-9
+++ local vm_name=vmavdstd2-9
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-9 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmavdstd2-9 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmavdstd2-9 is not in the allowed list, skipping...'
+VM vmavdstd2-9 is not in the allowed list, skipping...
++ for subscription in $subscriptions
++ az account set --subscription b0844a47-03c6-4a40-8c24-aa62a617a936
+++ az vm list --query '[].{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}' -o json
++ vms='[
+  {
+    "name": "vmedstools01",
+    "osType": "Windows",
+    "resourceGroup": "RG-IDENT-EDS-001"
+  },
+  {
+    "name": "vmsharegate001",
+    "osType": "Windows",
+    "resourceGroup": "RG-IDENT-EDS-001"
+  },
+  {
+    "name": "vmsharegate002",
+    "osType": "Windows",
+    "resourceGroup": "RG-IDENT-EDS-001"
+  }
+]'
+++ jq -c '.[]'
+++ echo '[
+  {
+    "name": "vmedstools01",
+    "osType": "Windows",
+    "resourceGroup": "RG-IDENT-EDS-001"
+  },
+  {
+    "name": "vmsharegate001",
+    "osType": "Windows",
+    "resourceGroup": "RG-IDENT-EDS-001"
+  },
+  {
+    "name": "vmsharegate002",
+    "osType": "Windows",
+    "resourceGroup": "RG-IDENT-EDS-001"
+  }
+]'
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ xargs
+++ jq -r .name
+++ echo '{"name":"vmedstools01","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
++ vmName=vmedstools01
+++ jq -r .resourceGroup
+++ xargs
+++ echo '{"name":"vmedstools01","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
++ resourceGroup=RG-IDENT-EDS-001
+++ echo '{"name":"vmedstools01","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmedstools01, Resource Group: RG-IDENT-EDS-001, OS Type: Windows'
+Processing VM: vmedstools01, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
+++ is_vm_allowed vmedstools01
+++ local vm_name=vmedstools01
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmedstools01 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmedstools01 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmedstools01 is not in the allowed list, skipping...'
+VM vmedstools01 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmsharegate001","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
+++ jq -r .name
+++ xargs
++ vmName=vmsharegate001
+++ echo '{"name":"vmsharegate001","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
+++ xargs
+++ jq -r .resourceGroup
++ resourceGroup=RG-IDENT-EDS-001
+++ echo '{"name":"vmsharegate001","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmsharegate001, Resource Group: RG-IDENT-EDS-001, OS Type: Windows'
+Processing VM: vmsharegate001, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
+++ is_vm_allowed vmsharegate001
+++ local vm_name=vmsharegate001
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmsharegate001 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmsharegate001 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmsharegate001 is not in the allowed list, skipping...'
+VM vmsharegate001 is not in the allowed list, skipping...
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ echo '{"name":"vmsharegate002","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
+++ xargs
+++ jq -r .name
++ vmName=vmsharegate002
+++ echo '{"name":"vmsharegate002","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
+++ jq -r .resourceGroup
+++ xargs
++ resourceGroup=RG-IDENT-EDS-001
+++ echo '{"name":"vmsharegate002","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
+++ jq -r .osType
+++ xargs
++ osType=Windows
++ echo 'Processing VM: vmsharegate002, Resource Group: RG-IDENT-EDS-001, OS Type: Windows'
+Processing VM: vmsharegate002, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
+++ is_vm_allowed vmsharegate002
+++ local vm_name=vmsharegate002
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmsharegate002 == \\<\?\x\m\l\ \v\e\r\s\i\o\n\=\1\.\0\ \e\n\c\o\d\i\n\g\=\u\t\f\-\8\?\>\<\e\r\r\o\r\>\<\c\o\d\e\>\a\u\t\h\o\r\i\z\a\t\i\o\n\f\a\i\l\u\r\e\<\/\c\o\d\e\>\<\m\e\s\s\a\g\e\>\t\h\i\s\ \r\e\q\u\e\s\t\ \i\s\ \n\o\t\ \a\u\t\h\o\r\i\z\e\d\ \t\o\ \p\e\r\f\o\r\m\ \t\h\i\s\ \o\p\e\r\a\t\i\o\n\. ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ [[ vmsharegate002 == \r\e\q\u\e\s\t\i\d\:\e\d\b\c\7\d\2\3\-\e\0\1\e\-\0\0\5\4\-\0\3\4\b\-\c\7\4\c\b\0\0\0\0\0\0\0 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info=
++ '[' -n '' ']'
++ echo 'VM vmsharegate002 is not in the allowed list, skipping...'
+VM vmsharegate002 is not in the allowed list, skipping...
++ for subscription in $subscriptions
++ az account set --subscription dbef0776-721c-428b-bdc1-fa90085dbf6f
+++ az vm list --query '[].{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}' -o json
++ vms='[]'
+++ jq -c '.[]'
+++ echo '[]'
++ for subscription in $subscriptions
++ az account set --subscription e873319e-be73-4ac2-a683-b2c291fc4767
+++ az vm list --query '[].{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}' -o json
++ vms='[]'
+++ echo '[]'
+++ jq -c '.[]'
++ set +x
