@@ -1,0 +1,29 @@
+jeff [ ~ ]$ ./DeployNessusToVMs.sh 
+Switching to subscription: b56097b7-e22e-46fc-92b9-da53cb50cb23
+Retrieving storage account key for: azagentdeploy001
+WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+Storage account key retrieved successfully.
+Generating SAS token for storage account.
+WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+SAS token generated successfully.
+Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-26T21%3A28Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=qUCGBgBc4aAi%2BLVORSb2pnYooKK2bN%2Bo/YKiHjsCF1A%3D
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   246  100   246    0     0   4354      0 --:--:-- --:--:-- --:--:--  4392
+CSV file downloaded successfully.
+Switching to subscription: 
+The subscription of '' doesn't exist in cloud 'AzureUSGovernment'.
+Checking if resource group '' exists in subscription ''...
+Resource group '' exists.
+ERROR: Operation returned an invalid status 'Bad Request'
+Processing VM: , Resource Group: , OS Type: 
+Unknown OS type for VM: 
+Switching to subscription: 
+The subscription of '' doesn't exist in cloud 'AzureUSGovernment'.
+Checking if resource group '' exists in subscription ''...
+Resource group '' exists.
+ERROR: (None) No HTTP resource was found that matches the request URI 'https://management.usgovcloudapi.net/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/providers/Microsoft.Compute/virtualMachines/RequestId:0deba28c-601e-0023-6246-c7c9f1000000?api-version=2024-03-01'.
+Code: None
+Message: No HTTP resource was found that matches the request URI 'https://management.usgovcloudapi.net/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/providers/Microsoft.Compute/virtualMachines/RequestId:0deba28c-601e-0023-6246-c7c9f1000000?api-version=2024-03-01'.
+Processing VM: , Resource Group: , OS Type: 
+Unknown OS type for VM: v
