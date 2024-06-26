@@ -105,10 +105,10 @@ Storage account key retrieved successfully.
 Generating SAS token for storage account.
 WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
 SAS token generated successfully.
-Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T02%3A44Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Or4Fp4rw3ankd12G54RnboArtTNP22fSXWt4P2FCQfk%3D
+Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T03%3A08Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=UfEsQhP%2BM%2BWaLx%2BgmQTryGB9I0zS1wAHCLuYWxChio0%3D
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100  1172  100  1172    0     0  20575      0 --:--:-- --:--:-- --:--:-- 20928
+100  1172  100  1172    0     0  19955      0 --:--:-- --:--:-- --:--:-- 20206
 Content of downloaded CSV file:
 NAME,TYPE,SUBSCRIPTION,RESOURCE GROUP,LOCATION,STATUS,OPERATING SYSTEM,SIZE,PUBLIC IP ADDRESS,DISKS
 vmbytrstjump01,Virtual machine,hii-mgmt-001,rg-mgmt-beyondtrst-001,USGov Virginia,Stopped (deallocated),Windows,Standard_B4ms,-,1
@@ -120,5 +120,540 @@ vmsvcnow01,Virtual machine,hii-mgmt-001,rg-mgmt-svcnow-001,USGov Virginia,Runnin
 vmtenable01,Virtual machine,hii-mgmt-001,rg-mgmt-tenable-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,1
 vmwinget001,Virtual machine,hii-mgmt-001,rg-intune-prod-001,USGov Virginia,Stopped (deallocated),Linux,Standard_B2s,-,1
 vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Running,Linux,Standard_B2s,62.10.62.168,1
-./DeployNessusToVMs.sh: line 234: syntax error near unexpected token `elif'
-./DeployNessusToVMs.sh: line 234: `                    elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then'
+Processing VM: vmcnctjmpbx-001, Resource Group: RG-CNCT-JMPBX-001, OS Type: Windows
+VM vmcnctjmpbx-001 is allowed, processing...
+Switching to subscription: Comparing VM 'vmcnctjmpbx-001' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
+hii-cnct-001
+The subscription of 'comparing vm 'vmcnctjmpbx-001' with allowed vm 'name'
+comparing vm 'vmcnctjmpbx-001' with allowed vm 'vmbytrstjump01'
+comparing vm 'vmcnctjmpbx-001' with allowed vm 'vmcnctjmpbx-001'
+hii-cnct-001' doesn't exist in cloud 'AzureUSGovernment'.
+Checking if resource group Comparing VM 'vmcnctjmpbx-001' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
+rg-cnct-jmpbx-001 exists in subscription Comparing VM 'vmcnctjmpbx-001' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
+hii-cnct-001...
+Operation returned an invalid status 'Bad Request'
+Resource group Comparing VM 'vmcnctjmpbx-001' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
+rg-cnct-jmpbx-001 does not exist in subscription Comparing VM 'vmcnctjmpbx-001' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
+hii-cnct-001.
+Processing VM: vmcnctjmpbx-002, Resource Group: RG-CNCT-JMPBX-002, OS Type: Windows
+VM vmcnctjmpbx-002 is allowed, processing...
+Switching to subscription: Comparing VM 'vmcnctjmpbx-002' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
+hii-cnct-001
+The subscription of 'comparing vm 'vmcnctjmpbx-002' with allowed vm 'name'
+comparing vm 'vmcnctjmpbx-002' with allowed vm 'vmbytrstjump01'
+comparing vm 'vmcnctjmpbx-002' with allowed vm 'vmcnctjmpbx-001'
+comparing vm 'vmcnctjmpbx-002' with allowed vm 'vmcnctjmpbx-002'
+hii-cnct-001' doesn't exist in cloud 'AzureUSGovernment'.
+Checking if resource group Comparing VM 'vmcnctjmpbx-002' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
+rg-cnct-jmpbx-002 exists in subscription Comparing VM 'vmcnctjmpbx-002' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
+hii-cnct-001...
+Operation returned an invalid status 'Bad Request'
+Resource group Comparing VM 'vmcnctjmpbx-002' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
+rg-cnct-jmpbx-002 does not exist in subscription Comparing VM 'vmcnctjmpbx-002' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
+hii-cnct-001.
+Processing VM: vmpalofw001, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
+VM vmpalofw001 is allowed, processing...
+Switching to subscription: Comparing VM 'vmpalofw001' with allowed VM 'NAME'
+Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001'
+The subscription of 'comparing vm 'vmpalofw001' with allowed vm 'name'
+comparing vm 'vmpalofw001' with allowed vm 'vmbytrstjump01'
+comparing vm 'vmpalofw001' with allowed vm 'vmcnctjmpbx-001'
+comparing vm 'vmpalofw001' with allowed vm 'vmcnctjmpbx-002'
+comparing vm 'vmpalofw001' with allowed vm 'vmstigtest-linux'
+comparing vm 'vmpalofw001' with allowed vm 'vmstigtest-windows'
+comparing vm 'vmpalofw001' with allowed vm 'vmsvcnow01'
+comparing vm 'vmpalofw001' with allowed vm 'vmtenable01'
+comparing vm 'vmpalofw001' with allowed vm 'vmwinget001'
+comparing vm 'vmpalofw001' with allowed vm 'vmwinpac001'' doesn't exist in cloud 'AzureUSGovernment'.
+Checking if resource group Comparing VM 'vmpalofw001' with allowed VM 'NAME'
+Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001' exists in subscription Comparing VM 'vmpalofw001' with allowed VM 'NAME'
+Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001'...
+Operation returned an invalid status 'Bad Request'
+Resource group Comparing VM 'vmpalofw001' with allowed VM 'NAME'
+Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001' does not exist in subscription Comparing VM 'vmpalofw001' with allowed VM 'NAME'
+Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001'.
+Processing VM: vmpalofw002, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
+VM vmpalofw002 is allowed, processing...
+Switching to subscription: Comparing VM 'vmpalofw002' with allowed VM 'NAME'
+Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001'
+The subscription of 'comparing vm 'vmpalofw002' with allowed vm 'name'
+comparing vm 'vmpalofw002' with allowed vm 'vmbytrstjump01'
+comparing vm 'vmpalofw002' with allowed vm 'vmcnctjmpbx-001'
+comparing vm 'vmpalofw002' with allowed vm 'vmcnctjmpbx-002'
+comparing vm 'vmpalofw002' with allowed vm 'vmstigtest-linux'
+comparing vm 'vmpalofw002' with allowed vm 'vmstigtest-windows'
+comparing vm 'vmpalofw002' with allowed vm 'vmsvcnow01'
+comparing vm 'vmpalofw002' with allowed vm 'vmtenable01'
+comparing vm 'vmpalofw002' with allowed vm 'vmwinget001'
+comparing vm 'vmpalofw002' with allowed vm 'vmwinpac001'' doesn't exist in cloud 'AzureUSGovernment'.
+Checking if resource group Comparing VM 'vmpalofw002' with allowed VM 'NAME'
+Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001' exists in subscription Comparing VM 'vmpalofw002' with allowed VM 'NAME'
+Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001'...
+^CResource group Comparing VM 'vmpalofw002' with allowed VM 'NAME'
+Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001' does not exist in subscription Comparing VM 'vmpalofw002' with allowed VM 'NAME'
+Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001'.
+Processing VM: vmt1palongfw001, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
+VM vmt1palongfw001 is allowed, processing...
+Switching to subscription: Comparing VM 'vmt1palongfw001' with allowed VM 'NAME'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinpac001'
+^CChecking if resource group Comparing VM 'vmt1palongfw001' with allowed VM 'NAME'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinpac001' exists in subscription Comparing VM 'vmt1palongfw001' with allowed VM 'NAME'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinpac001'...jeff [ ~ ]$ ./DeployNessusToVMs.sh
+Switching to subscription: b56097b7-e22e-46fc-92b9-da53cb50cb23
+Temporarily allowing access from all networks to the storage account
+{
+  "accessTier": "Hot",
+  "accountMigrationInProgress": null,
+  "allowBlobPublicAccess": false,
+  "allowCrossTenantReplication": false,
+  "allowSharedKeyAccess": true,
+  "allowedCopyScope": null,
+  "azureFilesIdentityBasedAuthentication": null,
+  "blobRestoreStatus": null,
+  "creationTime": "2024-06-24T20:18:29.238123+00:00",
+  "customDomain": null,
+  "defaultToOAuthAuthentication": null,
+  "dnsEndpointType": null,
+  "enableHttpsTrafficOnly": true,
+  "enableNfsV3": null,
+  "encryption": {
+    "encryptionIdentity": null,
+    "keySource": "Microsoft.Storage",
+    "keyVaultProperties": null,
+    "requireInfrastructureEncryption": false,
+    "services": {
+      "blob": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2024-06-24T20:18:29.316249+00:00"
+      },
+      "file": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2024-06-24T20:18:29.316249+00:00"
+      },
+      "queue": null,
+      "table": null
+    }
+  },
+  "extendedLocation": null,
+  "failoverInProgress": null,
+  "geoReplicationStats": null,
+  "id": "/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/rg-inf-scripts-001/providers/Microsoft.Storage/storageAccounts/azagentdeploy001",
+  "identity": null,
+  "immutableStorageWithVersioning": null,
+  "isHnsEnabled": null,
+  "isLocalUserEnabled": null,
+  "isSftpEnabled": null,
+  "isSkuConversionBlocked": null,
+  "keyCreationTime": {
+    "key1": "2024-06-24T20:18:29.316249+00:00",
+    "key2": "2024-06-24T20:18:29.316249+00:00"
+  },
+  "keyPolicy": null,
+  "kind": "StorageV2",
+  "largeFileSharesState": "Enabled",
+  "lastGeoFailoverTime": null,
+  "location": "usgovvirginia",
+  "minimumTlsVersion": "TLS1_2",
+  "name": "azagentdeploy001",
+  "networkRuleSet": {
+    "bypass": "AzureServices",
+    "defaultAction": "Allow",
+    "ipRules": [
+      {
+        "action": "Allow",
+        "ipAddressOrRange": "136.226.38.121"
+      }
+    ],
+    "ipv6Rules": [],
+    "resourceAccessRules": [],
+    "virtualNetworkRules": []
+  },
+  "primaryEndpoints": {
+    "blob": "https://azagentdeploy001.blob.core.usgovcloudapi.net/",
+    "dfs": "https://azagentdeploy001.dfs.core.usgovcloudapi.net/",
+    "file": "https://azagentdeploy001.file.core.usgovcloudapi.net/",
+    "internetEndpoints": null,
+    "microsoftEndpoints": null,
+    "queue": "https://azagentdeploy001.queue.core.usgovcloudapi.net/",
+    "table": "https://azagentdeploy001.table.core.usgovcloudapi.net/",
+    "web": "https://azagentdeploy001.z2.web.core.usgovcloudapi.net/"
+  },
+  "primaryLocation": "usgovvirginia",
+  "privateEndpointConnections": [],
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": "Enabled",
+  "resourceGroup": "rg-inf-scripts-001",
+  "routingPreference": null,
+  "sasPolicy": null,
+  "secondaryEndpoints": null,
+  "secondaryLocation": null,
+  "sku": {
+    "name": "Standard_LRS",
+    "tier": "Standard"
+  },
+  "statusOfPrimary": "available",
+  "statusOfSecondary": null,
+  "storageAccountSkuConversionStatus": null,
+  "tags": {},
+  "type": "Microsoft.Storage/storageAccounts"
+}
+Retrieving storage account key for: azagentdeploy001
+WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+Storage account key retrieved successfully.
+Generating SAS token for storage account.
+WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+SAS token generated successfully.
+Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T03%3A08Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=UfEsQhP%2BM%2BWaLx%2BgmQTryGB9I0zS1wAHCLuYWxChio0%3D
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1172  100  1172    0     0  19955      0 --:--:-- --:--:-- --:--:-- 20206
+Content of downloaded CSV file:
+NAME,TYPE,SUBSCRIPTION,RESOURCE GROUP,LOCATION,STATUS,OPERATING SYSTEM,SIZE,PUBLIC IP ADDRESS,DISKS
+vmbytrstjump01,Virtual machine,hii-mgmt-001,rg-mgmt-beyondtrst-001,USGov Virginia,Stopped (deallocated),Windows,Standard_B4ms,-,1
+vmcnctjmpbx-001,Virtual machine,hii-cnct-001,rg-cnct-jmpbx-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,1
+vmcnctjmpbx-002,Virtual machine,hii-cnct-001,rg-cnct-jmpbx-002,USGov Virginia,Stopped (deallocated),Windows,Standard_D4s_v3,-,1
+vmstigtest-linux,Virtual machine,hii-inf-001,rg-inf-images-001,USGov Virginia,Running,Linux,Standard_D4s_v3,-,1
+vmstigtest-windows,Virtual machine,hii-inf-001,rg-inf-images-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,1
+vmsvcnow01,Virtual machine,hii-mgmt-001,rg-mgmt-svcnow-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,2
+vmtenable01,Virtual machine,hii-mgmt-001,rg-mgmt-tenable-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,1
+vmwinget001,Virtual machine,hii-mgmt-001,rg-intune-prod-001,USGov Virginia,Stopped (deallocated),Linux,Standard_B2s,-,1
+vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Running,Linux,Standard_B2s,62.10.62.168,1
+Processing VM: vmcnctjmpbx-001, Resource Group: RG-CNCT-JMPBX-001, OS Type: Windows
+VM vmcnctjmpbx-001 is allowed, processing...
+Switching to subscription: Comparing VM 'vmcnctjmpbx-001' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
+hii-cnct-001
+The subscription of 'comparing vm 'vmcnctjmpbx-001' with allowed vm 'name'
+comparing vm 'vmcnctjmpbx-001' with allowed vm 'vmbytrstjump01'
+comparing vm 'vmcnctjmpbx-001' with allowed vm 'vmcnctjmpbx-001'
+hii-cnct-001' doesn't exist in cloud 'AzureUSGovernment'.
+Checking if resource group Comparing VM 'vmcnctjmpbx-001' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
+rg-cnct-jmpbx-001 exists in subscription Comparing VM 'vmcnctjmpbx-001' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
+hii-cnct-001...
+Operation returned an invalid status 'Bad Request'
+Resource group Comparing VM 'vmcnctjmpbx-001' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
+rg-cnct-jmpbx-001 does not exist in subscription Comparing VM 'vmcnctjmpbx-001' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
+hii-cnct-001.
+Processing VM: vmcnctjmpbx-002, Resource Group: RG-CNCT-JMPBX-002, OS Type: Windows
+VM vmcnctjmpbx-002 is allowed, processing...
+Switching to subscription: Comparing VM 'vmcnctjmpbx-002' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
+hii-cnct-001
+The subscription of 'comparing vm 'vmcnctjmpbx-002' with allowed vm 'name'
+comparing vm 'vmcnctjmpbx-002' with allowed vm 'vmbytrstjump01'
+comparing vm 'vmcnctjmpbx-002' with allowed vm 'vmcnctjmpbx-001'
+comparing vm 'vmcnctjmpbx-002' with allowed vm 'vmcnctjmpbx-002'
+hii-cnct-001' doesn't exist in cloud 'AzureUSGovernment'.
+Checking if resource group Comparing VM 'vmcnctjmpbx-002' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
+rg-cnct-jmpbx-002 exists in subscription Comparing VM 'vmcnctjmpbx-002' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
+hii-cnct-001...
+Operation returned an invalid status 'Bad Request'
+Resource group Comparing VM 'vmcnctjmpbx-002' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
+rg-cnct-jmpbx-002 does not exist in subscription Comparing VM 'vmcnctjmpbx-002' with allowed VM 'NAME'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
+hii-cnct-001.
+Processing VM: vmpalofw001, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
+VM vmpalofw001 is allowed, processing...
+Switching to subscription: Comparing VM 'vmpalofw001' with allowed VM 'NAME'
+Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001'
+The subscription of 'comparing vm 'vmpalofw001' with allowed vm 'name'
+comparing vm 'vmpalofw001' with allowed vm 'vmbytrstjump01'
+comparing vm 'vmpalofw001' with allowed vm 'vmcnctjmpbx-001'
+comparing vm 'vmpalofw001' with allowed vm 'vmcnctjmpbx-002'
+comparing vm 'vmpalofw001' with allowed vm 'vmstigtest-linux'
+comparing vm 'vmpalofw001' with allowed vm 'vmstigtest-windows'
+comparing vm 'vmpalofw001' with allowed vm 'vmsvcnow01'
+comparing vm 'vmpalofw001' with allowed vm 'vmtenable01'
+comparing vm 'vmpalofw001' with allowed vm 'vmwinget001'
+comparing vm 'vmpalofw001' with allowed vm 'vmwinpac001'' doesn't exist in cloud 'AzureUSGovernment'.
+Checking if resource group Comparing VM 'vmpalofw001' with allowed VM 'NAME'
+Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001' exists in subscription Comparing VM 'vmpalofw001' with allowed VM 'NAME'
+Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001'...
+Operation returned an invalid status 'Bad Request'
+Resource group Comparing VM 'vmpalofw001' with allowed VM 'NAME'
+Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001' does not exist in subscription Comparing VM 'vmpalofw001' with allowed VM 'NAME'
+Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001'.
+Processing VM: vmpalofw002, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
+VM vmpalofw002 is allowed, processing...
+Switching to subscription: Comparing VM 'vmpalofw002' with allowed VM 'NAME'
+Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001'
+The subscription of 'comparing vm 'vmpalofw002' with allowed vm 'name'
+comparing vm 'vmpalofw002' with allowed vm 'vmbytrstjump01'
+comparing vm 'vmpalofw002' with allowed vm 'vmcnctjmpbx-001'
+comparing vm 'vmpalofw002' with allowed vm 'vmcnctjmpbx-002'
+comparing vm 'vmpalofw002' with allowed vm 'vmstigtest-linux'
+comparing vm 'vmpalofw002' with allowed vm 'vmstigtest-windows'
+comparing vm 'vmpalofw002' with allowed vm 'vmsvcnow01'
+comparing vm 'vmpalofw002' with allowed vm 'vmtenable01'
+comparing vm 'vmpalofw002' with allowed vm 'vmwinget001'
+comparing vm 'vmpalofw002' with allowed vm 'vmwinpac001'' doesn't exist in cloud 'AzureUSGovernment'.
+Checking if resource group Comparing VM 'vmpalofw002' with allowed VM 'NAME'
+Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001' exists in subscription Comparing VM 'vmpalofw002' with allowed VM 'NAME'
+Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001'...
+^CResource group Comparing VM 'vmpalofw002' with allowed VM 'NAME'
+Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001' does not exist in subscription Comparing VM 'vmpalofw002' with allowed VM 'NAME'
+Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
+Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001'.
+Processing VM: vmt1palongfw001, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
+VM vmt1palongfw001 is allowed, processing...
+Switching to subscription: Comparing VM 'vmt1palongfw001' with allowed VM 'NAME'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinpac001'
+^CChecking if resource group Comparing VM 'vmt1palongfw001' with allowed VM 'NAME'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinpac001' exists in subscription Comparing VM 'vmt1palongfw001' with allowed VM 'NAME'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmbytrstjump01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-002'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-linux'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-windows'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmsvcnow01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmtenable01'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinget001'
+Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinpac001'...
