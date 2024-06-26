@@ -1,117 +1,43 @@
-Processing VM: vmwinpac001, Resource Group: RG-MGMT-INTUNE-001, OS Type: Linux
-VM vmwinpac001 is allowed, processing...
-Switching to subscription: hii-mgmt-001
-Checking if resource group rg-mgmt-intune-001 exists in subscription hii-mgmt-001...
-true
-Resource group rg-mgmt-intune-001 exists.
-Failed to parse string as JSON:
-{"commandToExecute": "#!/bin/bash\nwget -O /tmp/NessusAgent-10.6.4-ubuntu1404_amd64.deb \\"https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-ubuntu1404_amd64.deb?se=2024-06-27T12%3A28Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=8GrujE5XILCOOVH2dFoynW6REIfWok0%2BYWbZ6068hQ4%3D\\"\nsudo dpkg -i /tmp/NessusAgent-10.6.4-ubuntu1404_amd64.deb"}
-Error detail: Expecting ',' delimiter: line 1 column 92 (char 91)
-Please provide a valid JSON file path or JSON string.
-The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
-Processing VM: vmsvcnow01, Resource Group: RG-MGMT-SVCNOW-001, OS Type: Windows
-VM vmsvcnow01 is allowed, processing...
-Switching to subscription: hii-mgmt-001
-Checking if resource group rg-mgmt-svcnow-001 exists in subscription hii-mgmt-001...
-true
-Resource group rg-mgmt-svcnow-001 exists.
-[Warning] This output may compromise security by showing the following secrets: settings, commandToExecute. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
-{
-  "autoUpgradeMinorVersion": true,
-  "enableAutomaticUpgrade": null,
-  "forceUpdateTag": null,
-  "id": "/subscriptions/c38137e9-2c7c-4c88-bb0c-c7bfe6e1872b/resourceGroups/rg-mgmt-svcnow-001/providers/Microsoft.Compute/virtualMachines/vmsvcnow01/extensions/CustomScriptExtension",
-  "instanceView": null,
-  "location": "usgovvirginia",
-  "name": "CustomScriptExtension",
-  "protectedSettings": null,
-  "protectedSettingsFromKeyVault": null,
-  "provisionAfterExtensions": null,
-  "provisioningState": "Succeeded",
-  "publisher": "Microsoft.Compute",
-  "resourceGroup": "rg-mgmt-svcnow-001",
-  "settings": {
-    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T12%3A28Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=8GrujE5XILCOOVH2dFoynW6REIfWok0%2BYWbZ6068hQ4%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
-  },
-  "suppressFailures": null,
-  "tags": null,
-  "type": "Microsoft.Compute/virtualMachines/extensions",
-  "typeHandlerVersion": "1.10",
-  "typePropertiesType": "CustomScriptExtension"
-}
 Processing VM: vmtenable01, Resource Group: RG-MGMT-TENABLE-001, OS Type: Windows
 VM vmtenable01 is allowed, processing...
 Switching to subscription: hii-mgmt-001
 Checking if resource group rg-mgmt-tenable-001 exists in subscription hii-mgmt-001...
 true
 Resource group rg-mgmt-tenable-001 exists.
-(VMExtensionProvisioningError) VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Extension '' of Handler 'Microsoft.Compute.CustomScriptExtension' version '1.10.16' faulted due to exception during extension processing'. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Code: VMExtensionProvisioningError
-Message: VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Extension '' of Handler 'Microsoft.Compute.CustomScriptExtension' version '1.10.16' faulted due to exception during extension processing'. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Processing VM: vmavdstd1-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-0 is not in the allowed list, skipping...
-Processing VM: vmavdstd1-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-1 is not in the allowed list, skipping...
-Processing VM: vmavdstd1-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-2 is not in the allowed list, skipping...
-Processing VM: vmavdstd1-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-3 is not in the allowed list, skipping...
-Processing VM: vmavdstd1-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-4 is not in the allowed list, skipping...
-Processing VM: vmavdstd1-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-5 is not in the allowed list, skipping...
-Processing VM: vmavdstd1-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-6 is not in the allowed list, skipping...
-Processing VM: vmavdstd1-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-7 is not in the allowed list, skipping...
-Processing VM: vmavdstd1-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-8 is not in the allowed list, skipping...
-Processing VM: vmavdstd1-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-9 is not in the allowed list, skipping...
-Processing VM: vmavdstd2-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-0 is not in the allowed list, skipping...
-Processing VM: vmavdstd2-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-1 is not in the allowed list, skipping...
-Processing VM: vmavdstd2-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-2 is not in the allowed list, skipping...
-Processing VM: vmavdstd2-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-3 is not in the allowed list, skipping...
-Processing VM: vmavdstd2-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-4 is not in the allowed list, skipping...
-Processing VM: vmavdstd2-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-5 is not in the allowed list, skipping...
-Processing VM: vmavdstd2-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-6 is not in the allowed list, skipping...
-Processing VM: vmavdstd2-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-7 is not in the allowed list, skipping...
-Processing VM: vmavdstd2-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-8 is not in the allowed list, skipping...
-Processing VM: vmavdstd2-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-9 is not in the allowed list, skipping...
-Processing VM: vmedstools01, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
-VM vmedstools01 is not in the allowed list, skipping...
-Processing VM: vmsharegate001, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
-VM vmsharegate001 is not in the allowed list, skipping...
-Processing VM: vmsharegate002, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
-VM vmsharegate002 is not in the allowed list, skipping...
-Resetting storage account network rules to previous state
-(ResourceGroupNotFound) Resource group 'rg-inf-scripts-001' could not be found.
-Code: ResourceGroupNotFound
-Message: Resource group 'rg-inf-scripts-001' could not be found.
-false
-(ResourceGroupNotFound) Resource group 'rg-inf-scripts-001' could not be found.
-Code: ResourceGroupNotFound
-Message: Resource group 'rg-inf-scripts-001' could not be found.
-
-jeff [ ~ ]$ az group show --name rg-inf-scripts-001 --subscription hii-inf-001
-{
-  "id": "/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/rg-inf-scripts-001",
-  "location": "usgovvirginia",
-  "managedBy": null,
-  "name": "rg-inf-scripts-001",
-  "properties": {
-    "provisioningState": "Succeeded"
-  },
-  "tags": null,
-  "type": "Microsoft.Resources/resourceGroups"
-}
+^CLong-running operation wait cancelled.  
+^CTraceback (most recent call last):
+  File "/usr/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.9/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/usr/lib64/az/lib/python3.9/site-packages/azure/cli/__main__.py", line 16, in <module>
+    from azure.cli.core.intercept_survey import prompt_survey_message
+  File "/usr/lib64/az/lib/python3.9/site-packages/azure/cli/core/intercept_survey.py", line 11, in <module>
+    from azure.cli.core._profile import Profile
+  File "/usr/lib64/az/lib/python3.9/site-packages/azure/cli/core/_profile.py", line 13, in <module>
+    from azure.cli.core.cloud import get_active_cloud, set_cloud_subscription
+  File "/usr/lib64/az/lib/python3.9/site-packages/azure/cli/core/cloud.py", line 14, in <module>
+    from azure.cli.core.util import urlretrieve
+  File "/usr/lib64/az/lib/python3.9/site-packages/azure/cli/core/util.py", line 11, in <module>
+    import yaml
+  File "/usr/lib64/az/lib/python3.9/site-packages/yaml/__init__.py", line 8, in <module>
+    from .loader import *
+  File "/usr/lib64/az/lib/python3.9/site-packages/yaml/loader.py", line 4, in <module>
+    from .reader import *
+  File "/usr/lib64/az/lib/python3.9/site-packages/yaml/reader.py", line 45, in <module>
+    class Reader(object):
+  File "/usr/lib64/az/lib/python3.9/site-packages/yaml/reader.py", line 137, in Reader
+    NON_PRINTABLE = re.compile('[^\x09\x0A\x0D\x20-\x7E\x85\xA0-\uD7FF\uE000-\uFFFD\U00010000-\U0010ffff]')
+  File "/usr/lib/python3.9/re.py", line 252, in compile
+    return _compile(pattern, flags)
+  File "/usr/lib/python3.9/re.py", line 304, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "/usr/lib/python3.9/sre_compile.py", line 792, in compile
+    code = _code(p, flags)
+  File "/usr/lib/python3.9/sre_compile.py", line 631, in _code
+    _compile(code, p.data, flags)
+  File "/usr/lib/python3.9/sre_compile.py", line 136, in _compile
+    charset, hascased = _optimize_charset(av, iscased, tolower, fixes)
+  File "/usr/lib/python3.9/sre_compile.py", line 328, in _optimize_charset
+    charmap[i] = 1
+KeyboardInterrupt
