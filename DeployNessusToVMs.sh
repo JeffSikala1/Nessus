@@ -53,6 +53,28 @@ if [ -z "$sas_token" ]; then
 fi
 echo "SAS token generated successfully."
 
+# Step 1: Check Storage Account Access Policy (Manual/Azure Portal or CLI)
+# This step is typically done outside the script, manually or with a separate command.
+
+# Step 2 & 3: Verify SAS Token Permissions and Update Script
+# Decode SAS token (simplified example, focusing on 'sp' parameter)
+sas_permissions=$(echo "$sas_token" | grep -oP '(?<=sp=)[^&]*')
+if [[ $sas_permissions != *r* ]]; then
+  echo "SAS token does not have read permission. Please check the SAS token permissions."
+  exit 1
+fi
+
+# Step 4: Attempt Access with Updated SAS Token
+# This step is already in the script, attempting to download the CSV with `curl`.
+# Ensure the SAS token used here is the one verified or updated.
+curl -o /tmp/AzureVirtualMachines.csv "$csv_url"
+if [ $? -ne 0 ]; then
+  echo "Failed to download CSV with the provided SAS token. Please check the token and try again."
+  exit 1
+else
+  echo "CSV file downloaded successfully."
+fi
+
 # Adjust the blob service endpoint for Azure Government Cloud
 blob_service_endpoint="https://$storageAccountName.blob.core.usgovcloudapi.net"
 
