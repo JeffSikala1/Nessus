@@ -105,10 +105,10 @@ Storage account key retrieved successfully.
 Generating SAS token for storage account.
 WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
 SAS token generated successfully.
-Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D
+Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T04%3A19Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=J6fU3EDCP69vAtwZKQfoG6EslMNVxOf6B7WG8PJTjFA%3D
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100  1172  100  1172    0     0  20557      0 --:--:-- --:--:-- --:--:-- 20928
+100  1172  100  1172    0     0  18502      0 --:--:-- --:--:-- --:--:-- 18603
 Content of downloaded CSV file:
 NAME,TYPE,SUBSCRIPTION,RESOURCE GROUP,LOCATION,STATUS,OPERATING SYSTEM,SIZE,PUBLIC IP ADDRESS,DISKS
 vmbytrstjump01,Virtual machine,hii-mgmt-001,rg-mgmt-beyondtrst-001,USGov Virginia,Stopped (deallocated),Windows,Standard_B4ms,-,1
@@ -143,7 +143,7 @@ A CustomScriptExtension extension with name install-powershell-modules already e
   "publisher": "Microsoft.Compute",
   "resourceGroup": "rg-cnct-jmpbx-001",
   "settings": {
-    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
+    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T04%3A19Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=J6fU3EDCP69vAtwZKQfoG6EslMNVxOf6B7WG8PJTjFA%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
   },
   "suppressFailures": null,
   "tags": null,
@@ -157,9 +157,7 @@ Switching to subscription: hii-cnct-001
 Checking if resource group rg-cnct-jmpbx-002 exists in subscription hii-cnct-001...
 true
 Resource group rg-cnct-jmpbx-002 exists.
-(OperationNotAllowed) Cannot modify extensions in the VM when the VM is not running.
-Code: OperationNotAllowed
-Message: Cannot modify extensions in the VM when the VM is not running.
+VM vmcnctjmpbx-002 is not running. Skipping installation.
 Processing VM: vmpalofw001, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
 VM vmpalofw001 is not in the allowed list, skipping...
 Processing VM: vmpalofw002, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
@@ -180,37 +178,160 @@ Switching to subscription: hii-inf-001
 Checking if resource group rg-inf-images-001 exists in subscription hii-inf-001...
 true
 Resource group rg-inf-images-001 exists.
-[Warning] This output may compromise security by showing the following secrets: settings, commandToExecute. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
-{
-  "autoUpgradeMinorVersion": true,
-  "enableAutomaticUpgrade": null,
-  "forceUpdateTag": null,
-  "id": "/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/rg-inf-images-001/providers/Microsoft.Compute/virtualMachines/vmstigtest-linux/extensions/CustomScript",
-  "instanceView": null,
-  "location": "usgovvirginia",
-  "name": "CustomScript",
-  "protectedSettings": null,
-  "protectedSettingsFromKeyVault": null,
-  "provisionAfterExtensions": null,
-  "provisioningState": "Succeeded",
-  "publisher": "Microsoft.Azure.Extensions",
-  "resourceGroup": "rg-inf-images-001",
-  "settings": {
-    "commandToExecute": "#!/bin/bash\nsudo yum install -y wget\nsudo yum install -y rpm\nwget -O /tmp/NessusAgent-10.6.4-el8.x86_64.rpm \"https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-el8.x86_64.rpm?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D\"\nsudo rpm -ivh /tmp/NessusAgent-10.6.4-el8.x86_64.rpm"
-  },
-  "suppressFailures": null,
-  "tags": null,
-  "type": "Microsoft.Compute/virtualMachines/extensions",
-  "typeHandlerVersion": "2.0",
-  "typePropertiesType": "CustomScript"
-}
+(VMExtensionProvisioningError) VM has reported a failure when processing extension 'CustomScript' (publisher 'Microsoft.Azure.Extensions' and type 'CustomScript'). Error message: 'Enable failed: failed to execute command: command terminated with exit status=1
+[stdout]
+Last metadata expiration check: 1:58:21 ago on Wed 26 Jun 2024 02:22:50 AM UTC.
+Package wget-1.19.5-8.el8_1.1.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+Last metadata expiration check: 1:58:23 ago on Wed 26 Jun 2024 02:22:50 AM UTC.
+Package rpm-4.14.2-40.el8_2.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+Verifying...                          ########################################
+Preparing...                          ########################################
+
+[stderr]
+.......... 87%  174M 0s
+ 17450K .......... .......... .......... .......... .......... 87%  178M 0s
+ 17500K .......... .......... .......... .......... .......... 88%  193M 0s
+ 17550K .......... .......... .......... .......... .......... 88%  191M 0s
+ 17600K .......... .......... .......... .......... .......... 88%  156M 0s
+ 17650K .......... .......... .......... .......... .......... 88%  177M 0s
+ 17700K .......... .......... .......... .......... .......... 89%  184M 0s
+ 17750K .......... .......... .......... .......... .......... 89%  189M 0s
+ 17800K .......... .......... .......... .......... .......... 89%  166M 0s
+ 17850K .......... .......... .......... .......... .......... 89%  189M 0s
+ 17900K .......... .......... .......... .......... .......... 90%  189M 0s
+ 17950K .......... .......... .......... .......... .......... 90%  191M 0s
+ 18000K .......... .......... .......... .......... .......... 90%  149M 0s
+ 18050K .......... .......... .......... .......... .......... 90%  189M 0s
+ 18100K .......... .......... .......... .......... .......... 91%  178M 0s
+ 18150K .......... .......... .......... .......... .......... 91%  187M 0s
+ 18200K .......... .......... .......... .......... .......... 91%  164M 0s
+ 18250K .......... .......... .......... .......... .......... 91%  188M 0s
+ 18300K .......... .......... .......... .......... .......... 92%  190M 0s
+ 18350K .......... .......... .......... .......... .......... 92%  180M 0s
+ 18400K .......... .......... .......... .......... .......... 92%  156M 0s
+ 18450K .......... .......... .......... .......... .......... 92%  183M 0s
+ 18500K .......... .......... .......... .......... .......... 93%  191M 0s
+ 18550K .......... .......... .......... .......... .......... 93%  179M 0s
+ 18600K .......... .......... .......... .......... .......... 93%  174M 0s
+ 18650K .......... .......... .......... .......... .......... 93%  182M 0s
+ 18700K .......... .......... .......... .......... .......... 94%  191M 0s
+ 18750K .......... .......... .......... .......... .......... 94%  184M 0s
+ 18800K .......... .......... .......... .......... .......... 94%  238M 0s
+ 18850K .......... .......... .......... .......... .......... 94%  302M 0s
+ 18900K .......... .......... .......... .......... .......... 95%  310M 0s
+ 18950K .......... .......... .......... .......... .......... 95%  310M 0s
+ 19000K .......... .......... .......... .......... .......... 95%  263M 0s
+ 19050K .......... .......... .......... .......... .......... 95%  312M 0s
+ 19100K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19150K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19200K .......... .......... .......... .......... .......... 96%  260M 0s
+ 19250K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19300K .......... .......... .......... .......... .......... 97%  288M 0s
+ 19350K .......... .......... .......... .......... .......... 97%  310M 0s
+ 19400K .......... .......... .......... .......... .......... 97%  282M 0s
+ 19450K .......... .......... .......... .......... .......... 97%  309M 0s
+ 19500K .......... .......... .......... .......... .......... 98%  313M 0s
+ 19550K .......... .......... .......... .......... .......... 98%  299M 0s
+ 19600K .......... .......... .......... .......... .......... 98%  246M 0s
+ 19650K .......... .......... .......... .......... .......... 98%  312M 0s
+ 19700K .......... .......... .......... .......... .......... 99%  312M 0s
+ 19750K .......... .......... .......... .......... .......... 99%  312M 0s
+ 19800K .......... .......... .......... .......... .......... 99%  283M 0s
+ 19850K .......... .......... .......... .......... .......... 99%  315M 0s
+ 19900K .......... ..........                                 100%  245M=0.2s
+
+2024-06-26 04:21:15 (107 MB/s) - ‘/tmp/NessusAgent-10.6.4-el8.x86_64.rpm’ saved [20398348/20398348]
+
+warning: /tmp/NessusAgent-10.6.4-el8.x86_64.rpm: Header V4 RSA/SHA256 Signature, key ID 2f12969d: NOKEY
+        package NessusAgent-10.6.4-el8.x86_64 is already installed
+'. More information on troubleshooting is available at https://aka.ms/VMExtensionCSELinuxTroubleshoot. 
+Code: VMExtensionProvisioningError
+Message: VM has reported a failure when processing extension 'CustomScript' (publisher 'Microsoft.Azure.Extensions' and type 'CustomScript'). Error message: 'Enable failed: failed to execute command: command terminated with exit status=1
+[stdout]
+Last metadata expiration check: 1:58:21 ago on Wed 26 Jun 2024 02:22:50 AM UTC.
+Package wget-1.19.5-8.el8_1.1.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+Last metadata expiration check: 1:58:23 ago on Wed 26 Jun 2024 02:22:50 AM UTC.
+Package rpm-4.14.2-40.el8_2.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+Verifying...                          ########################################
+Preparing...                          ########################################
+
+[stderr]
+.......... 87%  174M 0s
+ 17450K .......... .......... .......... .......... .......... 87%  178M 0s
+ 17500K .......... .......... .......... .......... .......... 88%  193M 0s
+ 17550K .......... .......... .......... .......... .......... 88%  191M 0s
+ 17600K .......... .......... .......... .......... .......... 88%  156M 0s
+ 17650K .......... .......... .......... .......... .......... 88%  177M 0s
+ 17700K .......... .......... .......... .......... .......... 89%  184M 0s
+ 17750K .......... .......... .......... .......... .......... 89%  189M 0s
+ 17800K .......... .......... .......... .......... .......... 89%  166M 0s
+ 17850K .......... .......... .......... .......... .......... 89%  189M 0s
+ 17900K .......... .......... .......... .......... .......... 90%  189M 0s
+ 17950K .......... .......... .......... .......... .......... 90%  191M 0s
+ 18000K .......... .......... .......... .......... .......... 90%  149M 0s
+ 18050K .......... .......... .......... .......... .......... 90%  189M 0s
+ 18100K .......... .......... .......... .......... .......... 91%  178M 0s
+ 18150K .......... .......... .......... .......... .......... 91%  187M 0s
+ 18200K .......... .......... .......... .......... .......... 91%  164M 0s
+ 18250K .......... .......... .......... .......... .......... 91%  188M 0s
+ 18300K .......... .......... .......... .......... .......... 92%  190M 0s
+ 18350K .......... .......... .......... .......... .......... 92%  180M 0s
+ 18400K .......... .......... .......... .......... .......... 92%  156M 0s
+ 18450K .......... .......... .......... .......... .......... 92%  183M 0s
+ 18500K .......... .......... .......... .......... .......... 93%  191M 0s
+ 18550K .......... .......... .......... .......... .......... 93%  179M 0s
+ 18600K .......... .......... .......... .......... .......... 93%  174M 0s
+ 18650K .......... .......... .......... .......... .......... 93%  182M 0s
+ 18700K .......... .......... .......... .......... .......... 94%  191M 0s
+ 18750K .......... .......... .......... .......... .......... 94%  184M 0s
+ 18800K .......... .......... .......... .......... .......... 94%  238M 0s
+ 18850K .......... .......... .......... .......... .......... 94%  302M 0s
+ 18900K .......... .......... .......... .......... .......... 95%  310M 0s
+ 18950K .......... .......... .......... .......... .......... 95%  310M 0s
+ 19000K .......... .......... .......... .......... .......... 95%  263M 0s
+ 19050K .......... .......... .......... .......... .......... 95%  312M 0s
+ 19100K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19150K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19200K .......... .......... .......... .......... .......... 96%  260M 0s
+ 19250K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19300K .......... .......... .......... .......... .......... 97%  288M 0s
+ 19350K .......... .......... .......... .......... .......... 97%  310M 0s
+ 19400K .......... .......... .......... .......... .......... 97%  282M 0s
+ 19450K .......... .......... .......... .......... .......... 97%  309M 0s
+ 19500K .......... .......... .......... .......... .......... 98%  313M 0s
+ 19550K .......... .......... .......... .......... .......... 98%  299M 0s
+ 19600K .......... .......... .......... .......... .......... 98%  246M 0s
+ 19650K .......... .......... .......... .......... .......... 98%  312M 0s
+ 19700K .......... .......... .......... .......... .......... 99%  312M 0s
+ 19750K .......... .......... .......... .......... .......... 99%  312M 0s
+ 19800K .......... .......... .......... .......... .......... 99%  283M 0s
+ 19850K .......... .......... .......... .......... .......... 99%  315M 0s
+ 19900K .......... ..........                                 100%  245M=0.2s
+
+2024-06-26 04:21:15 (107 MB/s) - ‘/tmp/NessusAgent-10.6.4-el8.x86_64.rpm’ saved [20398348/20398348]
+
+warning: /tmp/NessusAgent-10.6.4-el8.x86_64.rpm: Header V4 RSA/SHA256 Signature, key ID 2f12969d: NOKEY
+        package NessusAgent-10.6.4-el8.x86_64 is already installed
+'. More information on troubleshooting is available at https://aka.ms/VMExtensionCSELinuxTroubleshoot. 
 Processing VM: vmstigtest-windows, Resource Group: RG-INF-IMAGES-001, OS Type: Windows
 VM vmstigtest-windows is allowed, processing...
 Switching to subscription: hii-inf-001
 Checking if resource group rg-inf-images-001 exists in subscription hii-inf-001...
 true
 Resource group rg-inf-images-001 exists.
-[Warning] This output may compromise security by showing the following secrets: settings, commandToExecute. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+[Warning] This output may compromise security by showing the following secrets: commandToExecute, settings. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
 {
   "autoUpgradeMinorVersion": true,
   "enableAutomaticUpgrade": null,
@@ -226,7 +347,7 @@ Resource group rg-inf-images-001 exists.
   "publisher": "Microsoft.Compute",
   "resourceGroup": "rg-inf-images-001",
   "settings": {
-    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
+    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T04%3A19Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=J6fU3EDCP69vAtwZKQfoG6EslMNVxOf6B7WG8PJTjFA%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
   },
   "suppressFailures": null,
   "tags": null,
@@ -240,10 +361,7 @@ Switching to subscription: hii-mgmt-001
 Checking if resource group rg-intune-prod-001 exists in subscription hii-mgmt-001...
 true
 Resource group rg-intune-prod-001 exists.
-ERROR: (OperationNotAllowed) The operation requires the VM to be running (or set to run).
-Code: OperationNotAllowed
-Message: The operation requires the VM to be running (or set to run).
-Unsupported or unknown Linux distribution for VM: vmwinget001
+VM vmwinget001 is not running. Skipping installation.
 Processing VM: vmbyondtrst01, Resource Group: RG-MGMT-BEYONDTRST-001, OS Type: Linux
 VM vmbyondtrst01 is not in the allowed list, skipping...
 Processing VM: vmbyondtrst02, Resource Group: RG-MGMT-BEYONDTRST-001, OS Type: Linux
@@ -254,9 +372,7 @@ Switching to subscription: hii-mgmt-001
 Checking if resource group rg-mgmt-beyondtrst-001 exists in subscription hii-mgmt-001...
 true
 Resource group rg-mgmt-beyondtrst-001 exists.
-(OperationNotAllowed) Cannot modify extensions in the VM when the VM is not running.
-Code: OperationNotAllowed
-Message: Cannot modify extensions in the VM when the VM is not running.
+VM vmbytrstjump01 is not running. Skipping installation.
 Processing VM: vmwinpac001, Resource Group: RG-MGMT-INTUNE-001, OS Type: Linux
 VM vmwinpac001 is allowed, processing...
 Switching to subscription: hii-mgmt-001
@@ -264,7 +380,7 @@ Checking if resource group rg-mgmt-intune-001 exists in subscription hii-mgmt-00
 true
 Resource group rg-mgmt-intune-001 exists.
 Failed to parse string as JSON:
-{"commandToExecute": "#!/bin/bash\nwget -O /tmp/NessusAgent-10.6.4-ubuntu1404_amd64.deb \\"https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-ubuntu1404_amd64.deb?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D\\"\nsudo dpkg -i /tmp/NessusAgent-10.6.4-ubuntu1404_amd64.deb"}
+{"commandToExecute": "#!/bin/bash\nwget -O /tmp/NessusAgent-10.6.4-ubuntu1404_amd64.deb \\"https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-ubuntu1404_amd64.deb?se=2024-06-27T04%3A19Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=J6fU3EDCP69vAtwZKQfoG6EslMNVxOf6B7WG8PJTjFA%3D\\"\nsudo dpkg -i /tmp/NessusAgent-10.6.4-ubuntu1404_amd64.deb"}
 Error detail: Expecting ',' delimiter: line 1 column 92 (char 91)
 Please provide a valid JSON file path or JSON string.
 The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
@@ -274,7 +390,7 @@ Switching to subscription: hii-mgmt-001
 Checking if resource group rg-mgmt-svcnow-001 exists in subscription hii-mgmt-001...
 true
 Resource group rg-mgmt-svcnow-001 exists.
-[Warning] This output may compromise security by showing the following secrets: settings, commandToExecute. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+[Warning] This output may compromise security by showing the following secrets: commandToExecute, settings. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
 {
   "autoUpgradeMinorVersion": true,
   "enableAutomaticUpgrade": null,
@@ -290,7 +406,7 @@ Resource group rg-mgmt-svcnow-001 exists.
   "publisher": "Microsoft.Compute",
   "resourceGroup": "rg-mgmt-svcnow-001",
   "settings": {
-    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
+    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T04%3A19Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=J6fU3EDCP69vAtwZKQfoG6EslMNVxOf6B7WG8PJTjFA%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
   },
   "suppressFailures": null,
   "tags": null,
@@ -304,3 +420,536 @@ Switching to subscription: hii-mgmt-001
 Checking if resource group rg-mgmt-tenable-001 exists in subscription hii-mgmt-001...
 true
 Resource group rg-mgmt-tenable-001 exists.
+(VMExtensionProvisioningError) VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Extension '' of Handler 'Microsoft.Compute.CustomScriptExtension' version '1.10.16' faulted due to exception during extension processing'. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
+Code: VMExtensionProvisioningError
+Message: VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Extension '' of Handler 'Microsoft.Compute.CustomScriptExtension' version '1.10.16' faulted due to exception during extension processing'. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
+Processing VM: vmavdstd1-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-0 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-1 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-2 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-3 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-4 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-5 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-6 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-7 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-8 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-9 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-0 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-1 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-2 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-3 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-4 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-5 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-6 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-7 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-8 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-9 is not in the allowed list, skipping...
+Processing VM: vmedstools01, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
+VM vmedstools01 is not in the allowed list, skipping...
+Processing VM: vmsharegate001, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
+VM vmsharegate001 is not in the allowed list, skipping...
+Processing VM: vmsharegate002, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
+VM vmsharegate002 is not in the allowed list, skipping...
+Resetting storage account network rules to previous state
+(ResourceGroupNotFound) Resource group 'rg-inf-scripts-001' could not be found.
+Code: ResourceGroupNotFound
+Message: Resource group 'rg-inf-scripts-001' could not be found.
+(ResourceGroupNotFound) Resource group 'rg-inf-scripts-001' could not be found.
+Code: ResourceGroupNotFound
+Message: Resource group 'rg-inf-scripts-001' could not be found.jeff [ ~ ]$ ./DeployNessusToVMs.sh
+Switching to subscription: b56097b7-e22e-46fc-92b9-da53cb50cb23
+Temporarily allowing access from all networks to the storage account
+{
+  "accessTier": "Hot",
+  "accountMigrationInProgress": null,
+  "allowBlobPublicAccess": false,
+  "allowCrossTenantReplication": false,
+  "allowSharedKeyAccess": true,
+  "allowedCopyScope": null,
+  "azureFilesIdentityBasedAuthentication": null,
+  "blobRestoreStatus": null,
+  "creationTime": "2024-06-24T20:18:29.238123+00:00",
+  "customDomain": null,
+  "defaultToOAuthAuthentication": null,
+  "dnsEndpointType": null,
+  "enableHttpsTrafficOnly": true,
+  "enableNfsV3": null,
+  "encryption": {
+    "encryptionIdentity": null,
+    "keySource": "Microsoft.Storage",
+    "keyVaultProperties": null,
+    "requireInfrastructureEncryption": false,
+    "services": {
+      "blob": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2024-06-24T20:18:29.316249+00:00"
+      },
+      "file": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2024-06-24T20:18:29.316249+00:00"
+      },
+      "queue": null,
+      "table": null
+    }
+  },
+  "extendedLocation": null,
+  "failoverInProgress": null,
+  "geoReplicationStats": null,
+  "id": "/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/rg-inf-scripts-001/providers/Microsoft.Storage/storageAccounts/azagentdeploy001",
+  "identity": null,
+  "immutableStorageWithVersioning": null,
+  "isHnsEnabled": null,
+  "isLocalUserEnabled": null,
+  "isSftpEnabled": null,
+  "isSkuConversionBlocked": null,
+  "keyCreationTime": {
+    "key1": "2024-06-24T20:18:29.316249+00:00",
+    "key2": "2024-06-24T20:18:29.316249+00:00"
+  },
+  "keyPolicy": null,
+  "kind": "StorageV2",
+  "largeFileSharesState": "Enabled",
+  "lastGeoFailoverTime": null,
+  "location": "usgovvirginia",
+  "minimumTlsVersion": "TLS1_2",
+  "name": "azagentdeploy001",
+  "networkRuleSet": {
+    "bypass": "AzureServices",
+    "defaultAction": "Allow",
+    "ipRules": [
+      {
+        "action": "Allow",
+        "ipAddressOrRange": "136.226.38.121"
+      }
+    ],
+    "ipv6Rules": [],
+    "resourceAccessRules": [],
+    "virtualNetworkRules": []
+  },
+  "primaryEndpoints": {
+    "blob": "https://azagentdeploy001.blob.core.usgovcloudapi.net/",
+    "dfs": "https://azagentdeploy001.dfs.core.usgovcloudapi.net/",
+    "file": "https://azagentdeploy001.file.core.usgovcloudapi.net/",
+    "internetEndpoints": null,
+    "microsoftEndpoints": null,
+    "queue": "https://azagentdeploy001.queue.core.usgovcloudapi.net/",
+    "table": "https://azagentdeploy001.table.core.usgovcloudapi.net/",
+    "web": "https://azagentdeploy001.z2.web.core.usgovcloudapi.net/"
+  },
+  "primaryLocation": "usgovvirginia",
+  "privateEndpointConnections": [],
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": "Enabled",
+  "resourceGroup": "rg-inf-scripts-001",
+  "routingPreference": null,
+  "sasPolicy": null,
+  "secondaryEndpoints": null,
+  "secondaryLocation": null,
+  "sku": {
+    "name": "Standard_LRS",
+    "tier": "Standard"
+  },
+  "statusOfPrimary": "available",
+  "statusOfSecondary": null,
+  "storageAccountSkuConversionStatus": null,
+  "tags": {},
+  "type": "Microsoft.Storage/storageAccounts"
+}
+Retrieving storage account key for: azagentdeploy001
+WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+Storage account key retrieved successfully.
+Generating SAS token for storage account.
+WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+SAS token generated successfully.
+Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T04%3A19Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=J6fU3EDCP69vAtwZKQfoG6EslMNVxOf6B7WG8PJTjFA%3D
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1172  100  1172    0     0  18502      0 --:--:-- --:--:-- --:--:-- 18603
+Content of downloaded CSV file:
+NAME,TYPE,SUBSCRIPTION,RESOURCE GROUP,LOCATION,STATUS,OPERATING SYSTEM,SIZE,PUBLIC IP ADDRESS,DISKS
+vmbytrstjump01,Virtual machine,hii-mgmt-001,rg-mgmt-beyondtrst-001,USGov Virginia,Stopped (deallocated),Windows,Standard_B4ms,-,1
+vmcnctjmpbx-001,Virtual machine,hii-cnct-001,rg-cnct-jmpbx-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,1
+vmcnctjmpbx-002,Virtual machine,hii-cnct-001,rg-cnct-jmpbx-002,USGov Virginia,Stopped (deallocated),Windows,Standard_D4s_v3,-,1
+vmstigtest-linux,Virtual machine,hii-inf-001,rg-inf-images-001,USGov Virginia,Running,Linux,Standard_D4s_v3,-,1
+vmstigtest-windows,Virtual machine,hii-inf-001,rg-inf-images-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,1
+vmsvcnow01,Virtual machine,hii-mgmt-001,rg-mgmt-svcnow-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,2
+vmtenable01,Virtual machine,hii-mgmt-001,rg-mgmt-tenable-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,1
+vmwinget001,Virtual machine,hii-mgmt-001,rg-intune-prod-001,USGov Virginia,Stopped (deallocated),Linux,Standard_B2s,-,1
+vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Running,Linux,Standard_B2s,62.10.62.168,1
+Processing VM: vmcnctjmpbx-001, Resource Group: RG-CNCT-JMPBX-001, OS Type: Windows
+VM vmcnctjmpbx-001 is allowed, processing...
+Switching to subscription: hii-cnct-001
+Checking if resource group rg-cnct-jmpbx-001 exists in subscription hii-cnct-001...
+true
+Resource group rg-cnct-jmpbx-001 exists.
+A CustomScriptExtension extension with name install-powershell-modules already exists. Updating it with your settings...
+[Warning] This output may compromise security by showing the following secrets: settings, commandToExecute. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+{
+  "autoUpgradeMinorVersion": true,
+  "enableAutomaticUpgrade": null,
+  "forceUpdateTag": null,
+  "id": "/subscriptions/5e2ccec2-02a9-481f-8a00-aa5440e574b3/resourceGroups/rg-cnct-jmpbx-001/providers/Microsoft.Compute/virtualMachines/vmcnctjmpbx-001/extensions/install-powershell-modules",
+  "instanceView": null,
+  "location": "usgovvirginia",
+  "name": "install-powershell-modules",
+  "protectedSettings": null,
+  "protectedSettingsFromKeyVault": null,
+  "provisionAfterExtensions": null,
+  "provisioningState": "Succeeded",
+  "publisher": "Microsoft.Compute",
+  "resourceGroup": "rg-cnct-jmpbx-001",
+  "settings": {
+    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T04%3A19Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=J6fU3EDCP69vAtwZKQfoG6EslMNVxOf6B7WG8PJTjFA%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
+  },
+  "suppressFailures": null,
+  "tags": null,
+  "type": "Microsoft.Compute/virtualMachines/extensions",
+  "typeHandlerVersion": "1.10",
+  "typePropertiesType": "CustomScriptExtension"
+}
+Processing VM: vmcnctjmpbx-002, Resource Group: RG-CNCT-JMPBX-002, OS Type: Windows
+VM vmcnctjmpbx-002 is allowed, processing...
+Switching to subscription: hii-cnct-001
+Checking if resource group rg-cnct-jmpbx-002 exists in subscription hii-cnct-001...
+true
+Resource group rg-cnct-jmpbx-002 exists.
+VM vmcnctjmpbx-002 is not running. Skipping installation.
+Processing VM: vmpalofw001, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
+VM vmpalofw001 is not in the allowed list, skipping...
+Processing VM: vmpalofw002, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
+VM vmpalofw002 is not in the allowed list, skipping...
+Processing VM: vmt1palongfw001, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
+VM vmt1palongfw001 is not in the allowed list, skipping...
+Processing VM: vmt1palongfw002, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
+VM vmt1palongfw002 is not in the allowed list, skipping...
+Processing VM: vmzscappcnct01, Resource Group: RG-CNCT-ZSCAL-001, OS Type: Linux
+VM vmzscappcnct01 is not in the allowed list, skipping...
+Processing VM: vmzscappcnct02, Resource Group: RG-CNCT-ZSCAL-001, OS Type: Linux
+VM vmzscappcnct02 is not in the allowed list, skipping...
+Processing VM: vmzscappcnct03, Resource Group: RG-CNCT-ZSCAL-001, OS Type: Linux
+VM vmzscappcnct03 is not in the allowed list, skipping...
+Processing VM: vmstigtest-linux, Resource Group: RG-INF-IMAGES-001, OS Type: Linux
+VM vmstigtest-linux is allowed, processing...
+Switching to subscription: hii-inf-001
+Checking if resource group rg-inf-images-001 exists in subscription hii-inf-001...
+true
+Resource group rg-inf-images-001 exists.
+(VMExtensionProvisioningError) VM has reported a failure when processing extension 'CustomScript' (publisher 'Microsoft.Azure.Extensions' and type 'CustomScript'). Error message: 'Enable failed: failed to execute command: command terminated with exit status=1
+[stdout]
+Last metadata expiration check: 1:58:21 ago on Wed 26 Jun 2024 02:22:50 AM UTC.
+Package wget-1.19.5-8.el8_1.1.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+Last metadata expiration check: 1:58:23 ago on Wed 26 Jun 2024 02:22:50 AM UTC.
+Package rpm-4.14.2-40.el8_2.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+Verifying...                          ########################################
+Preparing...                          ########################################
+
+[stderr]
+.......... 87%  174M 0s
+ 17450K .......... .......... .......... .......... .......... 87%  178M 0s
+ 17500K .......... .......... .......... .......... .......... 88%  193M 0s
+ 17550K .......... .......... .......... .......... .......... 88%  191M 0s
+ 17600K .......... .......... .......... .......... .......... 88%  156M 0s
+ 17650K .......... .......... .......... .......... .......... 88%  177M 0s
+ 17700K .......... .......... .......... .......... .......... 89%  184M 0s
+ 17750K .......... .......... .......... .......... .......... 89%  189M 0s
+ 17800K .......... .......... .......... .......... .......... 89%  166M 0s
+ 17850K .......... .......... .......... .......... .......... 89%  189M 0s
+ 17900K .......... .......... .......... .......... .......... 90%  189M 0s
+ 17950K .......... .......... .......... .......... .......... 90%  191M 0s
+ 18000K .......... .......... .......... .......... .......... 90%  149M 0s
+ 18050K .......... .......... .......... .......... .......... 90%  189M 0s
+ 18100K .......... .......... .......... .......... .......... 91%  178M 0s
+ 18150K .......... .......... .......... .......... .......... 91%  187M 0s
+ 18200K .......... .......... .......... .......... .......... 91%  164M 0s
+ 18250K .......... .......... .......... .......... .......... 91%  188M 0s
+ 18300K .......... .......... .......... .......... .......... 92%  190M 0s
+ 18350K .......... .......... .......... .......... .......... 92%  180M 0s
+ 18400K .......... .......... .......... .......... .......... 92%  156M 0s
+ 18450K .......... .......... .......... .......... .......... 92%  183M 0s
+ 18500K .......... .......... .......... .......... .......... 93%  191M 0s
+ 18550K .......... .......... .......... .......... .......... 93%  179M 0s
+ 18600K .......... .......... .......... .......... .......... 93%  174M 0s
+ 18650K .......... .......... .......... .......... .......... 93%  182M 0s
+ 18700K .......... .......... .......... .......... .......... 94%  191M 0s
+ 18750K .......... .......... .......... .......... .......... 94%  184M 0s
+ 18800K .......... .......... .......... .......... .......... 94%  238M 0s
+ 18850K .......... .......... .......... .......... .......... 94%  302M 0s
+ 18900K .......... .......... .......... .......... .......... 95%  310M 0s
+ 18950K .......... .......... .......... .......... .......... 95%  310M 0s
+ 19000K .......... .......... .......... .......... .......... 95%  263M 0s
+ 19050K .......... .......... .......... .......... .......... 95%  312M 0s
+ 19100K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19150K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19200K .......... .......... .......... .......... .......... 96%  260M 0s
+ 19250K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19300K .......... .......... .......... .......... .......... 97%  288M 0s
+ 19350K .......... .......... .......... .......... .......... 97%  310M 0s
+ 19400K .......... .......... .......... .......... .......... 97%  282M 0s
+ 19450K .......... .......... .......... .......... .......... 97%  309M 0s
+ 19500K .......... .......... .......... .......... .......... 98%  313M 0s
+ 19550K .......... .......... .......... .......... .......... 98%  299M 0s
+ 19600K .......... .......... .......... .......... .......... 98%  246M 0s
+ 19650K .......... .......... .......... .......... .......... 98%  312M 0s
+ 19700K .......... .......... .......... .......... .......... 99%  312M 0s
+ 19750K .......... .......... .......... .......... .......... 99%  312M 0s
+ 19800K .......... .......... .......... .......... .......... 99%  283M 0s
+ 19850K .......... .......... .......... .......... .......... 99%  315M 0s
+ 19900K .......... ..........                                 100%  245M=0.2s
+
+2024-06-26 04:21:15 (107 MB/s) - ‘/tmp/NessusAgent-10.6.4-el8.x86_64.rpm’ saved [20398348/20398348]
+
+warning: /tmp/NessusAgent-10.6.4-el8.x86_64.rpm: Header V4 RSA/SHA256 Signature, key ID 2f12969d: NOKEY
+        package NessusAgent-10.6.4-el8.x86_64 is already installed
+'. More information on troubleshooting is available at https://aka.ms/VMExtensionCSELinuxTroubleshoot. 
+Code: VMExtensionProvisioningError
+Message: VM has reported a failure when processing extension 'CustomScript' (publisher 'Microsoft.Azure.Extensions' and type 'CustomScript'). Error message: 'Enable failed: failed to execute command: command terminated with exit status=1
+[stdout]
+Last metadata expiration check: 1:58:21 ago on Wed 26 Jun 2024 02:22:50 AM UTC.
+Package wget-1.19.5-8.el8_1.1.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+Last metadata expiration check: 1:58:23 ago on Wed 26 Jun 2024 02:22:50 AM UTC.
+Package rpm-4.14.2-40.el8_2.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+Verifying...                          ########################################
+Preparing...                          ########################################
+
+[stderr]
+.......... 87%  174M 0s
+ 17450K .......... .......... .......... .......... .......... 87%  178M 0s
+ 17500K .......... .......... .......... .......... .......... 88%  193M 0s
+ 17550K .......... .......... .......... .......... .......... 88%  191M 0s
+ 17600K .......... .......... .......... .......... .......... 88%  156M 0s
+ 17650K .......... .......... .......... .......... .......... 88%  177M 0s
+ 17700K .......... .......... .......... .......... .......... 89%  184M 0s
+ 17750K .......... .......... .......... .......... .......... 89%  189M 0s
+ 17800K .......... .......... .......... .......... .......... 89%  166M 0s
+ 17850K .......... .......... .......... .......... .......... 89%  189M 0s
+ 17900K .......... .......... .......... .......... .......... 90%  189M 0s
+ 17950K .......... .......... .......... .......... .......... 90%  191M 0s
+ 18000K .......... .......... .......... .......... .......... 90%  149M 0s
+ 18050K .......... .......... .......... .......... .......... 90%  189M 0s
+ 18100K .......... .......... .......... .......... .......... 91%  178M 0s
+ 18150K .......... .......... .......... .......... .......... 91%  187M 0s
+ 18200K .......... .......... .......... .......... .......... 91%  164M 0s
+ 18250K .......... .......... .......... .......... .......... 91%  188M 0s
+ 18300K .......... .......... .......... .......... .......... 92%  190M 0s
+ 18350K .......... .......... .......... .......... .......... 92%  180M 0s
+ 18400K .......... .......... .......... .......... .......... 92%  156M 0s
+ 18450K .......... .......... .......... .......... .......... 92%  183M 0s
+ 18500K .......... .......... .......... .......... .......... 93%  191M 0s
+ 18550K .......... .......... .......... .......... .......... 93%  179M 0s
+ 18600K .......... .......... .......... .......... .......... 93%  174M 0s
+ 18650K .......... .......... .......... .......... .......... 93%  182M 0s
+ 18700K .......... .......... .......... .......... .......... 94%  191M 0s
+ 18750K .......... .......... .......... .......... .......... 94%  184M 0s
+ 18800K .......... .......... .......... .......... .......... 94%  238M 0s
+ 18850K .......... .......... .......... .......... .......... 94%  302M 0s
+ 18900K .......... .......... .......... .......... .......... 95%  310M 0s
+ 18950K .......... .......... .......... .......... .......... 95%  310M 0s
+ 19000K .......... .......... .......... .......... .......... 95%  263M 0s
+ 19050K .......... .......... .......... .......... .......... 95%  312M 0s
+ 19100K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19150K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19200K .......... .......... .......... .......... .......... 96%  260M 0s
+ 19250K .......... .......... .......... .......... .......... 96%  311M 0s
+ 19300K .......... .......... .......... .......... .......... 97%  288M 0s
+ 19350K .......... .......... .......... .......... .......... 97%  310M 0s
+ 19400K .......... .......... .......... .......... .......... 97%  282M 0s
+ 19450K .......... .......... .......... .......... .......... 97%  309M 0s
+ 19500K .......... .......... .......... .......... .......... 98%  313M 0s
+ 19550K .......... .......... .......... .......... .......... 98%  299M 0s
+ 19600K .......... .......... .......... .......... .......... 98%  246M 0s
+ 19650K .......... .......... .......... .......... .......... 98%  312M 0s
+ 19700K .......... .......... .......... .......... .......... 99%  312M 0s
+ 19750K .......... .......... .......... .......... .......... 99%  312M 0s
+ 19800K .......... .......... .......... .......... .......... 99%  283M 0s
+ 19850K .......... .......... .......... .......... .......... 99%  315M 0s
+ 19900K .......... ..........                                 100%  245M=0.2s
+
+2024-06-26 04:21:15 (107 MB/s) - ‘/tmp/NessusAgent-10.6.4-el8.x86_64.rpm’ saved [20398348/20398348]
+
+warning: /tmp/NessusAgent-10.6.4-el8.x86_64.rpm: Header V4 RSA/SHA256 Signature, key ID 2f12969d: NOKEY
+        package NessusAgent-10.6.4-el8.x86_64 is already installed
+'. More information on troubleshooting is available at https://aka.ms/VMExtensionCSELinuxTroubleshoot. 
+Processing VM: vmstigtest-windows, Resource Group: RG-INF-IMAGES-001, OS Type: Windows
+VM vmstigtest-windows is allowed, processing...
+Switching to subscription: hii-inf-001
+Checking if resource group rg-inf-images-001 exists in subscription hii-inf-001...
+true
+Resource group rg-inf-images-001 exists.
+[Warning] This output may compromise security by showing the following secrets: commandToExecute, settings. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+{
+  "autoUpgradeMinorVersion": true,
+  "enableAutomaticUpgrade": null,
+  "forceUpdateTag": null,
+  "id": "/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/rg-inf-images-001/providers/Microsoft.Compute/virtualMachines/vmstigtest-windows/extensions/CustomScriptExtension",
+  "instanceView": null,
+  "location": "usgovvirginia",
+  "name": "CustomScriptExtension",
+  "protectedSettings": null,
+  "protectedSettingsFromKeyVault": null,
+  "provisionAfterExtensions": null,
+  "provisioningState": "Succeeded",
+  "publisher": "Microsoft.Compute",
+  "resourceGroup": "rg-inf-images-001",
+  "settings": {
+    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T04%3A19Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=J6fU3EDCP69vAtwZKQfoG6EslMNVxOf6B7WG8PJTjFA%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
+  },
+  "suppressFailures": null,
+  "tags": null,
+  "type": "Microsoft.Compute/virtualMachines/extensions",
+  "typeHandlerVersion": "1.10",
+  "typePropertiesType": "CustomScriptExtension"
+}
+Processing VM: vmwinget001, Resource Group: RG-INTUNE-PROD-001, OS Type: Linux
+VM vmwinget001 is allowed, processing...
+Switching to subscription: hii-mgmt-001
+Checking if resource group rg-intune-prod-001 exists in subscription hii-mgmt-001...
+true
+Resource group rg-intune-prod-001 exists.
+VM vmwinget001 is not running. Skipping installation.
+Processing VM: vmbyondtrst01, Resource Group: RG-MGMT-BEYONDTRST-001, OS Type: Linux
+VM vmbyondtrst01 is not in the allowed list, skipping...
+Processing VM: vmbyondtrst02, Resource Group: RG-MGMT-BEYONDTRST-001, OS Type: Linux
+VM vmbyondtrst02 is not in the allowed list, skipping...
+Processing VM: vmbytrstjump01, Resource Group: RG-MGMT-BEYONDTRST-001, OS Type: Windows
+VM vmbytrstjump01 is allowed, processing...
+Switching to subscription: hii-mgmt-001
+Checking if resource group rg-mgmt-beyondtrst-001 exists in subscription hii-mgmt-001...
+true
+Resource group rg-mgmt-beyondtrst-001 exists.
+VM vmbytrstjump01 is not running. Skipping installation.
+Processing VM: vmwinpac001, Resource Group: RG-MGMT-INTUNE-001, OS Type: Linux
+VM vmwinpac001 is allowed, processing...
+Switching to subscription: hii-mgmt-001
+Checking if resource group rg-mgmt-intune-001 exists in subscription hii-mgmt-001...
+true
+Resource group rg-mgmt-intune-001 exists.
+Failed to parse string as JSON:
+{"commandToExecute": "#!/bin/bash\nwget -O /tmp/NessusAgent-10.6.4-ubuntu1404_amd64.deb \\"https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-ubuntu1404_amd64.deb?se=2024-06-27T04%3A19Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=J6fU3EDCP69vAtwZKQfoG6EslMNVxOf6B7WG8PJTjFA%3D\\"\nsudo dpkg -i /tmp/NessusAgent-10.6.4-ubuntu1404_amd64.deb"}
+Error detail: Expecting ',' delimiter: line 1 column 92 (char 91)
+Please provide a valid JSON file path or JSON string.
+The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
+Processing VM: vmsvcnow01, Resource Group: RG-MGMT-SVCNOW-001, OS Type: Windows
+VM vmsvcnow01 is allowed, processing...
+Switching to subscription: hii-mgmt-001
+Checking if resource group rg-mgmt-svcnow-001 exists in subscription hii-mgmt-001...
+true
+Resource group rg-mgmt-svcnow-001 exists.
+[Warning] This output may compromise security by showing the following secrets: commandToExecute, settings. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+{
+  "autoUpgradeMinorVersion": true,
+  "enableAutomaticUpgrade": null,
+  "forceUpdateTag": null,
+  "id": "/subscriptions/c38137e9-2c7c-4c88-bb0c-c7bfe6e1872b/resourceGroups/rg-mgmt-svcnow-001/providers/Microsoft.Compute/virtualMachines/vmsvcnow01/extensions/CustomScriptExtension",
+  "instanceView": null,
+  "location": "usgovvirginia",
+  "name": "CustomScriptExtension",
+  "protectedSettings": null,
+  "protectedSettingsFromKeyVault": null,
+  "provisionAfterExtensions": null,
+  "provisioningState": "Succeeded",
+  "publisher": "Microsoft.Compute",
+  "resourceGroup": "rg-mgmt-svcnow-001",
+  "settings": {
+    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T04%3A19Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=J6fU3EDCP69vAtwZKQfoG6EslMNVxOf6B7WG8PJTjFA%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
+  },
+  "suppressFailures": null,
+  "tags": null,
+  "type": "Microsoft.Compute/virtualMachines/extensions",
+  "typeHandlerVersion": "1.10",
+  "typePropertiesType": "CustomScriptExtension"
+}
+Processing VM: vmtenable01, Resource Group: RG-MGMT-TENABLE-001, OS Type: Windows
+VM vmtenable01 is allowed, processing...
+Switching to subscription: hii-mgmt-001
+Checking if resource group rg-mgmt-tenable-001 exists in subscription hii-mgmt-001...
+true
+Resource group rg-mgmt-tenable-001 exists.
+(VMExtensionProvisioningError) VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Extension '' of Handler 'Microsoft.Compute.CustomScriptExtension' version '1.10.16' faulted due to exception during extension processing'. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
+Code: VMExtensionProvisioningError
+Message: VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Extension '' of Handler 'Microsoft.Compute.CustomScriptExtension' version '1.10.16' faulted due to exception during extension processing'. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
+Processing VM: vmavdstd1-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-0 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-1 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-2 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-3 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-4 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-5 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-6 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-7 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-8 is not in the allowed list, skipping...
+Processing VM: vmavdstd1-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd1-9 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-0 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-1 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-2 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-3 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-4 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-5 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-6 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-7 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-8 is not in the allowed list, skipping...
+Processing VM: vmavdstd2-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
+VM vmavdstd2-9 is not in the allowed list, skipping...
+Processing VM: vmedstools01, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
+VM vmedstools01 is not in the allowed list, skipping...
+Processing VM: vmsharegate001, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
+VM vmsharegate001 is not in the allowed list, skipping...
+Processing VM: vmsharegate002, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
+VM vmsharegate002 is not in the allowed list, skipping...
+Resetting storage account network rules to previous state
+(ResourceGroupNotFound) Resource group 'rg-inf-scripts-001' could not be found.
+Code: ResourceGroupNotFound
+Message: Resource group 'rg-inf-scripts-001' could not be found.
+(ResourceGroupNotFound) Resource group 'rg-inf-scripts-001' could not be found.
+Code: ResourceGroupNotFound
+Message: Resource group 'rg-inf-scripts-001' could not be found.
