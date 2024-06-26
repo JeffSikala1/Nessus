@@ -1,3 +1,4 @@
+##
 #!/bin/bash
 
 # Check if jq and curl are installed
@@ -12,7 +13,7 @@ storageAccountName="azagentdeploy001"
 storageContainerName="scripts"
 allowed_vms_csv="AzureVirtualMachines.csv"
 local_csv_path="/tmp/$allowed_vms_csv"
-management_subscription="b56097b7-e22e-46fc-92b9-da53cb50cb23"  # Replace with your actual management subscription ID
+management_subscription="b56097b7-e22e-46fc-92b9-da53cb50cb23"  # Replace with subscription ID of blob storage
 
 # Switch to the correct subscription for the storage account
 echo "Switching to subscription: $management_subscription"
@@ -143,7 +144,7 @@ install_nessus_agent_ubuntu() {
     # Create the install script content
     installScriptContent=$(cat <<EOT
 #!/bin/bash
-wget -O /tmp/$nessusAgentUbuntu "$blob_service_endpoint/$storageContainerName/$nessusAgentUbuntu?$sas_token"
+wget -O /tmp/$nessusAgentUbuntu '$blob_service_endpoint/$storageContainerName/$nessusAgentUbuntu?$sas_token'
 sudo dpkg -i /tmp/$nessusAgentUbuntu
 EOT
 )
@@ -171,7 +172,7 @@ install_nessus_agent_rhel() {
 #!/bin/bash
 sudo yum install -y wget
 sudo yum install -y rpm
-wget -O /tmp/$nessusAgentRHEL '$blob_service_endpoint/$storageContainerName/$nessusAgentRHEL?$sas_token'
+wget -O /tmp/$nessusAgentRHEL "$blob_service_endpoint/$storageContainerName/$nessusAgentRHEL?$sas_token"
 sudo rpm -ivh /tmp/$nessusAgentRHEL
 EOT
 )
@@ -244,7 +245,8 @@ for subscription in $subscriptions; do
 
                         if [[ "$osInfo" == *"Ubuntu"* ]]; then
                             install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
-                        elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
+                        elif [[ "$osInfo" == *"Red Hat"* ]] ||
+                        [[ "$osInfo" == *"CentOS"* ]]; then
                             install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
                         else
                             echo "Unsupported or unknown Linux distribution for VM: $vmName"
@@ -262,13 +264,13 @@ for subscription in $subscriptions; do
     done
 done
 
-# Reset storage account network rules to their previous state (example: allow Azure services and specific IP)
+# Reset storage account network rules to their previous state
 echo "Resetting storage account network rules to previous state"
-az storage account update --name $storageAccountName --resource-group rg-inf-scripts-001 --default-action Deny --bypass AzureServices
+az storage account update --name $storageAccountName --resource-group rg-inf-scripts-001 --subscription $management_subscription --default-action Deny --bypass AzureServices
 
 # Check if the resource group exists before adding the network rule
 if az group exists --name rg-inf-scripts-001; then
-    az storage account network-rule add --account-name $storageAccountName --resource-group rg-inf-scripts-001 --ip-address "136.226.38.121"
+    az storage account network-rule add --account-name $storageAccountName --resource-group rg-inf-scripts-001 --subscription $management_subscription --ip-address "136.226.38.121"
 else
     echo "Resource group rg-inf-scripts-001 does not exist. Skipping network rule reset."
 fi
