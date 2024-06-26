@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Enable debugging mode
-set -x
-
 # Check if jq and curl are installed
 if ! command -v jq &> /dev/null || ! command -v curl &> /dev/null
 then
@@ -234,6 +231,7 @@ for subscription in $subscriptions; do
                         --query "value[0].message" -o tsv | tr -d '\r')
 
                     if [[ "$osInfo" == *"Ubuntu"* ]]; then
+                        install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
                     elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
                         install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
                     else
@@ -253,6 +251,3 @@ done
 echo "Resetting storage account network rules to previous state"
 az storage account update --name $storageAccountName --resource-group rg-inf-scripts-001 --default-action Deny --bypass AzureServices
 az storage account network-rule add --account-name $storageAccountName --resource-group rg-inf-scripts-001 --ip-address "136.226.38.121"
-
-# Disable debugging mode
-set +x
