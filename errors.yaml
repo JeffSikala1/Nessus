@@ -1,3 +1,4 @@
+jeff [ ~ ]$ ./DeployNessusToVMs.sh
 Switching to subscription: b56097b7-e22e-46fc-92b9-da53cb50cb23
 Temporarily allowing access from all networks to the storage account
 {
@@ -99,12 +100,17 @@ Temporarily allowing access from all networks to the storage account
   "type": "Microsoft.Storage/storageAccounts"
 }
 Retrieving storage account key for: azagentdeploy001
+WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
 Storage account key retrieved successfully.
 Generating SAS token for storage account.
+WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
 SAS token generated successfully.
-Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T03%3A44Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=kHFMThdXlGFnyRVYcWEqmsmGfVHHpa6MEATvVwnC1SY%3D
+Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1172  100  1172    0     0  20557      0 --:--:-- --:--:-- --:--:-- 20928
 Content of downloaded CSV file:
-﻿NAME,TYPE,SUBSCRIPTION,RESOURCE GROUP,LOCATION,STATUS,OPERATING SYSTEM,SIZE,PUBLIC IP ADDRESS,DISKS
+NAME,TYPE,SUBSCRIPTION,RESOURCE GROUP,LOCATION,STATUS,OPERATING SYSTEM,SIZE,PUBLIC IP ADDRESS,DISKS
 vmbytrstjump01,Virtual machine,hii-mgmt-001,rg-mgmt-beyondtrst-001,USGov Virginia,Stopped (deallocated),Windows,Standard_B4ms,-,1
 vmcnctjmpbx-001,Virtual machine,hii-cnct-001,rg-cnct-jmpbx-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,1
 vmcnctjmpbx-002,Virtual machine,hii-cnct-001,rg-cnct-jmpbx-002,USGov Virginia,Stopped (deallocated),Windows,Standard_D4s_v3,-,1
@@ -116,850 +122,185 @@ vmwinget001,Virtual machine,hii-mgmt-001,rg-intune-prod-001,USGov Virginia,Stopp
 vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Running,Linux,Standard_B2s,62.10.62.168,1
 Processing VM: vmcnctjmpbx-001, Resource Group: RG-CNCT-JMPBX-001, OS Type: Windows
 VM vmcnctjmpbx-001 is allowed, processing...
-Checking if subscription Comparing VM 'vmcnctjmpbx-001' with allowed VM '﻿NAME'
-Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
-hii-cnct-001 exists...
-Subscription Comparing VM 'vmcnctjmpbx-001' with allowed VM '﻿NAME'
-Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmcnctjmpbx-001' with allowed VM 'vmcnctjmpbx-001'
-hii-cnct-001 does not exist.
+Switching to subscription: hii-cnct-001
+Checking if resource group rg-cnct-jmpbx-001 exists in subscription hii-cnct-001...
+true
+Resource group rg-cnct-jmpbx-001 exists.
+A CustomScriptExtension extension with name install-powershell-modules already exists. Updating it with your settings...
+[Warning] This output may compromise security by showing the following secrets: settings, commandToExecute. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+{
+  "autoUpgradeMinorVersion": true,
+  "enableAutomaticUpgrade": null,
+  "forceUpdateTag": null,
+  "id": "/subscriptions/5e2ccec2-02a9-481f-8a00-aa5440e574b3/resourceGroups/rg-cnct-jmpbx-001/providers/Microsoft.Compute/virtualMachines/vmcnctjmpbx-001/extensions/install-powershell-modules",
+  "instanceView": null,
+  "location": "usgovvirginia",
+  "name": "install-powershell-modules",
+  "protectedSettings": null,
+  "protectedSettingsFromKeyVault": null,
+  "provisionAfterExtensions": null,
+  "provisioningState": "Succeeded",
+  "publisher": "Microsoft.Compute",
+  "resourceGroup": "rg-cnct-jmpbx-001",
+  "settings": {
+    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
+  },
+  "suppressFailures": null,
+  "tags": null,
+  "type": "Microsoft.Compute/virtualMachines/extensions",
+  "typeHandlerVersion": "1.10",
+  "typePropertiesType": "CustomScriptExtension"
+}
 Processing VM: vmcnctjmpbx-002, Resource Group: RG-CNCT-JMPBX-002, OS Type: Windows
 VM vmcnctjmpbx-002 is allowed, processing...
-Checking if subscription Comparing VM 'vmcnctjmpbx-002' with allowed VM '﻿NAME'
-Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
-hii-cnct-001 exists...
-Subscription Comparing VM 'vmcnctjmpbx-002' with allowed VM '﻿NAME'
-Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmcnctjmpbx-002' with allowed VM 'vmcnctjmpbx-002'
-hii-cnct-001 does not exist.
+Switching to subscription: hii-cnct-001
+Checking if resource group rg-cnct-jmpbx-002 exists in subscription hii-cnct-001...
+true
+Resource group rg-cnct-jmpbx-002 exists.
+(OperationNotAllowed) Cannot modify extensions in the VM when the VM is not running.
+Code: OperationNotAllowed
+Message: Cannot modify extensions in the VM when the VM is not running.
 Processing VM: vmpalofw001, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
-VM vmpalofw001 is allowed, processing...
-Checking if subscription Comparing VM 'vmpalofw001' with allowed VM '﻿NAME'
-Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
-Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
-Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmpalofw001' with allowed VM '﻿NAME'
-Comparing VM 'vmpalofw001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmpalofw001' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmpalofw001' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmpalofw001' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmpalofw001' with allowed VM 'vmtenable01'
-Comparing VM 'vmpalofw001' with allowed VM 'vmwinget001'
-Comparing VM 'vmpalofw001' with allowed VM 'vmwinpac001' does not exist.
+VM vmpalofw001 is not in the allowed list, skipping...
 Processing VM: vmpalofw002, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
-VM vmpalofw002 is allowed, processing...
-Checking if subscription Comparing VM 'vmpalofw002' with allowed VM '﻿NAME'
-Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
-Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
-Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmpalofw002' with allowed VM '﻿NAME'
-Comparing VM 'vmpalofw002' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmpalofw002' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmpalofw002' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmpalofw002' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmpalofw002' with allowed VM 'vmtenable01'
-Comparing VM 'vmpalofw002' with allowed VM 'vmwinget001'
-Comparing VM 'vmpalofw002' with allowed VM 'vmwinpac001' does not exist.
+VM vmpalofw002 is not in the allowed list, skipping...
 Processing VM: vmt1palongfw001, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
-VM vmt1palongfw001 is allowed, processing...
-Checking if subscription Comparing VM 'vmt1palongfw001' with allowed VM '﻿NAME'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmtenable01'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinget001'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmt1palongfw001' with allowed VM '﻿NAME'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmtenable01'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinget001'
-Comparing VM 'vmt1palongfw001' with allowed VM 'vmwinpac001' does not exist.
+VM vmt1palongfw001 is not in the allowed list, skipping...
 Processing VM: vmt1palongfw002, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
-VM vmt1palongfw002 is allowed, processing...
-Checking if subscription Comparing VM 'vmt1palongfw002' with allowed VM '﻿NAME'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmtenable01'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmwinget001'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmt1palongfw002' with allowed VM '﻿NAME'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmtenable01'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmwinget001'
-Comparing VM 'vmt1palongfw002' with allowed VM 'vmwinpac001' does not exist.
+VM vmt1palongfw002 is not in the allowed list, skipping...
 Processing VM: vmzscappcnct01, Resource Group: RG-CNCT-ZSCAL-001, OS Type: Linux
-VM vmzscappcnct01 is allowed, processing...
-Checking if subscription Comparing VM 'vmzscappcnct01' with allowed VM '﻿NAME'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmtenable01'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmwinget001'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmzscappcnct01' with allowed VM '﻿NAME'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmtenable01'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmwinget001'
-Comparing VM 'vmzscappcnct01' with allowed VM 'vmwinpac001' does not exist.
+VM vmzscappcnct01 is not in the allowed list, skipping...
 Processing VM: vmzscappcnct02, Resource Group: RG-CNCT-ZSCAL-001, OS Type: Linux
-VM vmzscappcnct02 is allowed, processing...
-Checking if subscription Comparing VM 'vmzscappcnct02' with allowed VM '﻿NAME'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmtenable01'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmwinget001'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmzscappcnct02' with allowed VM '﻿NAME'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmtenable01'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmwinget001'
-Comparing VM 'vmzscappcnct02' with allowed VM 'vmwinpac001' does not exist.
+VM vmzscappcnct02 is not in the allowed list, skipping...
 Processing VM: vmzscappcnct03, Resource Group: RG-CNCT-ZSCAL-001, OS Type: Linux
-VM vmzscappcnct03 is allowed, processing...
-Checking if subscription Comparing VM 'vmzscappcnct03' with allowed VM '﻿NAME'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmtenable01'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmwinget001'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmzscappcnct03' with allowed VM '﻿NAME'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmtenable01'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmwinget001'
-Comparing VM 'vmzscappcnct03' with allowed VM 'vmwinpac001' does not exist.
+VM vmzscappcnct03 is not in the allowed list, skipping...
 Processing VM: vmstigtest-linux, Resource Group: RG-INF-IMAGES-001, OS Type: Linux
 VM vmstigtest-linux is allowed, processing...
-Checking if subscription Comparing VM 'vmstigtest-linux' with allowed VM '﻿NAME'
-Comparing VM 'vmstigtest-linux' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmstigtest-linux' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmstigtest-linux' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmstigtest-linux' with allowed VM 'vmstigtest-linux'
-hii-inf-001 exists...
-Subscription Comparing VM 'vmstigtest-linux' with allowed VM '﻿NAME'
-Comparing VM 'vmstigtest-linux' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmstigtest-linux' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmstigtest-linux' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmstigtest-linux' with allowed VM 'vmstigtest-linux'
-hii-inf-001 does not exist.
+Switching to subscription: hii-inf-001
+Checking if resource group rg-inf-images-001 exists in subscription hii-inf-001...
+true
+Resource group rg-inf-images-001 exists.
+[Warning] This output may compromise security by showing the following secrets: settings, commandToExecute. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+{
+  "autoUpgradeMinorVersion": true,
+  "enableAutomaticUpgrade": null,
+  "forceUpdateTag": null,
+  "id": "/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/rg-inf-images-001/providers/Microsoft.Compute/virtualMachines/vmstigtest-linux/extensions/CustomScript",
+  "instanceView": null,
+  "location": "usgovvirginia",
+  "name": "CustomScript",
+  "protectedSettings": null,
+  "protectedSettingsFromKeyVault": null,
+  "provisionAfterExtensions": null,
+  "provisioningState": "Succeeded",
+  "publisher": "Microsoft.Azure.Extensions",
+  "resourceGroup": "rg-inf-images-001",
+  "settings": {
+    "commandToExecute": "#!/bin/bash\nsudo yum install -y wget\nsudo yum install -y rpm\nwget -O /tmp/NessusAgent-10.6.4-el8.x86_64.rpm \"https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-el8.x86_64.rpm?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D\"\nsudo rpm -ivh /tmp/NessusAgent-10.6.4-el8.x86_64.rpm"
+  },
+  "suppressFailures": null,
+  "tags": null,
+  "type": "Microsoft.Compute/virtualMachines/extensions",
+  "typeHandlerVersion": "2.0",
+  "typePropertiesType": "CustomScript"
+}
 Processing VM: vmstigtest-windows, Resource Group: RG-INF-IMAGES-001, OS Type: Windows
 VM vmstigtest-windows is allowed, processing...
-Checking if subscription Comparing VM 'vmstigtest-windows' with allowed VM '﻿NAME'
-Comparing VM 'vmstigtest-windows' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmstigtest-windows' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmstigtest-windows' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmstigtest-windows' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmstigtest-windows' with allowed VM 'vmstigtest-windows'
-hii-inf-001 exists...
-Subscription Comparing VM 'vmstigtest-windows' with allowed VM '﻿NAME'
-Comparing VM 'vmstigtest-windows' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmstigtest-windows' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmstigtest-windows' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmstigtest-windows' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmstigtest-windows' with allowed VM 'vmstigtest-windows'
-hii-inf-001 does not exist.
+Switching to subscription: hii-inf-001
+Checking if resource group rg-inf-images-001 exists in subscription hii-inf-001...
+true
+Resource group rg-inf-images-001 exists.
+[Warning] This output may compromise security by showing the following secrets: settings, commandToExecute. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+{
+  "autoUpgradeMinorVersion": true,
+  "enableAutomaticUpgrade": null,
+  "forceUpdateTag": null,
+  "id": "/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/rg-inf-images-001/providers/Microsoft.Compute/virtualMachines/vmstigtest-windows/extensions/CustomScriptExtension",
+  "instanceView": null,
+  "location": "usgovvirginia",
+  "name": "CustomScriptExtension",
+  "protectedSettings": null,
+  "protectedSettingsFromKeyVault": null,
+  "provisionAfterExtensions": null,
+  "provisioningState": "Succeeded",
+  "publisher": "Microsoft.Compute",
+  "resourceGroup": "rg-inf-images-001",
+  "settings": {
+    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
+  },
+  "suppressFailures": null,
+  "tags": null,
+  "type": "Microsoft.Compute/virtualMachines/extensions",
+  "typeHandlerVersion": "1.10",
+  "typePropertiesType": "CustomScriptExtension"
+}
 Processing VM: vmwinget001, Resource Group: RG-INTUNE-PROD-001, OS Type: Linux
 VM vmwinget001 is allowed, processing...
-Checking if subscription Comparing VM 'vmwinget001' with allowed VM '﻿NAME'
-Comparing VM 'vmwinget001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmwinget001' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmwinget001' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmwinget001' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmwinget001' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmwinget001' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmwinget001' with allowed VM 'vmtenable01'
-Comparing VM 'vmwinget001' with allowed VM 'vmwinget001'
-hii-mgmt-001 exists...
-Subscription Comparing VM 'vmwinget001' with allowed VM '﻿NAME'
-Comparing VM 'vmwinget001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmwinget001' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmwinget001' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmwinget001' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmwinget001' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmwinget001' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmwinget001' with allowed VM 'vmtenable01'
-Comparing VM 'vmwinget001' with allowed VM 'vmwinget001'
-hii-mgmt-001 does not exist.
+Switching to subscription: hii-mgmt-001
+Checking if resource group rg-intune-prod-001 exists in subscription hii-mgmt-001...
+true
+Resource group rg-intune-prod-001 exists.
+ERROR: (OperationNotAllowed) The operation requires the VM to be running (or set to run).
+Code: OperationNotAllowed
+Message: The operation requires the VM to be running (or set to run).
+Unsupported or unknown Linux distribution for VM: vmwinget001
 Processing VM: vmbyondtrst01, Resource Group: RG-MGMT-BEYONDTRST-001, OS Type: Linux
-VM vmbyondtrst01 is allowed, processing...
-Checking if subscription Comparing VM 'vmbyondtrst01' with allowed VM '﻿NAME'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmtenable01'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmwinget001'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmbyondtrst01' with allowed VM '﻿NAME'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmtenable01'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmwinget001'
-Comparing VM 'vmbyondtrst01' with allowed VM 'vmwinpac001' does not exist.
+VM vmbyondtrst01 is not in the allowed list, skipping...
 Processing VM: vmbyondtrst02, Resource Group: RG-MGMT-BEYONDTRST-001, OS Type: Linux
-VM vmbyondtrst02 is allowed, processing...
-Checking if subscription Comparing VM 'vmbyondtrst02' with allowed VM '﻿NAME'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmtenable01'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmwinget001'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmbyondtrst02' with allowed VM '﻿NAME'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmtenable01'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmwinget001'
-Comparing VM 'vmbyondtrst02' with allowed VM 'vmwinpac001' does not exist.
+VM vmbyondtrst02 is not in the allowed list, skipping...
 Processing VM: vmbytrstjump01, Resource Group: RG-MGMT-BEYONDTRST-001, OS Type: Windows
 VM vmbytrstjump01 is allowed, processing...
-Checking if subscription Comparing VM 'vmbytrstjump01' with allowed VM '﻿NAME'
-Comparing VM 'vmbytrstjump01' with allowed VM 'vmbytrstjump01'
-hii-mgmt-001 exists...
-Subscription Comparing VM 'vmbytrstjump01' with allowed VM '﻿NAME'
-Comparing VM 'vmbytrstjump01' with allowed VM 'vmbytrstjump01'
-hii-mgmt-001 does not exist.
+Switching to subscription: hii-mgmt-001
+Checking if resource group rg-mgmt-beyondtrst-001 exists in subscription hii-mgmt-001...
+true
+Resource group rg-mgmt-beyondtrst-001 exists.
+(OperationNotAllowed) Cannot modify extensions in the VM when the VM is not running.
+Code: OperationNotAllowed
+Message: Cannot modify extensions in the VM when the VM is not running.
 Processing VM: vmwinpac001, Resource Group: RG-MGMT-INTUNE-001, OS Type: Linux
 VM vmwinpac001 is allowed, processing...
-Checking if subscription Comparing VM 'vmwinpac001' with allowed VM '﻿NAME'
-Comparing VM 'vmwinpac001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmwinpac001' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmwinpac001' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmwinpac001' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmwinpac001' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmwinpac001' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmwinpac001' with allowed VM 'vmtenable01'
-Comparing VM 'vmwinpac001' with allowed VM 'vmwinget001'
-Comparing VM 'vmwinpac001' with allowed VM 'vmwinpac001'
-hii-mgmt-001 exists...
-Subscription Comparing VM 'vmwinpac001' with allowed VM '﻿NAME'
-Comparing VM 'vmwinpac001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmwinpac001' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmwinpac001' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmwinpac001' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmwinpac001' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmwinpac001' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmwinpac001' with allowed VM 'vmtenable01'
-Comparing VM 'vmwinpac001' with allowed VM 'vmwinget001'
-Comparing VM 'vmwinpac001' with allowed VM 'vmwinpac001'
-hii-mgmt-001 does not exist.
+Switching to subscription: hii-mgmt-001
+Checking if resource group rg-mgmt-intune-001 exists in subscription hii-mgmt-001...
+true
+Resource group rg-mgmt-intune-001 exists.
+Failed to parse string as JSON:
+{"commandToExecute": "#!/bin/bash\nwget -O /tmp/NessusAgent-10.6.4-ubuntu1404_amd64.deb \\"https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-ubuntu1404_amd64.deb?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D\\"\nsudo dpkg -i /tmp/NessusAgent-10.6.4-ubuntu1404_amd64.deb"}
+Error detail: Expecting ',' delimiter: line 1 column 92 (char 91)
+Please provide a valid JSON file path or JSON string.
+The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
 Processing VM: vmsvcnow01, Resource Group: RG-MGMT-SVCNOW-001, OS Type: Windows
 VM vmsvcnow01 is allowed, processing...
-Checking if subscription Comparing VM 'vmsvcnow01' with allowed VM '﻿NAME'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmsvcnow01'
-hii-mgmt-001 exists...
-Subscription Comparing VM 'vmsvcnow01' with allowed VM '﻿NAME'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmsvcnow01' with allowed VM 'vmsvcnow01'
-hii-mgmt-001 does not exist.
+Switching to subscription: hii-mgmt-001
+Checking if resource group rg-mgmt-svcnow-001 exists in subscription hii-mgmt-001...
+true
+Resource group rg-mgmt-svcnow-001 exists.
+[Warning] This output may compromise security by showing the following secrets: settings, commandToExecute. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
+{
+  "autoUpgradeMinorVersion": true,
+  "enableAutomaticUpgrade": null,
+  "forceUpdateTag": null,
+  "id": "/subscriptions/c38137e9-2c7c-4c88-bb0c-c7bfe6e1872b/resourceGroups/rg-mgmt-svcnow-001/providers/Microsoft.Compute/virtualMachines/vmsvcnow01/extensions/CustomScriptExtension",
+  "instanceView": null,
+  "location": "usgovvirginia",
+  "name": "CustomScriptExtension",
+  "protectedSettings": null,
+  "protectedSettingsFromKeyVault": null,
+  "provisionAfterExtensions": null,
+  "provisioningState": "Succeeded",
+  "publisher": "Microsoft.Compute",
+  "resourceGroup": "rg-mgmt-svcnow-001",
+  "settings": {
+    "commandToExecute": "powershell -Command \"Invoke-WebRequest -Uri 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/NessusAgent-10.6.4-x64.msi?se=2024-06-27T03%3A49Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=YmYASNKLotf3NLwoYM87vOCJoeugmELIv6WjYzFsJYM%3D' -OutFile 'C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi'; Start-Process msiexec.exe -ArgumentList '/i C:\\Users\\nessus\\NessusAgent-10.6.4-x64.msi /quiet /norestart' -Wait\""
+  },
+  "suppressFailures": null,
+  "tags": null,
+  "type": "Microsoft.Compute/virtualMachines/extensions",
+  "typeHandlerVersion": "1.10",
+  "typePropertiesType": "CustomScriptExtension"
+}
 Processing VM: vmtenable01, Resource Group: RG-MGMT-TENABLE-001, OS Type: Windows
 VM vmtenable01 is allowed, processing...
-Checking if subscription Comparing VM 'vmtenable01' with allowed VM '﻿NAME'
-Comparing VM 'vmtenable01' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmtenable01' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmtenable01' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmtenable01' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmtenable01' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmtenable01' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmtenable01' with allowed VM 'vmtenable01'
-hii-mgmt-001 exists...
-Subscription Comparing VM 'vmtenable01' with allowed VM '﻿NAME'
-Comparing VM 'vmtenable01' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmtenable01' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmtenable01' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmtenable01' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmtenable01' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmtenable01' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmtenable01' with allowed VM 'vmtenable01'
-hii-mgmt-001 does not exist.
-Processing VM: vmavdstd1-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-0 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd1-0' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd1-0' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-0' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd1-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-1 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd1-1' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd1-1' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-1' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd1-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-2 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd1-2' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd1-2' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-2' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd1-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-3 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd1-3' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd1-3' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-3' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd1-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-4 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd1-4' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd1-4' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-4' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd1-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-5 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd1-5' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd1-5' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-5' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd1-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-6 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd1-6' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd1-6' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-6' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd1-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-7 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd1-7' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd1-7' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-7' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd1-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-8 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd1-8' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd1-8' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-8' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd1-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-9 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd1-9' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd1-9' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd1-9' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd2-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-0 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd2-0' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd2-0' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-0' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd2-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-1 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd2-1' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd2-1' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-1' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd2-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-2 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd2-2' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd2-2' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-2' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd2-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-3 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd2-3' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd2-3' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-3' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd2-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-4 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd2-4' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd2-4' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-4' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd2-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-5 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd2-5' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd2-5' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-5' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd2-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-6 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd2-6' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd2-6' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-6' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd2-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-7 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd2-7' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd2-7' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-7' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd2-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-8 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd2-8' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd2-8' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-8' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmavdstd2-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-9 is allowed, processing...
-Checking if subscription Comparing VM 'vmavdstd2-9' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmavdstd2-9' with allowed VM '﻿NAME'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmtenable01'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmwinget001'
-Comparing VM 'vmavdstd2-9' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmedstools01, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
-VM vmedstools01 is allowed, processing...
-Checking if subscription Comparing VM 'vmedstools01' with allowed VM '﻿NAME'
-Comparing VM 'vmedstools01' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmedstools01' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmedstools01' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmedstools01' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmedstools01' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmedstools01' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmedstools01' with allowed VM 'vmtenable01'
-Comparing VM 'vmedstools01' with allowed VM 'vmwinget001'
-Comparing VM 'vmedstools01' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmedstools01' with allowed VM '﻿NAME'
-Comparing VM 'vmedstools01' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmedstools01' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmedstools01' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmedstools01' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmedstools01' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmedstools01' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmedstools01' with allowed VM 'vmtenable01'
-Comparing VM 'vmedstools01' with allowed VM 'vmwinget001'
-Comparing VM 'vmedstools01' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmsharegate001, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
-VM vmsharegate001 is allowed, processing...
-Checking if subscription Comparing VM 'vmsharegate001' with allowed VM '﻿NAME'
-Comparing VM 'vmsharegate001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmsharegate001' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmsharegate001' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmsharegate001' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmsharegate001' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmsharegate001' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmsharegate001' with allowed VM 'vmtenable01'
-Comparing VM 'vmsharegate001' with allowed VM 'vmwinget001'
-Comparing VM 'vmsharegate001' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmsharegate001' with allowed VM '﻿NAME'
-Comparing VM 'vmsharegate001' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmsharegate001' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmsharegate001' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmsharegate001' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmsharegate001' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmsharegate001' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmsharegate001' with allowed VM 'vmtenable01'
-Comparing VM 'vmsharegate001' with allowed VM 'vmwinget001'
-Comparing VM 'vmsharegate001' with allowed VM 'vmwinpac001' does not exist.
-Processing VM: vmsharegate002, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
-VM vmsharegate002 is allowed, processing...
-Checking if subscription Comparing VM 'vmsharegate002' with allowed VM '﻿NAME'
-Comparing VM 'vmsharegate002' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmsharegate002' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmsharegate002' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmsharegate002' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmsharegate002' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmsharegate002' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmsharegate002' with allowed VM 'vmtenable01'
-Comparing VM 'vmsharegate002' with allowed VM 'vmwinget001'
-Comparing VM 'vmsharegate002' with allowed VM 'vmwinpac001' exists...
-Subscription Comparing VM 'vmsharegate002' with allowed VM '﻿NAME'
-Comparing VM 'vmsharegate002' with allowed VM 'vmbytrstjump01'
-Comparing VM 'vmsharegate002' with allowed VM 'vmcnctjmpbx-001'
-Comparing VM 'vmsharegate002' with allowed VM 'vmcnctjmpbx-002'
-Comparing VM 'vmsharegate002' with allowed VM 'vmstigtest-linux'
-Comparing VM 'vmsharegate002' with allowed VM 'vmstigtest-windows'
-Comparing VM 'vmsharegate002' with allowed VM 'vmsvcnow01'
-Comparing VM 'vmsharegate002' with allowed VM 'vmtenable01'
-Comparing VM 'vmsharegate002' with allowed VM 'vmwinget001'
-Comparing VM 'vmsharegate002' with allowed VM 'vmwinpac001' does not exist.
-Resetting storage account network rules to previous state
+Switching to subscription: hii-mgmt-001
+Checking if resource group rg-mgmt-tenable-001 exists in subscription hii-mgmt-001...
+true
+Resource group rg-mgmt-tenable-001 exists.
