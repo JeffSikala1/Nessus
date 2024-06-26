@@ -1,17 +1,6 @@
 jeff [ ~ ]$ ./DeployNessusToVMs.sh
-+ command -v jq
-+ command -v curl
-+ storageAccountName=azagentdeploy001
-+ storageContainerName=scripts
-+ allowed_vms_csv=AzureVirtualMachines.csv
-+ local_csv_path=/tmp/AzureVirtualMachines.csv
-+ management_subscription=b56097b7-e22e-46fc-92b9-da53cb50cb23
-+ echo 'Switching to subscription: b56097b7-e22e-46fc-92b9-da53cb50cb23'
 Switching to subscription: b56097b7-e22e-46fc-92b9-da53cb50cb23
-+ az account set --subscription b56097b7-e22e-46fc-92b9-da53cb50cb23
-+ echo 'Temporarily allowing access from all networks to the storage account'
 Temporarily allowing access from all networks to the storage account
-+ az storage account update --name azagentdeploy001 --resource-group rg-inf-scripts-001 --default-action Allow
 {
   "accessTier": "Hot",
   "accountMigrationInProgress": null,
@@ -110,35 +99,17 @@ Temporarily allowing access from all networks to the storage account
   "tags": {},
   "type": "Microsoft.Storage/storageAccounts"
 }
-+ echo 'Retrieving storage account key for: azagentdeploy001'
 Retrieving storage account key for: azagentdeploy001
-++ az storage account keys list --resource-group rg-inf-scripts-001 --account-name azagentdeploy001 --query '[0].value' --output tsv
 WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
-+ echo 'Storage account key retrieved successfully.'
 Storage account key retrieved successfully.
-+ export AZURE_STORAGE_ACCOUNT=azagentdeploy001
-+ AZURE_STORAGE_ACCOUNT=azagentdeploy001
-+ echo 'Generating SAS token for storage account.'
 Generating SAS token for storage account.
-+++ date -u -d '1 day' +%Y-%m-%dT%H:%MZ
-++ az storage account generate-sas --account-name azagentdeploy001 --permissions rl --resource-types sco --services b --expiry 2024-06-27T01:54Z --output tsv
 WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
-+ sas_token='se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D'
-+ '[' -z 'se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D' ']'
-+ echo 'SAS token generated successfully.'
 SAS token generated successfully.
-+ blob_service_endpoint=https://azagentdeploy001.blob.core.usgovcloudapi.net
-+ csv_url='https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D'
-+ echo 'Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D'
-Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D
-+ curl -o /tmp/AzureVirtualMachines.csv 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D'
+Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T02%3A44Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Or4Fp4rw3ankd12G54RnboArtTNP22fSXWt4P2FCQfk%3D
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100  1172  100  1172    0     0  20780      0 --:--:-- --:--:-- --:--:-- 20928
-+ '[' '!' -f /tmp/AzureVirtualMachines.csv ']'
-+ echo 'Content of downloaded CSV file:'
+100  1172  100  1172    0     0  20575      0 --:--:-- --:--:-- --:--:-- 20928
 Content of downloaded CSV file:
-+ cat /tmp/AzureVirtualMachines.csv
 NAME,TYPE,SUBSCRIPTION,RESOURCE GROUP,LOCATION,STATUS,OPERATING SYSTEM,SIZE,PUBLIC IP ADDRESS,DISKS
 vmbytrstjump01,Virtual machine,hii-mgmt-001,rg-mgmt-beyondtrst-001,USGov Virginia,Stopped (deallocated),Windows,Standard_B4ms,-,1
 vmcnctjmpbx-001,Virtual machine,hii-cnct-001,rg-cnct-jmpbx-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,1
@@ -149,133 +120,5 @@ vmsvcnow01,Virtual machine,hii-mgmt-001,rg-mgmt-svcnow-001,USGov Virginia,Runnin
 vmtenable01,Virtual machine,hii-mgmt-001,rg-mgmt-tenable-001,USGov Virginia,Running,Windows,Standard_D4s_v3,-,1
 vmwinget001,Virtual machine,hii-mgmt-001,rg-intune-prod-001,USGov Virginia,Stopped (deallocated),Linux,Standard_B2s,-,1
 vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Running,Linux,Standard_B2s,62.10.62.168,1
-+ read_allowed_vms
-+ allowed_vms=()
-+ IFS=,
-+ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
-+ [[ NAME != \N\A\M\E ]]
-+ [[ NAME == *\<\E\r\r\o\r\>* ]]
-+ allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ xargs
-++ echo NAME
-++ echo SUBSCRIPTION
-++ xargs
-++ echo 'RESOURCE GROUP'
-++ xargs
-+ IFS=,
-+ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
-+ [[ vmbytrstjump01 != \N\A\M\E ]]
-+ [[ vmbytrstjump01 == *\<\E\r\r\o\r\>* ]]
-+ allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ xargs
-++ echo vmbytrstjump01
-++ echo hii-mgmt-001
-++ xargs
-++ echo rg-mgmt-beyondtrst-001
-++ xargs
-+ IFS=,
-+ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
-+ [[ vmcnctjmpbx-001 != \N\A\M\E ]]
-+ [[ vmcnctjmpbx-001 == *\<\E\r\r\o\r\>* ]]
-+ allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ xargs
-++ echo vmcnctjmpbx-001
-++ echo hii-cnct-001
-++ xargs
-++ echo rg-cnct-jmpbx-001
-++ xargs
-+ IFS=,
-+ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
-+ [[ vmcnctjmpbx-002 != \N\A\M\E ]]
-+ [[ vmcnctjmpbx-002 == *\<\E\r\r\o\r\>* ]]
-+ allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ echo vmcnctjmpbx-002
-++ xargs
-++ echo hii-cnct-001
-++ xargs
-++ echo rg-cnct-jmpbx-002
-++ xargs
-+ IFS=,
-+ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
-+ [[ vmstigtest-linux != \N\A\M\E ]]
-+ [[ vmstigtest-linux == *\<\E\r\r\o\r\>* ]]
-+ allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ xargs
-++ echo vmstigtest-linux
-++ echo hii-inf-001
-++ xargs
-++ echo rg-inf-images-001
-++ xargs
-+ IFS=,
-+ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
-+ [[ vmstigtest-windows != \N\A\M\E ]]
-+ [[ vmstigtest-windows == *\<\E\r\r\o\r\>* ]]
-+ allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ xargs
-++ echo vmstigtest-windows
-++ echo hii-inf-001
-++ xargs
-++ echo rg-inf-images-001
-++ xargs
-+ IFS=,
-+ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
-+ [[ vmsvcnow01 != \N\A\M\E ]]
-+ [[ vmsvcnow01 == *\<\E\r\r\o\r\>* ]]
-+ allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ xargs
-++ echo vmsvcnow01
-++ echo hii-mgmt-001
-++ xargs
-++ echo rg-mgmt-svcnow-001
-++ xargs
-+ IFS=,
-+ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
-+ [[ vmtenable01 != \N\A\M\E ]]
-+ [[ vmtenable01 == *\<\E\r\r\o\r\>* ]]
-+ allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ xargs
-++ echo vmtenable01
-++ echo hii-mgmt-001
-++ xargs
-++ echo rg-mgmt-tenable-001
-++ xargs
-+ IFS=,
-+ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
-+ [[ vmwinget001 != \N\A\M\E ]]
-+ [[ vmwinget001 == *\<\E\r\r\o\r\>* ]]
-+ allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ xargs
-++ echo vmwinget001
-++ echo hii-mgmt-001
-++ xargs
-++ echo rg-intune-prod-001
-++ xargs
-+ IFS=,
-+ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
-+ [[ vmwinpac001 != \N\A\M\E ]]
-+ [[ vmwinpac001 == *\<\E\r\r\o\r\>* ]]
-+ allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ echo vmwinpac001
-++ xargs
-++ echo hii-mgmt-001
-++ xargs
-++ echo rg-mgmt-intune-001
-++ xargs
-+ IFS=,
-+ read -r name type subscription resourceGroup location status operatingSystem size publicIpAddress disks
-+ nessusAgentWindows=NessusAgent-10.6.4-x64.msi
-+ nessusAgentUbuntu=NessusAgent-10.6.4-ubuntu1404_amd64.deb
-+ nessusAgentRHEL=NessusAgent-10.6.4-el8.x86_64.rpm
-++ az account list --query '[?state=='\''Enabled'\''].id' -o tsv
-+ subscriptions='5e2ccec2-02a9-481f-8a00-aa5440e574b3
-b56097b7-e22e-46fc-92b9-da53cb50cb23
-c38137e9-2c7c-4c88-bb0c-c7bfe6e1872b
-29b04b2f-b64c-4792-890a-76d9617a18e1
-4c437c4a-e51d-448e-a2d1-8ca3383bee8b
-910857c3-85ff-44ba-be55-b4b3093cfdbe
-b0844a47-03c6-4a40-8c24-aa62a617a936
-dbef0776-721c-428b-bdc1-fa90085dbf6f
-e873319e-be73-4ac2-a683-b2c291fc4767'
-./DeployNessusToVMs.sh: line 239: conditional binary operator expected
-./DeployNessusToVMs.sh: line 239: syntax error near `[['
-./DeployNessusToVMs.sh: line 239: `                    elif [[ "$osInfo" == *"CentOS"* ]]; then'
+./DeployNessusToVMs.sh: line 234: syntax error near unexpected token `elif'
+./DeployNessusToVMs.sh: line 234: `                    elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then'
