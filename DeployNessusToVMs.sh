@@ -15,7 +15,7 @@ storageAccountName="azagentdeploy001"
 storageContainerName="scripts"
 allowed_vms_csv="AzureVirtualMachines.csv"
 local_csv_path="/tmp/$allowed_vms_csv"
-management_subscription="b56097b7-e22e-46c-92b9-da53cb50cb23"  # Replace with your actual management subscription ID
+management_subscription="b56097b7-e22e-46fc-92b9-da53cb50cb23"  # Replace with your actual management subscription ID
 
 # Switch to the correct subscription for the storage account
 echo "Switching to subscription: $management_subscription"
@@ -50,9 +50,8 @@ sas_token=$(az storage account generate-sas \
 if [ -z "$sas_token" ]; then
     echo "Failed to generate SAS token for the storage account."
     exit 1
-else
-    echo "SAS token generated successfully: $sas_token"
 fi
+echo "SAS token generated successfully."
 
 # Adjust the blob service endpoint for Azure Government Cloud
 blob_service_endpoint="https://$storageAccountName.blob.core.usgovcloudapi.net"
@@ -68,7 +67,10 @@ if [ ! -f "$local_csv_path" ]; then
     echo "Failed to download the CSV file from Azure Storage."
     exit 1
 fi
-echo "CSV file downloaded successfully."
+
+# Print out the content of the CSV file for debugging
+echo "Content of downloaded CSV file:"
+cat "$local_csv_path"
 
 # Function to read allowed VMs from the CSV file
 read_allowed_vms() {
