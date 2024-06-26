@@ -235,8 +235,8 @@ for subscription in $subscriptions; do
 
                     if [[ "$osInfo" == *"Ubuntu"* ]]; then
                         install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
-                    elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"*
-                    then
+                    elif [[ "$osInfo" == *"Red Hat"* ]] || [[
+                    elif [[ "$osInfo" == *"CentOS"* ]]; then
                         install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
                     else
                         echo "Unsupported or unknown Linux distribution for VM: $vmName"
