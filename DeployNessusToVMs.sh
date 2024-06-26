@@ -171,7 +171,7 @@ install_nessus_agent_rhel() {
 #!/bin/bash
 sudo yum install -y wget
 sudo yum install -y rpm
-wget -O /tmp/$nessusAgentRHEL "$blob_service_endpoint/$storageContainerName/$nessusAgentRHEL?$sas_token"
+wget -O /tmp/$nessusAgentRHEL '$blob_service_endpoint/$storageContainerName/$nessusAgentRHEL?$sas_token'
 sudo rpm -ivh /tmp/$nessusAgentRHEL
 EOT
 )
@@ -244,8 +244,7 @@ for subscription in $subscriptions; do
 
                         if [[ "$osInfo" == *"Ubuntu"* ]]; then
                             install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
-                        elif [[ "$osInfo" == *"Red Hat"* ]] ||
-                        [[ "$osInfo" == *"CentOS"* ]]; then
+                        elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
                             install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
                         else
                             echo "Unsupported or unknown Linux distribution for VM: $vmName"
