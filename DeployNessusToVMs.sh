@@ -236,6 +236,7 @@ for subscription in $subscriptions; do
                     if [ "$osType" == "Windows" ]; then
                         install_nessus_agent_windows "$vmName" "$allowed_vm_resourceGroup"
                     elif [ "$osType" == "Linux" ]; then
+                       
                         # Check if Ubuntu or RHEL
                         osInfo=$(az vm run-command invoke -g "$allowed_vm_resourceGroup" -n "$vmName" \
                             --command-id RunShellScript \
@@ -265,4 +266,10 @@ done
 # Reset storage account network rules to their previous state (example: allow Azure services and specific IP)
 echo "Resetting storage account network rules to previous state"
 az storage account update --name $storageAccountName --resource-group rg-inf-scripts-001 --default-action Deny --bypass AzureServices
-az storage account network-rule add --account-name $storageAccountName --resource-group rg-inf-scripts-001 --ip-address "136.226.38.121"
+
+# Check if the resource group exists before adding the network rule
+if az group exists --name rg-inf-scripts-001; then
+    az storage account network-rule add --account-name $storageAccountName --resource-group rg-inf-scripts-001 --ip-address "136.226.38.121"
+else
+    echo "Resource group rg-inf-scripts-001 does not exist. Skipping network rule reset."
+fi
