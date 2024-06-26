@@ -21,6 +21,10 @@ management_subscription="b56097b7-e22e-46fc-92b9-da53cb50cb23"  # Replace with y
 echo "Switching to subscription: $management_subscription"
 az account set --subscription "$management_subscription"
 
+# Update storage account network rules (allow access from all networks temporarily)
+echo "Temporarily allowing access from all networks to the storage account"
+az storage account update --name $storageAccountName --resource-group rg-inf-scripts-001 --default-action Allow
+
 # Get the storage account key
 echo "Retrieving storage account key for: $storageAccountName"
 storageAccountKey=$(az storage account keys list --resource-group rg-inf-scripts-001 --account-name $storageAccountName --query "[0].value" --output tsv)
@@ -52,28 +56,6 @@ if [ -z "$sas_token" ]; then
     exit 1
 fi
 echo "SAS token generated successfully."
-
-# Step 1: Check Storage Account Access Policy (Manual/Azure Portal or CLI)
-# This step is typically done outside the script, manually or with a separate command.
-
-# Step 2 & 3: Verify SAS Token Permissions and Update Script
-# Decode SAS token (simplified example, focusing on 'sp' parameter)
-sas_permissions=$(echo "$sas_token" | grep -oP '(?<=sp=)[^&]*')
-if [[ $sas_permissions != *r* ]]; then
-  echo "SAS token does not have read permission. Please check the SAS token permissions."
-  exit 1
-fi
-
-# Step 4: Attempt Access with Updated SAS Token
-# This step is already in the script, attempting to download the CSV with `curl`.
-# Ensure the SAS token used here is the one verified or updated.
-curl -o /tmp/AzureVirtualMachines.csv "$csv_url"
-if [ $? -ne 0 ]; then
-  echo "Failed to download CSV with the provided SAS token. Please check the token and try again."
-  exit 1
-else
-  echo "CSV file downloaded successfully."
-fi
 
 # Adjust the blob service endpoint for Azure Government Cloud
 blob_service_endpoint="https://$storageAccountName.blob.core.usgovcloudapi.net"
@@ -253,7 +235,8 @@ for subscription in $subscriptions; do
 
                     if [[ "$osInfo" == *"Ubuntu"* ]]; then
                         install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
-                    elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
+                    elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"*
+                    then
                         install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
                     else
                         echo "Unsupported or unknown Linux distribution for VM: $vmName"
@@ -267,6 +250,11 @@ for subscription in $subscriptions; do
         fi
     done
 done
+
+# Reset storage account network rules to their previous state (example: allow Azure services and specific IP)
+echo "Resetting storage account network rules to previous state"
+az storage account update --name $storageAccountName --resource-group rg-inf-scripts-001 --default-action Deny --bypass AzureServices
+az storage account network-rule add --account-name $storageAccountName --resource-group rg-inf-scripts-001 --ip-address "136.226.38.121"
 
 # Disable debugging mode
 set +x
