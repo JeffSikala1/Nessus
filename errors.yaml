@@ -21,4 +21,4 @@ jeff [ ~ ]$ az storage account show --name $storageAccountName --resource-group 
 ]
 jeff [ ~ ]$ az storage account show --name $storageAccountName --resource-group $resourceGroupName --subscription b56097b7-e22e-46fc-92b9-da53cb50cb23 --query "networkRuleSet.virtualNetworkRules" --output json
 []
-jeff [ ~ ]$ 
+jeff [ ~ ]$7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae 
