@@ -8,3 +8,104 @@ storageAccountKey=$(az storage account keys list --account-name $storageAccountN
 az storage container list --account-name $storageAccountName --account-key $storageAccountKey --output table
 
 az storage blob list --container-name $containerName --account-name $storageAccountName --account-key $storageAccountKey --output table
+
+
+jeff [ ~ ]$ az storage account update --name azagentdeploy001 -g rg-inf-scripts-001 --default-action Allow
+{
+  "accessTier": "Hot",
+  "accountMigrationInProgress": null,
+  "allowBlobPublicAccess": false,
+  "allowCrossTenantReplication": false,
+  "allowSharedKeyAccess": true,
+  "allowedCopyScope": null,
+  "azureFilesIdentityBasedAuthentication": null,
+  "blobRestoreStatus": null,
+  "creationTime": "2024-06-24T20:18:29.238123+00:00",
+  "customDomain": null,
+  "defaultToOAuthAuthentication": null,
+  "dnsEndpointType": null,
+  "enableHttpsTrafficOnly": true,
+  "enableNfsV3": null,
+  "encryption": {
+    "encryptionIdentity": null,
+    "keySource": "Microsoft.Storage",
+    "keyVaultProperties": null,
+    "requireInfrastructureEncryption": false,
+    "services": {
+      "blob": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2024-06-24T20:18:29.316249+00:00"
+      },
+      "file": {
+        "enabled": true,
+        "keyType": "Account",
+        "lastEnabledTime": "2024-06-24T20:18:29.316249+00:00"
+      },
+      "queue": null,
+      "table": null
+    }
+  },
+  "extendedLocation": null,
+  "failoverInProgress": null,
+  "geoReplicationStats": null,
+  "id": "/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/rg-inf-scripts-001/providers/Microsoft.Storage/storageAccounts/azagentdeploy001",
+  "identity": null,
+  "immutableStorageWithVersioning": null,
+  "isHnsEnabled": null,
+  "isLocalUserEnabled": null,
+  "isSftpEnabled": null,
+  "isSkuConversionBlocked": null,
+  "keyCreationTime": {
+    "key1": "2024-06-24T20:18:29.316249+00:00",
+    "key2": "2024-06-24T20:18:29.316249+00:00"
+  },
+  "keyPolicy": null,
+  "kind": "StorageV2",
+  "largeFileSharesState": "Enabled",
+  "lastGeoFailoverTime": null,
+  "location": "usgovvirginia",
+  "minimumTlsVersion": "TLS1_2",
+  "name": "azagentdeploy001",
+  "networkRuleSet": {
+    "bypass": "AzureServices",
+    "defaultAction": "Allow",
+    "ipRules": [
+      {
+        "action": "Allow",
+        "ipAddressOrRange": "136.226.38.121"
+      }
+    ],
+    "ipv6Rules": [],
+    "resourceAccessRules": [],
+    "virtualNetworkRules": []
+  },
+  "primaryEndpoints": {
+    "blob": "https://azagentdeploy001.blob.core.usgovcloudapi.net/",
+    "dfs": "https://azagentdeploy001.dfs.core.usgovcloudapi.net/",
+    "file": "https://azagentdeploy001.file.core.usgovcloudapi.net/",
+    "internetEndpoints": null,
+    "microsoftEndpoints": null,
+    "queue": "https://azagentdeploy001.queue.core.usgovcloudapi.net/",
+    "table": "https://azagentdeploy001.table.core.usgovcloudapi.net/",
+    "web": "https://azagentdeploy001.z2.web.core.usgovcloudapi.net/"
+  },
+  "primaryLocation": "usgovvirginia",
+  "privateEndpointConnections": [],
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": "Enabled",
+  "resourceGroup": "rg-inf-scripts-001",
+  "routingPreference": null,
+  "sasPolicy": null,
+  "secondaryEndpoints": null,
+  "secondaryLocation": null,
+  "sku": {
+    "name": "Standard_LRS",
+    "tier": "Standard"
+  },
+  "statusOfPrimary": "available",
+  "statusOfSecondary": null,
+  "storageAccountSkuConversionStatus": null,
+  "tags": {},
+  "type": "Microsoft.Storage/storageAccounts"
+}
