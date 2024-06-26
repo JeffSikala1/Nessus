@@ -97,7 +97,6 @@ is_vm_allowed() {
     local vm_name=$1
     for allowed_vm in "${allowed_vms[@]}"; do
         IFS=',' read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup <<< "$allowed_vm"
-        echo "Comparing VM '$vm_name' with allowed VM '$allowed_vm_name'"  # Debug statement
         if [[ "${vm_name,,}" == "${allowed_vm_name,,}" ]]; then
             echo "$allowed_vm_subscription,$allowed_vm_resourceGroup"
             return 0
@@ -214,41 +213,38 @@ for subscription in $subscriptions; do
             allowed_vm_subscription=$(echo "$allowed_vm_info" | cut -d',' -f1)
             allowed_vm_resourceGroup=$(echo "$allowed_vm_info" | cut -d',' -f2)
             echo "VM $vmName is allowed, processing..."
-            echo "Checking if subscription $allowed_vm_subscription exists..."
-            if az account show --subscription "$allowed_vm_subscription" &> /dev/null; then
-                echo "Subscription $allowed_vm_subscription exists."
-                echo "Switching to subscription: $allowed_vm_subscription"
-                az account set --subscription "$allowed_vm_subscription"
-                echo "Checking if resource group $allowed_vm_resourceGroup exists in subscription $allowed_vm_subscription..."
-                if az group exists --name "$allowed_vm_resourceGroup"; then
-                    echo "Resource group $allowed_vm_resourceGroup exists."
-                    if [ "$osType" == "Windows" ]; then
-                        install_nessus_agent_windows "$vmName" "$allowed_vm_resourceGroup"
-                    elif [ "$osType" == "Linux" ]; then
-                        # Check if Ubuntu or RHEL
-                        osInfo=$(az vm run-command invoke -g "$allowed_vm_resourceGroup" -n "$vmName" \
-                            --command-id RunShellScript \
-                            --scripts "cat /etc/*release" \
-                            --query "value[0].message" -o tsv | tr -d '\r')
-                        if [[ "$osInfo" == *"Ubuntu"* ]]; then
-                            install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
-                        elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
-                            install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
-                        else
-                            echo "Unsupported or unknown Linux distribution for VM: $vmName"
-                        fi
+            echo "Switching to subscription: $allowed_vm_subscription"
+            az account set --subscription "$allowed_vm_subscription"
+
+            echo "Checking if resource group $allowed_vm_resourceGroup exists in subscription $allowed_vm_subscription..."
+            if az group exists --name "$allowed_vm_resourceGroup"; then
+                echo "Resource group $allowed_vm_resourceGroup exists."
+
+                if [ "$osType" == "Windows" ]; then
+                    install_nessus_agent_windows "$vmName" "$allowed_vm_resourceGroup"
+                elif [ "$osType" == "Linux" ]; then
+                    # Check if Ubuntu or RHEL
+                    osInfo=$(az vm run-command invoke -g "$allowed_vm_resourceGroup" -n "$vmName" \
+                        --command-id RunShellScript \
+                        --scripts "cat /etc/*release" \
+                        --query "value[0].message" -o tsv | tr -d '\r')
+
+                    if [[ "$osInfo" == *"Ubuntu"* ]]; then
+                        install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
+                    elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
+                        install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
+                    else
+                        echo "Unsupported or unknown Linux distribution for VM: $vmName"
                     fi
-                else
-                    echo "Resource group $allowed_vm_resourceGroup does not exist in subscription $allowed_vm_subscription."
                 fi
             else
-                echo "Subscription $allowed_vm_subscription does not exist."
+                echo "Resource group $allowed_vm_resourceGroup does not exist in subscription $allowed_vm_subscription."
             fi
         else
             echo "VM $vmName is not in the allowed list, skipping..."
         fi
-        done
-        done
+    done
+done
 
 # Reset storage account network rules to their previous state (example: allow Azure services and specific IP)
 echo "Resetting storage account network rules to previous state"
