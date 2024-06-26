@@ -2030,3 +2030,237 @@ Comparing VM 'vmsharegate002' with allowed VM 'vmtenable01'
 Comparing VM 'vmsharegate002' with allowed VM 'vmwinget001'
 Comparing VM 'vmsharegate002' with allowed VM 'vmwinpac001'.
 Resetting storage account network rules to previous state
+
+
+Comparing VM '\''vmsharegate001'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate001'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate001'\'' with allowed VM '\''vmwinpac001'\''.'
++ for vm in $(echo "$vms" | jq -c '.[]')
+++ jq -r .name
+++ xargs
+++ echo '{"name":"vmsharegate002","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
++ vmName=vmsharegate002
+++ jq -r .resourceGroup
+++ xargs
+++ echo '{"name":"vmsharegate002","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
++ resourceGroup=RG-IDENT-EDS-001
+++ xargs
+++ echo '{"name":"vmsharegate002","osType":"Windows","resourceGroup":"RG-IDENT-EDS-001"}'
+++ jq -r .osType
++ osType=Windows
++ echo 'Processing VM: vmsharegate002, Resource Group: RG-IDENT-EDS-001, OS Type: Windows'
+++ is_vm_allowed vmsharegate002
+++ local vm_name=vmsharegate002
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\'''
+++ [[ vmsharegate002 == \\n\a\m\e ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\'''
+++ [[ vmsharegate002 == \v\m\b\y\t\r\s\t\j\u\m\p\0\1 ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\'''
+++ [[ vmsharegate002 == \v\m\c\n\c\t\j\m\p\b\x\-\0\0\1 ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\'''
+++ [[ vmsharegate002 == \v\m\c\n\c\t\j\m\p\b\x\-\0\0\2 ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\'''
+++ [[ vmsharegate002 == \v\m\s\t\i\g\t\e\s\t\-\l\i\n\u\x ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\'''
+++ [[ vmsharegate002 == \v\m\s\t\i\g\t\e\s\t\-\w\i\n\d\o\w\s ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\'''
+++ [[ vmsharegate002 == \v\m\s\v\c\n\o\w\0\1 ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\'''
+++ [[ vmsharegate002 == \v\m\t\e\n\a\b\l\e\0\1 ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\'''
+++ [[ vmsharegate002 == \v\m\w\i\n\g\e\t\0\0\1 ]]
+++ for allowed_vm in "${allowed_vms[@]}"
+++ IFS=,
+++ read -r allowed_vm_name allowed_vm_subscription allowed_vm_resourceGroup
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\'''
+++ [[ vmsharegate002 == \v\m\w\i\n\p\a\c\0\0\1 ]]
+++ echo ''
+++ return 1
++ allowed_vm_info='Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\'''
++ '[' -n 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\''' ']'
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\'''
+++ cut -d, -f1
++ allowed_vm_subscription='Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\'''
+++ echo 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\'''
+++ cut -d, -f2
++ allowed_vm_resourceGroup='Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\'''
++ echo 'VM vmsharegate002 is allowed, processing...'
++ echo 'Switching to subscription: Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\'''
++ az account set --subscription 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\'''
+ERROR: The subscription of 'comparing vm 'vmsharegate002' with allowed vm 'name'
+comparing vm 'vmsharegate002' with allowed vm 'vmbytrstjump01'
+comparing vm 'vmsharegate002' with allowed vm 'vmcnctjmpbx-001'
+comparing vm 'vmsharegate002' with allowed vm 'vmcnctjmpbx-002'
+comparing vm 'vmsharegate002' with allowed vm 'vmstigtest-linux'
+comparing vm 'vmsharegate002' with allowed vm 'vmstigtest-windows'
+comparing vm 'vmsharegate002' with allowed vm 'vmsvcnow01'
+comparing vm 'vmsharegate002' with allowed vm 'vmtenable01'
+comparing vm 'vmsharegate002' with allowed vm 'vmwinget001'
+comparing vm 'vmsharegate002' with allowed vm 'vmwinpac001'' doesn't exist in cloud 'AzureUSGovernment'.
++ echo 'Checking if resource group Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\'' exists in subscription Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\''...'
++ az group exists --name 'Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\'''
+ERROR: Operation returned an invalid status 'Bad Request'
++ echo 'Resource group Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\'' does not exist in subscription Comparing VM '\''vmsharegate002'\'' with allowed VM '\''NAME'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmbytrstjump01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmcnctjmpbx-002'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-linux'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmstigtest-windows'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmsvcnow01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmtenable01'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinget001'\''
+Comparing VM '\''vmsharegate002'\'' with allowed VM '\''vmwinpac001'\''.'
++ for subscription in $subscriptions
++ az account set --subscription dbef0776-721c-428b-bdc1-fa90085dbf6f
+++ az vm list --query '[].{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}' -o json
++ vms='[]'
+++ jq -c '.[]'
+++ echo '[]'
++ for subscription in $subscriptions
++ az account set --subscription e873319e-be73-4ac2-a683-b2c291fc4767
+++ az vm list --query '[].{name:name, resourceGroup:resourceGroup, osType:storageProfile.osDisk.osType}' -o json
++ vms='[]'
+++ echo '[]'
+++ jq -c '.[]'
++ set +x
+ERROR: (ResourceGroupNotFound) Resource group 'rg-inf-scripts-001' could not be found.
+Code: ResourceGroupNotFound
+Message: Resource group 'rg-inf-scripts-001' could not be found.
+ERROR: (ResourceGroupNotFound) Resource group 'rg-inf-scripts-001' could not be found.
+Code: ResourceGroupNotFound
+Message: Resource group 'rg-inf-scripts-001' could not be found.
