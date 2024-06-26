@@ -236,7 +236,6 @@ for subscription in $subscriptions; do
                     if [ "$osType" == "Windows" ]; then
                         install_nessus_agent_windows "$vmName" "$allowed_vm_resourceGroup"
                     elif [ "$osType" == "Linux" ]; then
-                       
                         # Check if Ubuntu or RHEL
                         osInfo=$(az vm run-command invoke -g "$allowed_vm_resourceGroup" -n "$vmName" \
                             --command-id RunShellScript \
@@ -245,7 +244,8 @@ for subscription in $subscriptions; do
 
                         if [[ "$osInfo" == *"Ubuntu"* ]]; then
                             install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
-                        elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
+                        elif [[ "$osInfo" == *"Red Hat"* ]] ||
+                        [[ "$osInfo" == *"CentOS"* ]]; then
                             install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
                         else
                             echo "Unsupported or unknown Linux distribution for VM: $vmName"
