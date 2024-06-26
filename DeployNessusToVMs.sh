@@ -189,6 +189,18 @@ EOT
         --settings "{\"commandToExecute\": \"$installScriptContent\"}"
 }
 
+# Function to check if VM is running
+is_vm_running() {
+    local vm_name=$1
+    local resource_group=$2
+    vm_status=$(az vm get-instance-view --name "$vm_name" --resource-group "$resource_group" --query "instanceView.statuses[?code=='PowerState/running'] | [0]" -o tsv)
+    if [[ -n "$vm_status" ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # Get list of all subscriptions
 subscriptions=$(az account list --query "[?state=='Enabled'].id" -o tsv)
 
@@ -220,22 +232,26 @@ for subscription in $subscriptions; do
             if az group exists --name "$allowed_vm_resourceGroup"; then
                 echo "Resource group $allowed_vm_resourceGroup exists."
 
-                if [ "$osType" == "Windows" ]; then
-                    install_nessus_agent_windows "$vmName" "$allowed_vm_resourceGroup"
-                elif [ "$osType" == "Linux" ]; then
-                    # Check if Ubuntu or RHEL
-                    osInfo=$(az vm run-command invoke -g "$allowed_vm_resourceGroup" -n "$vmName" \
-                        --command-id RunShellScript \
-                        --scripts "cat /etc/*release" \
-                        --query "value[0].message" -o tsv | tr -d '\r')
+                if is_vm_running "$vmName" "$allowed_vm_resourceGroup"; then
+                    if [ "$osType" == "Windows" ]; then
+                        install_nessus_agent_windows "$vmName" "$allowed_vm_resourceGroup"
+                    elif [ "$osType" == "Linux" ]; then
+                        # Check if Ubuntu or RHEL
+                        osInfo=$(az vm run-command invoke -g "$allowed_vm_resourceGroup" -n "$vmName" \
+                            --command-id RunShellScript \
+                            --scripts "cat /etc/*release" \
+                            --query "value[0].message" -o tsv | tr -d '\r')
 
-                    if [[ "$osInfo" == *"Ubuntu"* ]]; then
-                        install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
-                    elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
-                        install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
-                    else
-                        echo "Unsupported or unknown Linux distribution for VM: $vmName"
+                        if [[ "$osInfo" == *"Ubuntu"* ]]; then
+                            install_nessus_agent_ubuntu "$vmName" "$allowed_vm_resourceGroup"
+                        elif [[ "$osInfo" == *"Red Hat"* ]] || [[ "$osInfo" == *"CentOS"* ]]; then
+                            install_nessus_agent_rhel "$vmName" "$allowed_vm_resourceGroup"
+                        else
+                            echo "Unsupported or unknown Linux distribution for VM: $vmName"
+                        fi
                     fi
+                else
+                    echo "VM $vmName is not running. Skipping installation."
                 fi
             else
                 echo "Resource group $allowed_vm_resourceGroup does not exist in subscription $allowed_vm_subscription."
