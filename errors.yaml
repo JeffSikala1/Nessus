@@ -102,3 +102,16 @@ false
 (ResourceGroupNotFound) Resource group 'rg-inf-scripts-001' could not be found.
 Code: ResourceGroupNotFound
 Message: Resource group 'rg-inf-scripts-001' could not be found.
+
+jeff [ ~ ]$ az group show --name rg-inf-scripts-001 --subscription hii-inf-001
+{
+  "id": "/subscriptions/b56097b7-e22e-46fc-92b9-da53cb50cb23/resourceGroups/rg-inf-scripts-001",
+  "location": "usgovvirginia",
+  "managedBy": null,
+  "name": "rg-inf-scripts-001",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
