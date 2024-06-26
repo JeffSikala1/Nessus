@@ -1,16 +1,4 @@
-az storage account list --output table
-
-storageAccountName="YourStorageAccountName"
-containerName="YourContainerName"
-
-storageAccountKey=$(az storage account keys list --account-name $storageAccountName --query '[0].value' --output tsv)
-
-az storage container list --account-name $storageAccountName --account-key $storageAccountKey --output table
-
-az storage blob list --container-name $containerName --account-name $storageAccountName --account-key $storageAccountKey --output table
-
-
-jeff [ ~ ]$ ./DeployNessusToVMs.sh 
+jeff [ ~ ]$ ./DeployNessusToVMs.sh
 + command -v jq
 + command -v curl
 + storageAccountName=azagentdeploy001
@@ -133,20 +121,20 @@ Storage account key retrieved successfully.
 + echo 'Generating SAS token for storage account.'
 Generating SAS token for storage account.
 +++ date -u -d '1 day' +%Y-%m-%dT%H:%MZ
-++ az storage account generate-sas --account-name azagentdeploy001 --permissions rl --resource-types sco --services b --expiry 2024-06-27T00:53Z --output tsv
+++ az storage account generate-sas --account-name azagentdeploy001 --permissions rl --resource-types sco --services b --expiry 2024-06-27T01:54Z --output tsv
 WARNING: [Warning] This output may compromise security by showing secrets. Learn more at: https://go.microsoft.com/fwlink/?linkid=2258669
-+ sas_token='se=2024-06-27T00%3A53Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=qhX9U0VHjRaDTXNAl9skX%2BWgnoEZdqO4/69WC7GUv%2BA%3D'
-+ '[' -z 'se=2024-06-27T00%3A53Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=qhX9U0VHjRaDTXNAl9skX%2BWgnoEZdqO4/69WC7GUv%2BA%3D' ']'
++ sas_token='se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D'
++ '[' -z 'se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D' ']'
 + echo 'SAS token generated successfully.'
 SAS token generated successfully.
 + blob_service_endpoint=https://azagentdeploy001.blob.core.usgovcloudapi.net
-+ csv_url='https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T00%3A53Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=qhX9U0VHjRaDTXNAl9skX%2BWgnoEZdqO4/69WC7GUv%2BA%3D'
-+ echo 'Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T00%3A53Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=qhX9U0VHjRaDTXNAl9skX%2BWgnoEZdqO4/69WC7GUv%2BA%3D'
-Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T00%3A53Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=qhX9U0VHjRaDTXNAl9skX%2BWgnoEZdqO4/69WC7GUv%2BA%3D
-+ curl -o /tmp/AzureVirtualMachines.csv 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T00%3A53Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=qhX9U0VHjRaDTXNAl9skX%2BWgnoEZdqO4/69WC7GUv%2BA%3D'
++ csv_url='https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D'
++ echo 'Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D'
+Downloading CSV from URL: https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D
++ curl -o /tmp/AzureVirtualMachines.csv 'https://azagentdeploy001.blob.core.usgovcloudapi.net/scripts/AzureVirtualMachines.csv?se=2024-06-27T01%3A54Z&sp=rl&sv=2022-11-02&ss=b&srt=sco&sig=Nw9wvbkIEe/W%2BXOFCpOSHpPeV0BpMqnHwxrrTI5wAbU%3D'
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100  1172  100  1172    0     0  19368      0 --:--:-- --:--:-- --:--:-- 19533
+100  1172  100  1172    0     0  20780      0 --:--:-- --:--:-- --:--:-- 20928
 + '[' '!' -f /tmp/AzureVirtualMachines.csv ']'
 + echo 'Content of downloaded CSV file:'
 Content of downloaded CSV file:
@@ -168,8 +156,8 @@ vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Runni
 + [[ NAME != \N\A\M\E ]]
 + [[ NAME == *\<\E\r\r\o\r\>* ]]
 + allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ echo NAME
 ++ xargs
+++ echo NAME
 ++ echo SUBSCRIPTION
 ++ xargs
 ++ echo 'RESOURCE GROUP'
@@ -179,8 +167,8 @@ vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Runni
 + [[ vmbytrstjump01 != \N\A\M\E ]]
 + [[ vmbytrstjump01 == *\<\E\r\r\o\r\>* ]]
 + allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ echo vmbytrstjump01
 ++ xargs
+++ echo vmbytrstjump01
 ++ echo hii-mgmt-001
 ++ xargs
 ++ echo rg-mgmt-beyondtrst-001
@@ -190,8 +178,8 @@ vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Runni
 + [[ vmcnctjmpbx-001 != \N\A\M\E ]]
 + [[ vmcnctjmpbx-001 == *\<\E\r\r\o\r\>* ]]
 + allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ echo vmcnctjmpbx-001
 ++ xargs
+++ echo vmcnctjmpbx-001
 ++ echo hii-cnct-001
 ++ xargs
 ++ echo rg-cnct-jmpbx-001
@@ -201,8 +189,8 @@ vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Runni
 + [[ vmcnctjmpbx-002 != \N\A\M\E ]]
 + [[ vmcnctjmpbx-002 == *\<\E\r\r\o\r\>* ]]
 + allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ xargs
 ++ echo vmcnctjmpbx-002
+++ xargs
 ++ echo hii-cnct-001
 ++ xargs
 ++ echo rg-cnct-jmpbx-002
@@ -212,8 +200,8 @@ vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Runni
 + [[ vmstigtest-linux != \N\A\M\E ]]
 + [[ vmstigtest-linux == *\<\E\r\r\o\r\>* ]]
 + allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ echo vmstigtest-linux
 ++ xargs
+++ echo vmstigtest-linux
 ++ echo hii-inf-001
 ++ xargs
 ++ echo rg-inf-images-001
@@ -234,8 +222,8 @@ vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Runni
 + [[ vmsvcnow01 != \N\A\M\E ]]
 + [[ vmsvcnow01 == *\<\E\r\r\o\r\>* ]]
 + allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ echo vmsvcnow01
 ++ xargs
+++ echo vmsvcnow01
 ++ echo hii-mgmt-001
 ++ xargs
 ++ echo rg-mgmt-svcnow-001
@@ -256,8 +244,8 @@ vmwinpac001,Virtual machine,hii-mgmt-001,rg-mgmt-intune-001,USGov Virginia,Runni
 + [[ vmwinget001 != \N\A\M\E ]]
 + [[ vmwinget001 == *\<\E\r\r\o\r\>* ]]
 + allowed_vms+=("$(echo "$name" | xargs),$(echo "$subscription" | xargs),$(echo "$resourceGroup" | xargs)")
-++ echo vmwinget001
 ++ xargs
+++ echo vmwinget001
 ++ echo hii-mgmt-001
 ++ xargs
 ++ echo rg-intune-prod-001
@@ -288,6 +276,6 @@ c38137e9-2c7c-4c88-bb0c-c7bfe6e1872b
 b0844a47-03c6-4a40-8c24-aa62a617a936
 dbef0776-721c-428b-bdc1-fa90085dbf6f
 e873319e-be73-4ac2-a683-b2c291fc4767'
-./DeployNessusToVMs.sh: line 238: syntax error in conditional expression
-./DeployNessusToVMs.sh: line 239: syntax error near `then'
-./DeployNessusToVMs.sh: line 239: `                    then'
+./DeployNessusToVMs.sh: line 239: conditional binary operator expected
+./DeployNessusToVMs.sh: line 239: syntax error near `[['
+./DeployNessusToVMs.sh: line 239: `                    elif [[ "$osInfo" == *"CentOS"* ]]; then'
