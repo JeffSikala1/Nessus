@@ -7,3 +7,11 @@ az vm show -d -g <resource-group> -n <vm-name> --query privateIps -o tsv
 # Check NSG rules
 az network nsg show -g <resource-group> -n <nsg-name> --query securityRules -o table
 az network nsg rule list --resource-group <resource-group> --nsg-name <nsg-name> --query "[].{Name:name, Port:destinationPortRange, Priority:priority, Access:access, Direction:direction}" -o table
+
+jeff [ ~ ]$ az vm show -d -g rg-inf-images-001 --subscription hii-inf-001 -n vmstigtest-windows --query publicIps -o tsv
+
+jeff [ ~ ]$ az vm show -d -g rg-inf-images-001 --subscription hii-inf-001 -n vmstigtest-windows --query privateIps -o tsv
+10.152.8.4
+jeff [ ~ ]$ az vm show -d -g rg-mgmt-beyondtrst-001 --subscription hii-mgmt-001 -n vmbytrstjump01 --query privateIps -o tsv
+10.152.9.73
+jeff [ ~ ]$ az vm show -d -g rg-mgmt-beyondtrst-001 --subscription hii-mgmt-001 -n vmbytrstjump01 --query publicIps -o tsv
