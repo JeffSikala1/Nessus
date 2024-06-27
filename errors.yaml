@@ -1,24 +1,9 @@
-jeff [ ~ ]$ az storage account show --name $storageAccountName --resource-group $resourceGroupName --subscription b56097b7-e22e-46fc-92b9-da53cb50cb23 --query "networkRuleSet" --output json
-{
-  "bypass": "AzureServices",
-  "defaultAction": "Deny",
-  "ipRules": [
-    {
-      "action": "Allow",
-      "ipAddressOrRange": "136.226.38.121"
-    }
-  ],
-  "ipv6Rules": [],
-  "resourceAccessRules": [],
-  "virtualNetworkRules": []
-}
-jeff [ ~ ]$ az storage account show --name $storageAccountName --resource-group $resourceGroupName --subscription b56097b7-e22e-46fc-92b9-da53cb50cb23 --query "networkRuleSet.ipRules" --output json
-[
-  {
-    "action": "Allow",
-    "ipAddressOrRange": "136.226.38.121"
-  }
-]
-jeff [ ~ ]$ az storage account show --name $storageAccountName --resource-group $resourceGroupName --subscription b56097b7-e22e-46fc-92b9-da53cb50cb23 --query "networkRuleSet.virtualNetworkRules" --output json
-[]
-jeff [ ~ ]$7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae 
+# Retrieve pub ip
+az vm show -d -g <resource-group> -n <vm-name> --query publicIps -o tsv
+
+# Retrieve private ip
+az vm show -d -g <resource-group> -n <vm-name> --query privateIps -o tsv
+
+# Check NSG rules
+az network nsg show -g <resource-group> -n <nsg-name> --query securityRules -o table
+az network nsg rule list --resource-group <resource-group> --nsg-name <nsg-name> --query "[].{Name:name, Port:destinationPortRange, Priority:priority, Access:access, Direction:direction}" -o table
