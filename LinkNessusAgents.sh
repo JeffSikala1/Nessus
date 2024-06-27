@@ -2,13 +2,13 @@
 
 # Variables
 link_key="7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae"
-nessus_server="10.0.0.5:8834"  # Update with the correct IP/hostname
 nessus_groups="All"
 
 # Function to link Nessus Agent on Windows VM
 link_nessus_agent_windows() {
     vmName=$1
     resourceGroup=$2
+    nessus_server=$3
 
     # Create the LinkNessusAgent.ps1 script content
     linkScriptContent=$(cat <<EOT
@@ -33,6 +33,7 @@ EOT
 link_nessus_agent_linux() {
     vmName=$1
     resourceGroup=$2
+    nessus_server=$3
 
     # Create the link script content
     linkScriptContent=$(cat <<EOT
@@ -68,6 +69,14 @@ is_vm_running() {
     fi
 }
 
+# Function to get the private IP address of a VM
+get_private_ip() {
+    local vm_name=$1
+    local resource_group=$2
+    local subscription=$3
+    az vm show -d -g "$resource_group" --subscription "$subscription" -n "$vm_name" --query privateIps -o tsv
+}
+
 # Get list of all subscriptions
 subscriptions=$(az account list --query "[?state=='Enabled'].id" -o tsv)
 
@@ -87,10 +96,11 @@ for subscription in $subscriptions; do
         echo "Processing VM: $vmName, Resource Group: $resourceGroup, OS Type: $osType"
 
         if is_vm_running "$vmName" "$resourceGroup"; then
+            nessus_server=$(get_private_ip "$vmName" "$resourceGroup" "$subscription")
             if [ "$osType" == "Windows" ]; then
-                link_nessus_agent_windows "$vmName" "$resourceGroup"
+                link_nessus_agent_windows "$vmName" "$resourceGroup" "$nessus_server"
             elif [ "$osType" == "Linux" ]; then
-                link_nessus_agent_linux "$vmName" "$resourceGroup"
+                link_nessus_agent_linux "$vmName" "$resourceGroup" "$nessus_server"
             else
                 echo "Unsupported OS type for VM: $vmName"
             fi
