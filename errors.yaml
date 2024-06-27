@@ -1,130 +1,17 @@
-jeff [ ~ ]$ ./LinkNessusAgent.sh 
-Processing VM: vmcnctjmpbx-001, Resource Group: RG-CNCT-JMPBX-001, OS Type: Windows
-A CustomScriptExtension extension with name install-powershell-modules already exists. Updating it with your settings...
-(VMExtensionProvisioningError) VM has reported a failure when processing extension 'install-powershell-modules' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Code: VMExtensionProvisioningError
-Message: VM has reported a failure when processing extension 'install-powershell-modules' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Processing VM: vmcnctjmpbx-002, Resource Group: RG-CNCT-JMPBX-002, OS Type: Windows
-VM vmcnctjmpbx-002 is not running. Skipping linking.
-Processing VM: vmpalofw001, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
-VM vmpalofw001 is not running. Skipping linking.
-Processing VM: vmpalofw002, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
-Failed to parse string as JSON:
-{"commandToExecute": "#!/bin/bash\n/opt/nessus_agent/sbin/nessuscli agent link --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae --name=vmpalofw002 --groups=\\"All\\" --host=10.152.6.6,10.152.6.69,10.152.6.133\n/sbin/service nessusagent start\nsystemctl enable nessusagent"}
-Error detail: Expecting ',' delimiter: line 1 column 182 (char 181)
-Please provide a valid JSON file path or JSON string.
-The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
-Processing VM: vmt1palongfw001, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
-VM vmt1palongfw001 is not running. Skipping linking.
-Processing VM: vmt1palongfw002, Resource Group: RG-CNCT-PALO-001, OS Type: Linux
-VM vmt1palongfw002 is not running. Skipping linking.
-Processing VM: vmzscappcnct01, Resource Group: RG-CNCT-ZSCAL-001, OS Type: Linux
-Failed to parse string as JSON:
-{"commandToExecute": "#!/bin/bash\n/opt/nessus_agent/sbin/nessuscli agent link --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae --name=vmzscappcnct01 --groups=\\"All\\" --host=10.152.6.135\n/sbin/service nessusagent start\nsystemctl enable nessusagent"}
-Error detail: Expecting ',' delimiter: line 1 column 185 (char 184)
-Please provide a valid JSON file path or JSON string.
-The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
-Processing VM: vmzscappcnct02, Resource Group: RG-CNCT-ZSCAL-001, OS Type: Linux
-Failed to parse string as JSON:
-{"commandToExecute": "#!/bin/bash\n/opt/nessus_agent/sbin/nessuscli agent link --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae --name=vmzscappcnct02 --groups=\\"All\\" --host=10.152.6.137\n/sbin/service nessusagent start\nsystemctl enable nessusagent"}
-Error detail: Expecting ',' delimiter: line 1 column 185 (char 184)
-Please provide a valid JSON file path or JSON string.
-The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
-Processing VM: vmzscappcnct03, Resource Group: RG-CNCT-ZSCAL-001, OS Type: Linux
-Failed to parse string as JSON:
-{"commandToExecute": "#!/bin/bash\n/opt/nessus_agent/sbin/nessuscli agent link --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae --name=vmzscappcnct03 --groups=\\"All\\" --host=10.152.6.138\n/sbin/service nessusagent start\nsystemctl enable nessusagent"}
-Error detail: Expecting ',' delimiter: line 1 column 185 (char 184)
-Please provide a valid JSON file path or JSON string.
-The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
-Processing VM: vmstigtest-linux, Resource Group: RG-INF-IMAGES-001, OS Type: Linux
-Failed to parse string as JSON:
-{"commandToExecute": "#!/bin/bash\n/opt/nessus_agent/sbin/nessuscli agent link --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae --name=vmstigtest-linux --groups=\\"All\\" --host=10.152.8.5\n/sbin/service nessusagent start\nsystemctl enable nessusagent"}
-Error detail: Expecting ',' delimiter: line 1 column 187 (char 186)
-Please provide a valid JSON file path or JSON string.
-The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
-Processing VM: vmstigtest-windows, Resource Group: RG-INF-IMAGES-001, OS Type: Windows
-(VMExtensionProvisioningError) VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Code: VMExtensionProvisioningError
-Message: VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Processing VM: vmwinget001, Resource Group: RG-INTUNE-PROD-001, OS Type: Linux
-VM vmwinget001 is not running. Skipping linking.
-Processing VM: vmbyondtrst01, Resource Group: RG-MGMT-BEYONDTRST-001, OS Type: Linux
-Failed to parse string as JSON:
-{"commandToExecute": "#!/bin/bash\n/opt/nessus_agent/sbin/nessuscli agent link --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae --name=vmbyondtrst01 --groups=\\"All\\" --host=10.152.9.71\n/sbin/service nessusagent start\nsystemctl enable nessusagent"}
-Error detail: Expecting ',' delimiter: line 1 column 184 (char 183)
-Please provide a valid JSON file path or JSON string.
-The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
-Processing VM: vmbyondtrst02, Resource Group: RG-MGMT-BEYONDTRST-001, OS Type: Linux
-Failed to parse string as JSON:
-{"commandToExecute": "#!/bin/bash\n/opt/nessus_agent/sbin/nessuscli agent link --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae --name=vmbyondtrst02 --groups=\\"All\\" --host=10.152.9.72\n/sbin/service nessusagent start\nsystemctl enable nessusagent"}
-Error detail: Expecting ',' delimiter: line 1 column 184 (char 183)
-Please provide a valid JSON file path or JSON string.
-The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
-Processing VM: vmbytrstjump01, Resource Group: RG-MGMT-BEYONDTRST-001, OS Type: Windows
-VM vmbytrstjump01 is not running. Skipping linking.
-Processing VM: vmwinpac001, Resource Group: RG-MGMT-INTUNE-001, OS Type: Linux
-Failed to parse string as JSON:
-{"commandToExecute": "#!/bin/bash\n/opt/nessus_agent/sbin/nessuscli agent link --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae --name=vmwinpac001 --groups=\\"All\\" --host=10.152.9.75\n/sbin/service nessusagent start\nsystemctl enable nessusagent"}
-Error detail: Expecting ',' delimiter: line 1 column 182 (char 181)
-Please provide a valid JSON file path or JSON string.
-The provided JSON string may have been parsed by the shell. See https://docs.microsoft.com/cli/azure/use-cli-effectively#use-quotation-marks-in-arguments
-Processing VM: vmsvcnow01, Resource Group: RG-MGMT-SVCNOW-001, OS Type: Windows
-(VMExtensionProvisioningError) VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Code: VMExtensionProvisioningError
-Message: VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Processing VM: vmtenable01, Resource Group: RG-MGMT-TENABLE-001, OS Type: Windows
-(VMExtensionProvisioningError) VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Code: VMExtensionProvisioningError
-Message: VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Processing VM: vmavdstd1-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-0 is not running. Skipping linking.
-Processing VM: vmavdstd1-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-1 is not running. Skipping linking.
-Processing VM: vmavdstd1-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-2 is not running. Skipping linking.
-Processing VM: vmavdstd1-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-3 is not running. Skipping linking.
-Processing VM: vmavdstd1-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-4 is not running. Skipping linking.
-Processing VM: vmavdstd1-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-5 is not running. Skipping linking.
-Processing VM: vmavdstd1-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-6 is not running. Skipping linking.
-Processing VM: vmavdstd1-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-7 is not running. Skipping linking.
-Processing VM: vmavdstd1-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-8 is not running. Skipping linking.
-Processing VM: vmavdstd1-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd1-9 is not running. Skipping linking.
-Processing VM: vmavdstd2-0, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-0 is not running. Skipping linking.
-Processing VM: vmavdstd2-1, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-1 is not running. Skipping linking.
-Processing VM: vmavdstd2-2, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-2 is not running. Skipping linking.
-Processing VM: vmavdstd2-3, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-3 is not running. Skipping linking.
-Processing VM: vmavdstd2-4, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-4 is not running. Skipping linking.
-Processing VM: vmavdstd2-5, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-5 is not running. Skipping linking.
-Processing VM: vmavdstd2-6, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-6 is not running. Skipping linking.
-Processing VM: vmavdstd2-7, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-7 is not running. Skipping linking.
-Processing VM: vmavdstd2-8, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-8 is not running. Skipping linking.
-Processing VM: vmavdstd2-9, Resource Group: RG-HII-LZ-AVD-001, OS Type: Windows
-VM vmavdstd2-9 is not running. Skipping linking.
-Processing VM: vmedstools01, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
-(VMExtensionProvisioningError) VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Code: VMExtensionProvisioningError
-Message: VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Processing VM: vmsharegate001, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
-(VMExtensionProvisioningError) VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Code: VMExtensionProvisioningError
-Message: VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Processing VM: vmsharegate002, Resource Group: RG-IDENT-EDS-001, OS Type: Windows
-(VMExtensionProvisioningError) VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
-Code: VMExtensionProvisioningError
-Message: VM has reported a failure when processing extension 'CustomScriptExtension' (publisher 'Microsoft.Compute' and type 'CustomScriptExtension'). Error message: 'Command execution finished, but failed because it returned a non-zero exit code of: '1619''. More information on troubleshooting is available at https://aka.ms/VMExtensionCSEWindowsTroubleshoot. 
+[stigadmin@vmstigtest-linux ~]$ /opt/nessus_agent/sbin/nessuscli agent link \
+> --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae \
+> --name=vmstigtest-linux --groups="All" --host=10.152.8.5 --port=8834/opt/nessus_agent/sbin/nessuscli agent link \
+> --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae \
+> ^C
+[stigadmin@vmstigtest-linux ~]$ /opt/nessus_agent/sbin/nessuscli agent link \
+> --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae \
+> --name=vmstigtest-linux --groups="All" --host=10.152.8.5 --port=8834
+[Thu Jun 27 19:24:52 2024 +0000][1292195.1][severity=INFO] : Could not open /opt/nessus_agent/var/nessus/master.key - No such file or directory 
+^[[A[warn] Could not open prefs. Secure=
+[warn] Could not open prefs. Secure=1
+Error: Only root can use agent
+[stigadmin@vmstigtest-linux ~]$ sudo /opt/nessus_agent/sbin/nessuscli agent link --key=7c6550695733027a0d9278094ea0eb0ce63de5ba34ab7ac94d00ee48bca872ae --name=vmstigtest-linux --groups="All"
+ --host=10.152.8.5 --port=8834
+[info] [agent] HostTag::getUnix: setting TAG value to 'b831a46f301e44b4b91d486d2d548848'
+[error] [agent] Link fail: Connection to 10.152.8.5:8834 failed.
+[stigadmin@vmstigtest-linux ~]$ 
