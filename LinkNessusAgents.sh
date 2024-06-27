@@ -26,7 +26,7 @@ EOT
         --name CustomScriptExtension \
         --publisher Microsoft.Compute \
         --version 1.10 \
-        --settings "{\"commandToExecute\": \"$linkScriptContent\"}"
+        --settings "{\\\"commandToExecute\\\": \\\"powershell.exe -Command \\\"$linkScriptContent\\\"\\\"}"
 }
 
 # Function to link Nessus Agent on Linux VM
@@ -54,7 +54,7 @@ EOT
         --name CustomScript \
         --publisher Microsoft.Azure.Extensions \
         --version 2.0 \
-        --settings "{\"commandToExecute\": \"$linkScriptContent\"}"
+        --settings "{\\\"commandToExecute\\\": \\\"$linkScriptContent\\\"}"
 }
 
 # Function to check if VM is running
