@@ -272,3 +272,12 @@ if az group exists --name rg-inf-scripts-001; then
 else
     echo "Resource group rg-inf-scripts-001 does not exist. Skipping network rule reset."
 fi
+
+1. install the agent software on your Linux endpoint
+sudo rpm -ihv xagt-36.21.0-1.el7.x86_64.rpm
+
+2. use the i option to import the agent configuration file from the /opt/fireeye/bin/xagt binary path
+sudo /opt/fireeye/bin/xagt -i agent_config.json
+
+3. Start the agent services on your Linux endpoint
+sudo service xagt start
