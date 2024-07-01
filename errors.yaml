@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Check if jq and curl are installed
 if ! command -v jq &> /dev/null || ! command -v curl &> /dev/null
 then
